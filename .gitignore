@@ -45,3 +45,8 @@ next-env.d.ts
 
 # app/translations-data
 app/translations-data/**
+.claude/
+.vscode/
+.cursor/
+.chatgpt/
+.gemini/
