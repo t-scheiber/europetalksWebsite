@@ -18,7 +18,7 @@ function getPrismaClient(): PrismaClient {
 
   // Create PostgreSQL connection pool
   const pool = new Pool({ connectionString: databaseUrl });
-  const adapter = new PrismaPg(pool);
+  const adapter = new PrismaPg(pool as any);
 
   // Type assertion: Prisma 7 supports adapter but generated types may be strict
   const client = new PrismaClient({

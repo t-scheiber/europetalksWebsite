@@ -171,6 +171,8 @@ NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL=/
 NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL=/
 ```
 
+**Domain note:** Clerk uses two domains: **Frontend API** (`clerk.europetalks.eu`) for API calls only; **Account Portal** (`accounts.europetalks.eu`) for sign-in, sign-up, sign-out, and user profile. Use `accounts.europetalks.eu` for any direct links to sign-out (e.g. `https://accounts.europetalks.eu/sign-out`), not `clerk.europetalks.eu`.
+
 ### Email Configuration (Contact Form)
 
 ```env
