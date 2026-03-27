@@ -16,8 +16,7 @@ import { eventFormSchema, type EventFormData } from "@/lib/validations/event";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Image from "next/image";
 import { useForm } from "react-hook-form";
-import { UploadButton } from "@/utils/uploadthing";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Calendar } from "@/components/ui/calendar";
 import {
   Popover,
@@ -69,6 +68,7 @@ export function EventForm({
     return startDate.toDateString() !== endDate.toDateString();
   });
   const [isUploading, setIsUploading] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const form = useForm<EventFormData>({
     resolver: zodResolver(eventFormSchema),
@@ -605,6 +605,7 @@ export function EventForm({
                       alt="Event preview"
                       className="object-cover"
                       fill
+                      sizes="160px"
                     />
                     <button
                       type="button"
@@ -620,31 +621,59 @@ export function EventForm({
                   </Card>
                 )}
                 <div className="space-y-2">
-                  <UploadButton
-                    endpoint="imageUploader"
-                    onUploadBegin={() => {
+                  <input
+                    type="file"
+                    accept="image/jpeg,image/png,image/webp,image/gif"
+                    className="hidden"
+                    ref={fileInputRef}
+                    onChange={async (e) => {
+                      const file = e.target.files?.[0];
+                      if (!file) return;
                       setIsUploading(true);
-                    }}
-                    onClientUploadComplete={(res) => {
-                      if (res?.[0]) {
-                        setImageUrl(res[0].url);
+                      try {
+                        const formData = new FormData();
+                        formData.append("file", file);
+                        const res = await fetch("/api/admin/upload", {
+                          method: "POST",
+                          body: formData,
+                        });
+                        const data = await res.json();
+                        if (!res.ok) throw new Error(data.error || "Upload failed");
+                        setImageUrl(data.url);
                         toast({
                           title: "Image uploaded",
-                          description:
-                            "Your event image has been uploaded successfully.",
+                          description: "Your event image has been uploaded successfully.",
                         });
+                      } catch (error) {
+                        toast({
+                          title: "Upload failed",
+                          description: error instanceof Error ? error.message : "Upload failed",
+                          variant: "destructive",
+                        });
+                      } finally {
+                        setIsUploading(false);
+                        e.target.value = "";
                       }
-                      setIsUploading(false);
-                    }}
-                    onUploadError={(error: Error) => {
-                      toast({
-                        title: "Upload failed",
-                        description: error.message,
-                        variant: "destructive",
-                      });
-                      setIsUploading(false);
                     }}
                   />
+                  <Button
+                    type="button"
+                    variant="outline"
+                    disabled={isUploading}
+                    onClick={() => fileInputRef.current?.click()}
+                  >
+                    {isUploading ? (
+                      <>
+                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                        Uploading...
+                      </>
+                    ) : (
+                      <>
+                        <ImageIcon className="mr-2 h-4 w-4" />
+                        Choose Image
+                      </>
+                    )}
+                  </Button>
                   <FormDescription>
                     Upload an image for your event. Recommended size: 1200x800px
                   </FormDescription>
