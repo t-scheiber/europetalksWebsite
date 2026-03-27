@@ -1,12 +1,6 @@
 "use client";
 
-import {
-  SignedIn,
-  SignedOut,
-  SignInButton,
-  UserButton,
-  useUser,
-} from "@clerk/nextjs";
+import dynamic from "next/dynamic";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { LanguageSelector } from "./LanguageSelector";
@@ -19,18 +13,19 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
-import { Menu, LogIn } from "lucide-react";
+import { Menu } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { PrefetchLink } from "./PrefetchLink";
 
+const AuthSection = dynamic(() => import("@/components/AuthSection"), {
+  ssr: false,
+});
+const AuthNavLinks = dynamic(() => import("@/components/AuthNavLinks"), {
+  ssr: false,
+});
+
 export default function Header() {
   const pathname = usePathname();
-  const { user } = useUser();
-  const isAdmin = user?.publicMetadata?.role === "admin";
-  const isMember = user?.publicMetadata?.role === "member";
-  const memberLanguages = user?.publicMetadata?.languages as
-    | string[]
-    | undefined;
   const { t } = useTranslation("header");
 
   const navLinks = [
@@ -39,18 +34,6 @@ export default function Header() {
     { href: "/events", label: t("navigation.events") },
     { href: "/gallery", label: t("navigation.gallery") },
     { href: "/contact", label: t("navigation.contact") },
-    ...(isAdmin ? [{ href: "/admin", label: t("navigation.admin") }] : []),
-    ...(isMember && memberLanguages?.length
-      ? [
-          {
-            href: "/member/translations",
-            label: t("navigation.translations"),
-          },
-        ]
-      : []),
-    ...(isMember || isAdmin
-      ? [{ href: "https://cloud.europetalks.eu", label: t("navigation.cloud") }]
-      : []),
   ];
 
   return (
@@ -94,29 +77,13 @@ export default function Header() {
               </PrefetchLink>
             )
           )}
+          <AuthNavLinks />
         </nav>
 
         <div className="flex items-center space-x-4">
           <LanguageSelector />
           <ThemeToggle />
-          <SignedIn>
-            <UserButton
-              afterSignOutUrl="/"
-              appearance={{
-                elements: {
-                  avatarBox: "h-8 w-8",
-                },
-              }}
-            />
-          </SignedIn>
-          <SignedOut>
-            <SignInButton mode="modal">
-              <button className="text-white hover:text-accent transition-colors">
-                <span className="hidden md:inline">{t("other.signIn")}</span>
-                <LogIn className="h-5 w-5 md:hidden" />
-              </button>
-            </SignInButton>
-          </SignedOut>
+          <AuthSection />
 
           {/* Mobile Menu */}
           <Sheet>
@@ -153,6 +120,7 @@ export default function Header() {
                     </PrefetchLink>
                   )
                 )}
+                <AuthNavLinks mobile />
               </nav>
             </SheetContent>
           </Sheet>
