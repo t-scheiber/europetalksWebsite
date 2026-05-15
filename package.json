@@ -59,7 +59,7 @@
     "tailwindcss-animate": "^1.0.7",
     "typewriter-effect": "^2.22.0",
     "webdav": "^5.9.0",
-    "zod": "^4.3.6"
+    "zod": "^4.4.3"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.5",
