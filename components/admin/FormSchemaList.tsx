@@ -69,8 +69,32 @@ export function FormSchemaList() {
   }, [toast]);
 
   useEffect(() => {
-    fetchSchemas();
-  }, [fetchSchemas]);
+    const controller = new AbortController();
+    let active = true;
+    fetch("/api/admin/form-schemas", { signal: controller.signal })
+      .then((response) => {
+        if (!response.ok) throw new Error("Failed to fetch schemas");
+        return response.json();
+      })
+      .then((data) => {
+        if (active) setSchemas(data);
+      })
+      .catch((error) => {
+        if (error.name !== "AbortError") {
+          console.error("Error fetching schemas:", error);
+          toast({
+            title: "Error",
+            description: "Failed to load form schemas",
+            variant: "destructive",
+          });
+        }
+      });
+
+    return () => {
+      active = false;
+      controller.abort();
+    };
+  }, [toast]);
 
   const handleDelete = async () => {
     if (!selectedSchema) return;

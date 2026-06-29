@@ -4,8 +4,7 @@ import enTranslations from "@/translations/en.json";
 
 // Create initial translations with only English (default language)
 // Other languages will be loaded dynamically when needed
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const allTranslations: any = {
+const allTranslations: unknown = {
   en: enTranslations,
 };
 
