@@ -54,7 +54,29 @@ export default function SignupsPage() {
   };
 
   useEffect(() => {
-    fetchEvents();
+    const controller = new AbortController();
+    let active = true;
+    fetch("/api/admin/signups", { signal: controller.signal })
+      .then((response) => {
+        if (!response.ok) throw new Error("Failed to fetch events");
+        return response.json();
+      })
+      .then((data) => {
+        if (active) setEvents(data);
+      })
+      .catch((error) => {
+        if (error.name !== "AbortError") {
+          console.error("Failed to fetch events:", error);
+        }
+      })
+      .finally(() => {
+        if (active) setIsLoading(false);
+      });
+
+    return () => {
+      active = false;
+      controller.abort();
+    };
   }, []);
 
   const downloadCsv = async (eventId: string, eventTitle: string) => {

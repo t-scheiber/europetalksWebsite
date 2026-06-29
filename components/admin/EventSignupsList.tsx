@@ -72,8 +72,30 @@ export function EventSignupsList({
   }, [eventId]);
 
   useEffect(() => {
-    fetchSignups();
-  }, [fetchSignups]);
+    const controller = new AbortController();
+    let active = true;
+    fetch(`/api/admin/signups/${eventId}`, { signal: controller.signal })
+      .then((response) => {
+        if (!response.ok) throw new Error("Failed to fetch signups");
+        return response.json();
+      })
+      .then((data) => {
+        if (active) setSignups(data);
+      })
+      .catch((error) => {
+        if (error.name !== "AbortError") {
+          console.error("Failed to fetch signups:", error);
+        }
+      })
+      .finally(() => {
+        if (active) setIsLoading(false);
+      });
+
+    return () => {
+      active = false;
+      controller.abort();
+    };
+  }, [eventId]);
 
   if (isLoading) {
     return <div>Loading signups...</div>;

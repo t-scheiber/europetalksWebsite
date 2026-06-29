@@ -15,7 +15,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 import { z } from "zod";
 import { FormFieldsEditor } from "./FormFieldsEditor";
 import { Loader2, PlusCircle, Trash2 } from "lucide-react";
@@ -111,6 +111,8 @@ export function FormSchemaForm({
       terms: defaultValues?.terms || [],
     },
   });
+  const fields = useWatch({ control: form.control, name: "fields" });
+  const terms = useWatch({ control: form.control, name: "terms" });
 
   const onSubmit = async (data: FormSchemaData) => {
     try {
@@ -212,7 +214,7 @@ export function FormSchemaForm({
 
             <div className="mt-6 pt-6 border-t">
               <FormFieldsEditor
-                value={form.watch("fields") as unknown as FormField[]}
+                value={fields as FormField[]}
                 onChange={(fields) => form.setValue("fields", fields)}
               />
             </div>
@@ -228,7 +230,7 @@ export function FormSchemaForm({
                 </div>
 
                 <div className="space-y-4">
-                  {form.watch("terms").map((term, index) => (
+                  {terms.map((term, index) => (
                     <Card key={term.id} className="p-4">
                       <div className="flex items-start gap-4">
                         <div className="flex-1">
