@@ -70,10 +70,6 @@ export function EventList() {
   const [showEditDialog, setShowEditDialog] = useState(false);
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
 
-  useEffect(() => {
-    fetchEvents();
-  }, []);
-
   const fetchEvents = async () => {
     try {
       const response = await fetch("/api/admin/events");
@@ -95,6 +91,41 @@ export function EventList() {
       setIsLoading(false);
     }
   };
+
+  useEffect(() => {
+    const controller = new AbortController();
+    let active = true;
+    fetch("/api/admin/events", { signal: controller.signal })
+      .then((response) => response.json())
+      .then((data: EventResponse[]) => {
+        if (active) {
+          setEvents(
+          data.map((event) => ({
+            ...event,
+            startDate: new Date(event.startDate),
+            endDate: event.endDate ? new Date(event.endDate) : undefined,
+            signupPeriodJson: event.signup_period_json || {
+              startDate: null,
+              endDate: null,
+            },
+            }))
+          );
+        }
+      })
+      .catch((error) => {
+        if (error.name !== "AbortError") {
+          console.error("Failed to fetch events:", error);
+        }
+      })
+      .finally(() => {
+        if (active) setIsLoading(false);
+      });
+
+    return () => {
+      active = false;
+      controller.abort();
+    };
+  }, []);
 
   const deleteEvent = async (eventId: string) => {
     try {
