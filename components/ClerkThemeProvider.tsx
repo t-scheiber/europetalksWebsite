@@ -21,7 +21,7 @@ export default function ClerkThemeProvider({
     <ClerkProvider
       publishableKey={publishableKey}
       appearance={{
-        baseTheme: theme === "dark" ? dark : undefined,
+        theme: theme === "dark" ? dark : undefined,
       }}
       signInFallbackRedirectUrl="/"
       signUpFallbackRedirectUrl="/"
