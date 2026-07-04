@@ -3,9 +3,5 @@
   "extends": [
     "github>t-scheiber/renovate-config"
   ],
-  "dependencyDashboardTitle": "Renovate Dashboard",
-  "osvVulnerabilityAlerts": true,
-  "vulnerabilityAlerts": {
-    "enabled": false
-  }
+  "dependencyDashboardTitle": "Renovate Dashboard"
 }
