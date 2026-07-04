@@ -3,6 +3,11 @@ import nextVitals from "eslint-config-next/core-web-vitals";
 
 export default defineConfig([
   ...nextVitals,
+  {
+    settings: {
+      react: { version: "19" },
+    },
+  },
   globalIgnores([
     ".next/**",
     "out/**",
@@ -11,5 +16,6 @@ export default defineConfig([
     "node_modules/**",
     "**/*.config.{js,mjs,ts}",
     "**/prisma/**",
+    ".github/**",
   ]),
 ]);
