@@ -236,7 +236,7 @@ export function EventForm({
                                     date <
                                     new Date(new Date().setHours(0, 0, 0, 0))
                             }
-                            initialFocus
+                            autoFocus
                           />
                           {!isMultiDay && (
                             <div className="p-3 border-t flex items-center gap-2">
@@ -330,7 +330,7 @@ export function EventForm({
                                   ? date < new Date(startDate)
                                   : false;
                               }}
-                              initialFocus
+                              autoFocus
                             />
                           </div>
                         </PopoverContent>
@@ -402,7 +402,7 @@ export function EventForm({
                                       date <
                                       new Date(new Date().setHours(0, 0, 0, 0))
                               }
-                              initialFocus
+                              autoFocus
                             />
                             <div className="p-3 border-t flex items-center gap-2">
                               <Clock className="h-4 w-4 opacity-50" />
@@ -501,7 +501,7 @@ export function EventForm({
                                   : date <
                                       new Date(new Date().setHours(0, 0, 0, 0));
                               }}
-                              initialFocus
+                              autoFocus
                             />
                             <div className="p-3 border-t flex items-center gap-2">
                               <Clock className="h-4 w-4 opacity-50" />
