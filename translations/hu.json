@@ -47,6 +47,13 @@
     },
     "getToKnowUs": {
       "title": "Ismerj meg minket"
+    },
+    "quotes": {
+      "previous": "Előző idézet",
+      "next": "Következő idézet",
+      "pause": "Idézetek szüneteltetése",
+      "play": "Idézetek lejátszása",
+      "label": "Tagjaink idézetei"
     }
   },
   "about": {
@@ -127,7 +134,9 @@
       },
       "submitting": "Feliratkozás...",
       "errorMessage": "Nem sikerült regisztrálni. Kérjük, próbálja újra.",
-      "successMessage": "Ön sikeresen regisztrált az eseményre."
+      "successMessage": "Ön sikeresen regisztrált az eseményre.",
+      "description": "Töltsd ki ezt az űrlapot, hogy regisztrálj erre: {{eventTitle}}. Add meg a személyes adataidat és az eseményhez szükséges információkat.",
+      "termsAndConditions": "Részvételi feltételek"
     },
     "eventCard": {
       "date": "Dátum",
@@ -139,12 +148,26 @@
       "location": "Helyszín",
       "readMore": "Olvass tovább",
       "eventEnded": "Esemény Befejeződött",
-      "registrationClosed": "Regisztráció lezárva"
+      "registrationClosed": "Regisztráció lezárva",
+      "registrationOpen": "Regisztráció nyitva",
+      "registrationNotStarted": "A regisztráció még nem kezdődött el",
+      "registrationNotStartedMessage": "A regisztráció még nem kezdődött el. Nézz vissza később.",
+      "registrationEndedMessage": "A regisztrációs időszak lejárt. Több jelentkezést nem fogadunk.",
+      "registrationPeriod": "Regisztráció: {{start}} – {{end}}",
+      "registrationOpenUntil": "Regisztráció az esemény kezdetéig ({{date}})",
+      "registrationOpenUntilStart": "Regisztráció az esemény kezdetéig",
+      "now": "most"
     },
     "pastEvents": {
       "title": "Korábbi események",
       "noEvents": "No past events found",
       "viewUpcomingEvents": "Közelgő események megtekintése"
+    },
+    "errorLoading": "Hiba történt az események betöltésekor.",
+    "tryAgain": "Próbáld újra később.",
+    "refresh": "Frissítés",
+    "eventDetails": {
+      "description": "Az esemény részletei: dátum, helyszín, regisztráció és leírás."
     }
   },
   "header": {
@@ -170,7 +193,13 @@
       "email": "Email",
       "submit": "Send Message",
       "message": "Üzenet",
-      "subject": "Tárgy:"
+      "subject": "Tárgy:",
+      "errors": {
+        "nameRequired": "A név megadása kötelező",
+        "emailInvalid": "Érvénytelen e-mail-cím",
+        "subjectRequired": "A tárgy megadása kötelező",
+        "messageMinLength": "Az üzenetnek legalább 10 karakterből kell állnia"
+      }
     },
     "info": {
       "email": "Írjon nekünk e-mailt a következő címre:",
@@ -178,10 +207,23 @@
       "social": "Kövessen minket a közösségi médiában:"
     },
     "title": "Kapcsolatfelvétel",
-    "description": "Lépjen kapcsolatba velünk bármilyen kérdéssel vagy érdeklődéssel."
+    "description": "Lépjen kapcsolatba velünk bármilyen kérdéssel vagy érdeklődéssel.",
+    "success": {
+      "title": "Siker",
+      "messageSent": "Az üzeneted elküldtük."
+    },
+    "error": {
+      "title": "Hiba",
+      "messageFailed": "Nem sikerült elküldeni az üzenetet. Próbáld újra."
+    },
+    "sending": "Küldés…"
   },
   "gallery": {
-    "title": "Gallery"
+    "title": "Gallery",
+    "photos": "{{count}} fotó",
+    "close": "Bezárás",
+    "previous": "Előző fotó",
+    "next": "Következő fotó"
   },
   "components": {
     "theme": {
@@ -192,11 +234,31 @@
       "eventEnded": "Esemény Befejeződött"
     },
     "languageSelector": {
-      "label": "Nyelv kiválasztása"
+      "label": "Nyelv kiválasztása",
+      "success": "Siker",
+      "languageChanged": "A nyelv megváltozott: {{language}}",
+      "error": "Hiba",
+      "errorMessage": "Nem sikerült nyelvet váltani. Próbáld újra."
     },
     "languageDetection": {
       "switchTo": "Váltson {{Nyelv}}",
       "available": "Ez a weboldal az Ön nyelvén is elérhető!"
+    },
+    "translationEditor": {
+      "selectLanguage": "Nyelv kiválasztása",
+      "selectNamespace": "Névtér kiválasztása",
+      "success": "Siker",
+      "translationsSaved": "A fordítások mentve",
+      "error": "Hiba",
+      "saveFailed": "Nem sikerült menteni a fordításokat"
     }
+  },
+  "footer": {
+    "legalNotice": "Impresszum",
+    "privacyPolicy": "Adatvédelmi tájékoztató",
+    "facebook": "Facebook",
+    "youtube": "YouTube",
+    "instagram": "Instagram",
+    "email": "E-mail"
   }
 }
