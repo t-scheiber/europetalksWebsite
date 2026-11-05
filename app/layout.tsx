@@ -5,6 +5,7 @@ import Header from "@/components/Header";
 import { I18nextProvider } from "@/components/i18n-provider";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Metadata } from "next";
+import { ViewTransition } from "react";
 import { Sofia_Sans, Sofia_Sans_Extra_Condensed } from "next/font/google";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as SonnerToaster } from "sonner";
@@ -72,7 +73,11 @@ export default function RootLayout({
           <ClerkThemeProvider>
             <I18nextProvider>
               <Header />
-              <main id="main" className="min-h-[60vh]">{children}</main>
+              <main id="main" className="min-h-[60vh]">
+                <ViewTransition default="none" update={{ nav: "auto", default: "none" }}>
+                  {children}
+                </ViewTransition>
+              </main>
               <Footer />
               <Toaster />
               <SonnerToaster />

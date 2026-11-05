@@ -12,8 +12,9 @@ import { useState } from "react";
 import EventSignupForm from "./EventSignupForm";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { FormField, EventTerms } from "@/lib/types/event-form";
-import { format } from "date-fns";
-import { Alert, AlertDescription } from "@/components/ui/alert";
+import { formatEventDate, formatEventRange } from "@/lib/format-date";
+import { useTranslation } from "react-i18next";
+import { Stripes } from "@/components/brand/Stripes";
 import { Badge } from "@/components/ui/badge";
 
 interface EventDetailsDialogProps {
@@ -43,26 +44,14 @@ export default function EventDetailsDialog({
   isOpen,
   onClose,
 }: EventDetailsDialogProps) {
+  const { t, i18n } = useTranslation("events");
   const [isSignupOpen, setIsSignupOpen] = useState(false);
   const [isImageLoading, setIsImageLoading] = useState(true);
 
   const formatDateRange = (
     start: Date | string,
     end: Date | string | undefined
-  ) => {
-    const startDate = new Date(start);
-    const endDate = end ? new Date(end) : undefined;
-    const isSameDay =
-      endDate && startDate.toDateString() === endDate.toDateString();
-
-    if (!endDate || isSameDay) {
-      // For single-day events, show date and time in local timezone
-      return format(startDate, "PPp");
-    }
-
-    // For multi-day events, show only dates
-    return `${format(startDate, "PP")} - ${format(endDate, "PP")}`;
-  };
+  ) => formatEventRange(start, end, i18n.language);
 
   const isEventEnded = () => {
     const endDate = new Date(event.endDate);
@@ -72,7 +61,7 @@ export default function EventDetailsDialog({
 
   const getRegistrationStatus = () => {
     const now = new Date();
-    
+
     if (!event.signup_period_json) {
       return now > new Date(event.startDate) ? "closed" : "open";
     }
@@ -111,27 +100,30 @@ export default function EventDetailsDialog({
 
   const getRegistrationPeriodText = () => {
     if (!event.signup_period_json) {
-      return `Registration open until event starts (${format(new Date(event.startDate), "PPp")})`;
+      return t("eventCard.registrationOpenUntil", {
+        date: formatEventDate(event.startDate, i18n.language),
+      });
     }
 
     if (!event.signup_period_json.startDate && !event.signup_period_json.endDate) {
-      return "Registration open until event starts";
+      return t("eventCard.registrationOpenUntilStart");
     }
 
     const start = event.signup_period_json.startDate
-      ? format(new Date(event.signup_period_json.startDate), "PPp")
-      : "now";
-    const end = event.signup_period_json.endDate
-      ? format(new Date(event.signup_period_json.endDate), "PPp")
-      : format(new Date(event.startDate), "PPp");
+      ? formatEventDate(event.signup_period_json.startDate, i18n.language)
+      : t("eventCard.now");
+    const end = formatEventDate(
+      event.signup_period_json.endDate || event.startDate,
+      i18n.language
+    );
 
-    return `Registration: ${start} - ${end}`;
+    return t("eventCard.registrationPeriod", { start, end });
   };
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent
-        className="max-w-3xl h-[90vh] p-0 bg-background"
+        className="max-w-3xl h-[90vh] grid-rows-[auto_minmax(0,1fr)] p-0 bg-background"
         aria-describedby="event-details-description"
       >
         <DialogHeader className="p-4 pb-2">
@@ -139,45 +131,46 @@ export default function EventDetailsDialog({
             {event.title}
           </DialogTitle>
           <div className="flex flex-col gap-2">
-            <DialogDescription
-              id="event-details-description"
-              className="text-sm"
-            >
-              View details and information about this event, including date,
-              location, and description.
+            <DialogDescription id="event-details-description" className="sr-only">
+              {t("eventDetails.description")}
             </DialogDescription>
-            <Badge 
+            <Badge
               variant={
-                registrationStatus === "open" ? "default" :
-                registrationStatus === "not_started" ? "secondary" : "destructive"
+                registrationStatus === "open"
+                  ? "open"
+                  : registrationStatus === "not_started"
+                    ? "soon"
+                    : "closed"
               }
               className="w-fit"
             >
-              {registrationStatus === "open" ? "Registration Open" :
-               registrationStatus === "not_started" ? "Registration Not Started" :
-               "Registration Closed"}
+              {registrationStatus === "open"
+                ? t("eventCard.registrationOpen")
+                : registrationStatus === "not_started"
+                  ? t("eventCard.registrationNotStarted")
+                  : t("eventCard.registrationClosed")}
             </Badge>
           </div>
         </DialogHeader>
         <ScrollArea className="h-full">
           <div className="flex flex-col">
             {/* Image Section */}
-            <div className="relative w-full aspect-[16/9] flex items-center justify-center bg-muted">
+            <div className={`relative flex w-full items-center justify-center ${event.imageUrl ? "aspect-[16/9] bg-muted" : "h-28 bg-brand"}`}>
               {event.imageUrl ? (
                 <Image
                   src={event.imageUrl}
                   alt={event.title}
                   fill
-                  className={`object-contain transition-opacity duration-300 ${
+                  className={`object-contain transition-opacity duration-(--dur-base) ease-out ${
                     isImageLoading ? "opacity-0" : "opacity-100"
                   }`}
                   quality={90}
                   onLoadingComplete={() => setIsImageLoading(false)}
                 />
               ) : (
-                <span className="text-muted-foreground">
-                  No image available
-                </span>
+                <div className="absolute inset-0 flex items-start p-5">
+                  <Stripes className="text-white/50" />
+                </div>
               )}
               {isImageLoading && event.imageUrl && (
                 <div className="absolute inset-0 bg-muted animate-pulse" />
@@ -212,13 +205,11 @@ export default function EventDetailsDialog({
               {!isEventEnded() && (
                 <div className="pt-4 mt-4 border-t">
                   {!isRegistrationOpen && (
-                    <Alert variant="destructive" className="mb-4">
-                      <AlertDescription>
-                        {registrationStatus === "not_started"
-                          ? "Registration has not started yet. Please check back later."
-                          : "Registration period has ended. No more signups are being accepted."}
-                      </AlertDescription>
-                    </Alert>
+                    <p className="mb-4 rounded-lg bg-muted px-3 py-2 text-sm text-muted-foreground">
+                      {registrationStatus === "not_started"
+                        ? t("eventCard.registrationNotStartedMessage")
+                        : t("eventCard.registrationEndedMessage")}
+                    </p>
                   )}
                   <Button
                     className="w-full"
@@ -227,10 +218,10 @@ export default function EventDetailsDialog({
                     variant={isRegistrationOpen ? "default" : "secondary"}
                   >
                     {registrationStatus === "not_started"
-                      ? "Registration Not Started"
+                      ? t("eventCard.registrationNotStarted")
                       : registrationStatus === "closed"
-                      ? "Registration Closed"
-                      : "Sign Up"}
+                        ? t("eventCard.registrationClosed")
+                        : t("eventCard.signUp")}
                   </Button>
                 </div>
               )}

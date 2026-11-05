@@ -47,6 +47,13 @@
     },
     "getToKnowUs": {
       "title": "Познайомтеся з нами ближче"
+    },
+    "quotes": {
+      "previous": "Попередня цитата",
+      "next": "Наступна цитата",
+      "pause": "Призупинити цитати",
+      "play": "Відтворити цитати",
+      "label": "Цитати учасників"
     }
   },
   "about": {
@@ -127,7 +134,9 @@
       },
       "submitting": "Реєстрація...",
       "errorMessage": "Не вдалося зареєструватися. Спробуйте ще раз.",
-      "successMessage": "Ви успішно зареєструвалися на захід."
+      "successMessage": "Ви успішно зареєструвалися на захід.",
+      "description": "Заповніть цю форму, щоб зареєструватися на {{eventTitle}}. Вкажіть свої особисті дані та інформацію, потрібну для події.",
+      "termsAndConditions": "Умови участі"
     },
     "eventCard": {
       "date": "Дата",
@@ -139,12 +148,26 @@
       "location": "Місцезнаходження",
       "readMore": "Читати більше",
       "eventEnded": "Подію завершено",
-      "registrationClosed": "Реєстрація закрита"
+      "registrationClosed": "Реєстрація закрита",
+      "registrationOpen": "Реєстрація відкрита",
+      "registrationNotStarted": "Реєстрація ще не почалася",
+      "registrationNotStartedMessage": "Реєстрація ще не почалася. Перевірте пізніше.",
+      "registrationEndedMessage": "Період реєстрації завершився. Заявки більше не приймаються.",
+      "registrationPeriod": "Реєстрація: {{start}} – {{end}}",
+      "registrationOpenUntil": "Реєстрація відкрита до початку події ({{date}})",
+      "registrationOpenUntilStart": "Реєстрація відкрита до початку події",
+      "now": "зараз"
     },
     "pastEvents": {
       "title": "Минулі події",
       "noEvents": "Не знайдено жодної події",
       "viewUpcomingEvents": "Переглянути найближчі події"
+    },
+    "errorLoading": "Під час завантаження подій сталася помилка.",
+    "tryAgain": "Спробуйте пізніше.",
+    "refresh": "Оновити",
+    "eventDetails": {
+      "description": "Деталі події: дата, місце, реєстрація та опис."
     }
   },
   "header": {
@@ -170,7 +193,13 @@
       "email": "Електронна пошта",
       "submit": "Відправити повідомлення",
       "message": "Повідомлення",
-      "subject": "Тема"
+      "subject": "Тема",
+      "errors": {
+        "nameRequired": "Ім'я обов'язкове",
+        "emailInvalid": "Недійсна адреса електронної пошти",
+        "subjectRequired": "Тема обов'язкова",
+        "messageMinLength": "Повідомлення має містити щонайменше 10 символів"
+      }
     },
     "info": {
       "email": "Пишіть нам на електронну пошту:",
@@ -178,10 +207,23 @@
       "social": "Слідкуйте за нами в соціальних мережах:"
     },
     "title": "Зв'яжіться з нами",
-    "description": "Зв'яжіться з нами з будь-яких питань або запитів."
+    "description": "Зв'яжіться з нами з будь-яких питань або запитів.",
+    "success": {
+      "title": "Успіх",
+      "messageSent": "Ваше повідомлення надіслано."
+    },
+    "error": {
+      "title": "Помилка",
+      "messageFailed": "Не вдалося надіслати повідомлення. Спробуйте ще раз."
+    },
+    "sending": "Надсилання…"
   },
   "gallery": {
-    "title": "Галерея"
+    "title": "Галерея",
+    "photos": "Фото: {{count}}",
+    "close": "Закрити",
+    "previous": "Попереднє фото",
+    "next": "Наступне фото"
   },
   "components": {
     "theme": {
@@ -192,11 +234,31 @@
       "eventEnded": "Подію завершено"
     },
     "languageSelector": {
-      "label": "Виберіть мову"
+      "label": "Виберіть мову",
+      "success": "Успіх",
+      "languageChanged": "Мову змінено на {{language}}",
+      "error": "Помилка",
+      "errorMessage": "Не вдалося змінити мову. Спробуйте ще раз."
     },
     "languageDetection": {
       "switchTo": "Перейти на англійську",
       "available": "Цей веб-сайт доступний вашою мовою!"
+    },
+    "translationEditor": {
+      "selectLanguage": "Виберіть мову",
+      "selectNamespace": "Виберіть простір імен",
+      "success": "Успіх",
+      "translationsSaved": "Переклади збережено",
+      "error": "Помилка",
+      "saveFailed": "Не вдалося зберегти переклади"
     }
+  },
+  "footer": {
+    "legalNotice": "Правова інформація",
+    "privacyPolicy": "Політика конфіденційності",
+    "facebook": "Facebook",
+    "youtube": "YouTube",
+    "instagram": "Instagram",
+    "email": "Email"
   }
 }

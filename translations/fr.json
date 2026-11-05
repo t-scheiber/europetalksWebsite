@@ -47,6 +47,13 @@
     },
     "getToKnowUs": {
       "title": "Nous connaître"
+    },
+    "quotes": {
+      "previous": "Citation précédente",
+      "next": "Citation suivante",
+      "pause": "Mettre les citations en pause",
+      "play": "Lire les citations",
+      "label": "Citations de membres"
     }
   },
   "about": {
@@ -100,7 +107,8 @@
     "events": {
       "title": "Evénements",
       "loading": "Chargement des événements...",
-      "viewPastEvents": "Voir les événements passés"
+      "viewPastEvents": "Voir les événements passés",
+      "noEvents": "Aucun événement à venir pour le moment, revenez plus tard !"
     },
     "signUp": {
       "email": {
@@ -126,7 +134,9 @@
       },
       "submitting": "S'inscrire...",
       "errorMessage": "Échec de l'inscription. Veuillez réessayer.",
-      "successMessage": "Vous vous êtes inscrit avec succès à l'événement."
+      "successMessage": "Vous vous êtes inscrit avec succès à l'événement.",
+      "description": "Remplissez ce formulaire pour vous inscrire à {{eventTitle}}. Indiquez vos informations personnelles et les détails demandés pour l'événement.",
+      "termsAndConditions": "Conditions générales"
     },
     "eventCard": {
       "date": "Date",
@@ -137,12 +147,27 @@
       "inPerson": "En personne",
       "location": "Localisation",
       "readMore": "Lire la suite",
-      "eventEnded": "Événement terminé"
+      "eventEnded": "Événement terminé",
+      "registrationOpen": "Inscriptions ouvertes",
+      "registrationNotStarted": "Inscriptions pas encore ouvertes",
+      "registrationNotStartedMessage": "Les inscriptions n'ont pas encore commencé. Revenez plus tard.",
+      "registrationEndedMessage": "La période d'inscription est terminée. Les inscriptions ne sont plus acceptées.",
+      "registrationPeriod": "Inscriptions : du {{start}} au {{end}}",
+      "registrationOpenUntil": "Inscriptions ouvertes jusqu'au début de l'événement ({{date}})",
+      "registrationOpenUntilStart": "Inscriptions ouvertes jusqu'au début de l'événement",
+      "registrationClosed": "Inscriptions closes",
+      "now": "maintenant"
     },
     "pastEvents": {
       "title": "Événements passés",
       "noEvents": "Aucun événement trouvé",
       "viewUpcomingEvents": "Voir les événements à venir"
+    },
+    "errorLoading": "Une erreur s'est produite lors du chargement des événements.",
+    "tryAgain": "Veuillez réessayer plus tard.",
+    "refresh": "Actualiser",
+    "eventDetails": {
+      "description": "Détails de l'événement : date, lieu, inscription et description."
     }
   },
   "header": {
@@ -168,7 +193,13 @@
       "email": "Email",
       "submit": "Send Message",
       "message": "Message",
-      "subject": "Sujet"
+      "subject": "Sujet",
+      "errors": {
+        "nameRequired": "Le nom est obligatoire",
+        "emailInvalid": "Adresse e-mail invalide",
+        "subjectRequired": "L'objet est obligatoire",
+        "messageMinLength": "Le message doit contenir au moins 10 caractères"
+      }
     },
     "info": {
       "email": "Envoyez-nous un courriel à l'adresse suivante",
@@ -176,10 +207,23 @@
       "social": "Suivez-nous sur les médias sociaux :"
     },
     "title": "Nous contacter",
-    "description": "N'hésitez pas à nous contacter pour toute question ou demande de renseignements."
+    "description": "N'hésitez pas à nous contacter pour toute question ou demande de renseignements.",
+    "success": {
+      "title": "Succès",
+      "messageSent": "Votre message a bien été envoyé."
+    },
+    "error": {
+      "title": "Erreur",
+      "messageFailed": "Impossible d'envoyer le message. Veuillez réessayer."
+    },
+    "sending": "Envoi…"
   },
   "gallery": {
-    "title": "Gallery"
+    "title": "Gallery",
+    "photos": "{{count}} photos",
+    "close": "Fermer",
+    "previous": "Photo précédente",
+    "next": "Photo suivante"
   },
   "components": {
     "theme": {
@@ -190,11 +234,31 @@
       "eventEnded": "Événement terminé"
     },
     "languageSelector": {
-      "label": "Sélection de la langue"
+      "label": "Sélection de la langue",
+      "success": "Succès",
+      "languageChanged": "Langue changée : {{language}}",
+      "error": "Erreur",
+      "errorMessage": "Impossible de changer de langue. Veuillez réessayer."
     },
     "languageDetection": {
       "switchTo": "Passer à {{language}}",
       "available": "Ce site est disponible dans votre langue !"
+    },
+    "translationEditor": {
+      "selectLanguage": "Choisir la langue",
+      "selectNamespace": "Choisir le namespace",
+      "success": "Succès",
+      "translationsSaved": "Traductions enregistrées",
+      "error": "Erreur",
+      "saveFailed": "Impossible d'enregistrer les traductions"
     }
+  },
+  "footer": {
+    "legalNotice": "Mentions légales",
+    "privacyPolicy": "Politique de confidentialité",
+    "facebook": "Facebook",
+    "youtube": "YouTube",
+    "instagram": "Instagram",
+    "email": "E-mail"
   }
 }

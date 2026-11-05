@@ -1,7 +1,7 @@
 import EventSignupForm from "@/components/events/EventSignupForm";
 import EventDetailsDialog from "@/components/events/EventDetailsDialog";
 import { Button } from "@/components/ui/button";
-import { format } from "date-fns";
+import { formatEventDate, formatEventRange } from "@/lib/format-date";
 import { CalendarIcon, MapPinIcon, Clock } from "lucide-react";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -35,26 +35,13 @@ interface EventCardProps {
 export function EventCard({ event }: EventCardProps) {
   const [isSignupOpen, setIsSignupOpen] = useState(false);
   const [isDetailsOpen, setIsDetailsOpen] = useState(false);
-  const { t } = useTranslation("events");
+  const { t, i18n } = useTranslation("events");
   const [isImageLoading, setIsImageLoading] = useState(true);
 
   const formatDateRange = (
     start: Date | string,
     end: Date | string | undefined
-  ) => {
-    const startDate = new Date(start);
-    const endDate = end ? new Date(end) : undefined;
-    const isSameDay =
-      endDate && startDate.toDateString() === endDate.toDateString();
-
-    if (!endDate || isSameDay) {
-      // For single-day events, show date and time in local timezone
-      return format(startDate, "PPp");
-    }
-
-    // For multi-day events, show only dates
-    return `${format(startDate, "PP")} - ${format(endDate, "PP")}`;
-  };
+  ) => formatEventRange(start, end, i18n.language);
 
   const isEventEnded = () => {
     const endDate = new Date(event.endDate);
@@ -104,7 +91,7 @@ export function EventCard({ event }: EventCardProps) {
   const getRegistrationPeriodText = () => {
     if (!event.signup_period_json) {
       return t("eventCard.registrationOpenUntil", {
-        date: format(new Date(event.startDate), "PPp")
+        date: formatEventDate(event.startDate, i18n.language),
       });
     }
 
@@ -113,11 +100,12 @@ export function EventCard({ event }: EventCardProps) {
     }
 
     const start = event.signup_period_json.startDate
-      ? format(new Date(event.signup_period_json.startDate), "PPp")
-      : "now";
-    const end = event.signup_period_json.endDate
-      ? format(new Date(event.signup_period_json.endDate), "PPp")
-      : format(new Date(event.startDate), "PPp");
+      ? formatEventDate(event.signup_period_json.startDate, i18n.language)
+      : t("eventCard.now");
+    const end = formatEventDate(
+      event.signup_period_json.endDate || event.startDate,
+      i18n.language
+    );
 
     return t("eventCard.registrationPeriod", { start, end });
   };
@@ -132,7 +120,7 @@ export function EventCard({ event }: EventCardProps) {
 
   return (
     <>
-      <article className="group relative flex flex-col rounded-[14px] bg-card text-card-foreground shadow-[0_1px_2px_hsl(var(--brand-ink)/0.06),0_10px_30px_-14px_hsl(var(--brand-ink)/0.28)] transition-[box-shadow,transform] duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] focus-within:-translate-y-0.5 hover:-translate-y-0.5 hover:shadow-[0_2px_4px_hsl(var(--brand-ink)/0.08),0_22px_44px_-18px_hsl(var(--brand-ink)/0.4)] dark:ring-1 dark:ring-white/5">
+      <article className="group relative flex flex-col rounded-[14px] bg-card text-card-foreground shadow-[0_1px_2px_hsl(var(--brand-ink)/0.06),0_10px_30px_-14px_hsl(var(--brand-ink)/0.28)] transition-[box-shadow,translate] duration-(--dur-base) ease-out hover:-translate-y-0.5 hover:shadow-[0_2px_4px_hsl(var(--brand-ink)/0.08),0_22px_44px_-18px_hsl(var(--brand-ink)/0.4)] dark:ring-1 dark:ring-white/5">
         <div className={`relative w-full overflow-hidden rounded-t-[14px] bg-brand ${event.imageUrl ? "h-48" : "h-28"}`}>
           {event.imageUrl ? (
             <>
@@ -140,7 +128,7 @@ export function EventCard({ event }: EventCardProps) {
                 src={event.imageUrl}
                 alt=""
                 fill
-                className={`object-cover transition-[opacity,transform] duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.03] ${
+                className={`object-cover transition-[opacity,scale] duration-300 ease-out group-hover:scale-(--hover-zoom) ${
                   isImageLoading ? "opacity-0" : "opacity-100"
                 } ${ended ? "grayscale-[60%]" : ""}`}
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"

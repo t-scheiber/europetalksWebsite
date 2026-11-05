@@ -62,11 +62,11 @@ To create a space where Europeans can share ideas, celebrate cultural diversity,
 
 ### Frontend
 
-- **Framework**: [Next.js 15](https://nextjs.org/) (App Router)
-- **React**: 18.3 with Server Components
-- **Styling**: [Tailwind CSS 4](https://tailwindcss.com/)
+- **Framework**: [Next.js 16](https://nextjs.org/) (App Router, webpack production build)
+- **React**: 19.3 with Server Components
+- **Styling**: [Tailwind CSS 4](https://tailwindcss.com/) with design tokens in `app/globals.css` (see [DESIGN.md](DESIGN.md))
 - **UI Components**: [Radix UI](https://www.radix-ui.com/)
-- **Animations**: [Motion](https://motion.dev/)
+- **Animations**: CSS motion tokens, scroll-driven reveals and React `<ViewTransition>` route crossfades; [Motion](https://motion.dev/) for the quote deck
 - **Forms**: [React Hook Form](https://react-hook-form.com/) + [Zod](https://zod.dev/)
 - **i18n**: [i18next](https://www.i18next.com/) + [react-i18next](https://react.i18next.com/)
 
@@ -91,8 +91,8 @@ To create a space where Europeans can share ideas, celebrate cultural diversity,
 
 ### Prerequisites
 
-- **Node.js** 20.x or later
-- **npm** or **pnpm** or **yarn**
+- **Node.js** 20.19 or later (the production server runs on Node)
+- **[Bun](https://bun.sh/)** for installing packages and running scripts
 - **PostgreSQL** database
 - **Clerk** account (for authentication)
 - **UploadThing** account (for file uploads)
@@ -103,14 +103,14 @@ To create a space where Europeans can share ideas, celebrate cultural diversity,
 1. **Clone the repository**
 
    ```bash
-   git clone https://github.com/yourusername/europetalksWebsite.git
+   git clone https://github.com/t-scheiber/europetalksWebsite.git
    cd europetalksWebsite
    ```
 
 2. **Install dependencies**
 
    ```bash
-   npm install
+   bun install
    ```
 
 3. **Set up environment variables**
@@ -127,19 +127,19 @@ To create a space where Europeans can share ideas, celebrate cultural diversity,
 
    ```bash
    # Generate Prisma client
-   npx prisma generate
-   
+   bunx prisma generate
+
    # Run migrations
-   npx prisma migrate dev
-   
-   # (Optional) Seed translations
-   npm run seed:translations
+   bunx prisma migrate dev
+
+   # (Optional) Pull translations from the database into translations/*.json
+   bun run download:translations
    ```
 
 5. **Run the development server**
 
    ```bash
-   npm run dev
+   bun run dev
    ```
 
 6. **Open your browser**
@@ -223,25 +223,29 @@ europetalksWebsite/
 │   ├── about/               # About page
 │   ├── admin/               # Admin panel
 │   │   ├── events/         # Event management
+│   │   ├── manage-events/  # Event editor
 │   │   ├── signups/        # Signup management
-│   │   ├── form-schemas/   # Form builder
-│   │   └── translations/   # Translation editor
+│   │   └── form-schemas/   # Form builder
 │   ├── api/                # API routes
+│   │   ├── admin/          # Admin APIs
 │   │   ├── contact/        # Contact form
 │   │   ├── events/         # Event APIs
-│   │   ├── uploadthing/    # File upload
-│   │   └── translations/   # Translation APIs
+│   │   └── slideshow-images/
 │   ├── contact/            # Contact page
 │   ├── events/             # Events page
 │   ├── gallery/            # Photo gallery
 │   ├── past-events/        # Past events
-│   └── ...
+│   ├── legal-notice/       # Legal notice
+│   ├── privacy-policy/     # Privacy policy
+│   └── globals.css         # Design and motion tokens
 ├── components/             # React components
 │   ├── admin/             # Admin components
+│   ├── brand/             # Watercolor, stripes, page heads
 │   ├── events/            # Event components
-│   ├── translations/      # Translation components
+│   ├── home/              # Home page
 │   ├── ui/                # UI components (Radix)
-│   └── ...
+│   └── TransitionLink.tsx # Internal links that trigger the route crossfade
+├── hooks/                 # React hooks
 ├── lib/                   # Utility libraries
 │   ├── db.ts             # Database connection
 │   ├── prisma.ts         # Prisma client
@@ -249,12 +253,11 @@ europetalksWebsite/
 │   └── validations/      # Zod schemas
 ├── prisma/               # Database schema
 │   └── schema.prisma     # Prisma schema
+├── proxy.ts              # Clerk middleware (Next.js 16 proxy)
 ├── public/               # Static assets
-│   ├── images/          # Images and gallery
-│   └── locales/         # Translation files
-├── translations/         # JSON translation files
-├── types/               # TypeScript type definitions
-└── utils/               # Additional utilities
+│   └── images/          # Logo, gallery, watercolors, quote cards
+├── translations/         # JSON translation files (bundled at build time)
+└── types/               # TypeScript type definitions
 ```
 
 ---
@@ -340,8 +343,8 @@ See [prisma/schema.prisma](prisma/schema.prisma) for the complete schema.
 
 ### Deployment Prerequisites
 
-- PostgreSQL database (e.g., [Neon](https://neon.tech/), [Supabase](https://supabase.com/))
-- [Vercel](https://vercel.com/) account (recommended) or any Node.js hosting
+- PostgreSQL database
+- A Node.js host. Production runs on [Coolify](https://coolify.io/) with the nixpacks build pack
 - Configured Clerk application
 - Configured UploadThing application
 - SMTP server access
@@ -351,16 +354,21 @@ See [prisma/schema.prisma](prisma/schema.prisma) for the complete schema.
 1. **Set up your production database**
 
    ```bash
-   npx prisma migrate deploy
+   bunx prisma migrate deploy
    ```
 
-2. **Configure environment variables** in your hosting platform (e.g., Vercel)
+2. **Configure environment variables** in your hosting platform
 
 3. **Deploy**
 
    ```bash
-   npm run build
+   bun run build   # prisma generate + next build --webpack
+   bun run start   # next start, on Node
    ```
+
+   Keep the start script on Node. `bun --bun next start` crashes the Clerk middleware on Bun 1.3.x
+   (`Expected CommonJS module to have a function wrapper`), so every request returns 500 and the
+   health check fails.
 
 4. **Verify**
    - Test authentication flow
@@ -370,8 +378,8 @@ See [prisma/schema.prisma](prisma/schema.prisma) for the complete schema.
 
 ### Recommended Platforms
 
-- **Hosting**: [Vercel](https://vercel.com/) (optimized for Next.js)
-- **Database**: [Neon](https://neon.tech/) (serverless PostgreSQL)
+- **Hosting**: [Coolify](https://coolify.io/) (nixpacks, Node runtime)
+- **Database**: PostgreSQL
 - **Authentication**: [Clerk](https://clerk.com/)
 - **File Storage**: [UploadThing](https://uploadthing.com/)
 
