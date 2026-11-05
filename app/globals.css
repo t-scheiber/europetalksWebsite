@@ -1,5 +1,12 @@
 @import 'tailwindcss';
 
+/* Scan code only. Docs and translations mention class names in prose, which would generate unused CSS
+   and push the stylesheet past Next's 100KB chunk cap (the fonts then load as a second stylesheet). */
+@source not "../*.md";
+@source not "../.impeccable";
+@source not "../translations";
+@source not "../scripts";
+
 /* Enter/exit utilities (animate-in, fade-in-0, zoom-in-95, slide-in-from-*) used by components/ui. */
 @plugin "tailwindcss-animate";
 
