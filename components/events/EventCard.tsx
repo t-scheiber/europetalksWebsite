@@ -1,12 +1,6 @@
 import EventSignupForm from "@/components/events/EventSignupForm";
 import EventDetailsDialog from "@/components/events/EventDetailsDialog";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-} from "@/components/ui/card";
 import { format } from "date-fns";
 import { CalendarIcon, MapPinIcon, Clock } from "lucide-react";
 import { useState } from "react";
@@ -14,8 +8,9 @@ import { useTranslation } from "react-i18next";
 import Image from "next/image";
 import { FormField } from "@/lib/types/event-form";
 import { EventTerms } from "@/lib/types/event-form";
-import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Badge } from "@/components/ui/badge";
+import { DateBlock } from "./DateBlock";
+import { Stripes } from "@/components/brand/Stripes";
 
 interface EventCardProps {
   event: {
@@ -127,91 +122,115 @@ export function EventCard({ event }: EventCardProps) {
     return t("eventCard.registrationPeriod", { start, end });
   };
 
+  const ended = isEventEnded();
+  const statusLabel =
+    registrationStatus === "open"
+      ? t("eventCard.registrationOpen")
+      : registrationStatus === "not_started"
+        ? t("eventCard.registrationNotStarted")
+        : t("eventCard.registrationClosed");
+
   return (
     <>
-      <Card
-        className="overflow-hidden cursor-pointer transition-shadow hover:shadow-lg"
-        onClick={() => setIsDetailsOpen(true)}
-      >
-        {event.imageUrl && (
-          <div className="relative h-48 w-full">
-            <Image
-              src={event.imageUrl}
-              alt={event.title}
-              fill
-              className={`object-cover transition-opacity duration-300 ${
-                isImageLoading ? "opacity-0" : "opacity-100"
-              }`}
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-              quality={90}
-              onLoadingComplete={() => setIsImageLoading(false)}
-            />
-            {isImageLoading && (
-              <div className="absolute inset-0 bg-muted animate-pulse" />
-            )}
-          </div>
-        )}
-        <CardHeader>
-          <div className="flex justify-between items-start">
-            <h3 className="text-lg font-semibold">{event.title}</h3>
-            <Badge variant={
-              registrationStatus === "open" ? "default" :
-              registrationStatus === "not_started" ? "secondary" : "destructive"
-            }>
-              {registrationStatus === "open" ? t("eventCard.registrationOpen") :
-               registrationStatus === "not_started" ? t("eventCard.registrationNotStarted") :
-               t("eventCard.registrationClosed")}
-            </Badge>
-          </div>
-          <div className="flex flex-col gap-1 text-sm text-muted-foreground">
-            <div className="flex items-center gap-1">
-              <CalendarIcon className="h-4 w-4" />
-              <time dateTime={new Date(event.startDate).toISOString()}>
-                {formatDateRange(event.startDate, event.endDate)}
-              </time>
+      <article className="group relative flex flex-col rounded-[14px] bg-card text-card-foreground shadow-[0_1px_2px_hsl(var(--brand-ink)/0.06),0_10px_30px_-14px_hsl(var(--brand-ink)/0.28)] transition-[box-shadow,transform] duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] focus-within:-translate-y-0.5 hover:-translate-y-0.5 hover:shadow-[0_2px_4px_hsl(var(--brand-ink)/0.08),0_22px_44px_-18px_hsl(var(--brand-ink)/0.4)] dark:ring-1 dark:ring-white/5">
+        <div className={`relative w-full overflow-hidden rounded-t-[14px] bg-brand ${event.imageUrl ? "h-48" : "h-28"}`}>
+          {event.imageUrl ? (
+            <>
+              <Image
+                src={event.imageUrl}
+                alt=""
+                fill
+                className={`object-cover transition-[opacity,transform] duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.03] ${
+                  isImageLoading ? "opacity-0" : "opacity-100"
+                } ${ended ? "grayscale-[60%]" : ""}`}
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                quality={85}
+                onLoad={() => setIsImageLoading(false)}
+              />
+              {isImageLoading && (
+                <div className="absolute inset-0 animate-pulse bg-brand/80" />
+              )}
+            </>
+          ) : (
+            <div className="absolute inset-0 flex items-start p-5 pl-28">
+              <Stripes className="text-white/50" />
             </div>
-            <div className="flex items-center gap-1">
-              <MapPinIcon className="h-4 w-4" />
-              <span>{event.location}</span>
-            </div>
-            <div className="flex items-center gap-1">
-              <Clock className="h-4 w-4" />
-              <span className="text-xs">{getRegistrationPeriodText()}</span>
-            </div>
-          </div>
-        </CardHeader>
-        <CardContent>
-          <p className="text-sm line-clamp-3">{event.description}</p>
-          {!isRegistrationOpen && (
-            <Alert variant="destructive" className="mt-4">
-              <AlertDescription>
-                {registrationStatus === "not_started"
-                  ? t("eventCard.registrationNotStartedMessage")
-                  : t("eventCard.registrationEndedMessage")}
-              </AlertDescription>
-            </Alert>
           )}
-        </CardContent>
-        <CardFooter>
-          <Button
-            className="w-full"
-            onClick={(e) => {
-              e.stopPropagation();
-              setIsSignupOpen(true);
-            }}
-            disabled={isEventEnded() || !isRegistrationOpen}
-            variant={isRegistrationOpen ? "default" : "secondary"}
+          <Badge
+            variant={
+              registrationStatus === "open"
+                ? "open"
+                : registrationStatus === "not_started"
+                  ? "soon"
+                  : "closed"
+            }
+            className="absolute right-3 top-3 shadow-sm"
           >
-            {isEventEnded()
-              ? t("eventCard.eventEnded")
-              : !isRegistrationOpen
-              ? registrationStatus === "not_started"
-                ? t("eventCard.registrationNotStarted")
-                : t("eventCard.registrationClosed")
-              : t("eventCard.signUp")}
-          </Button>
-        </CardFooter>
-      </Card>
+            {statusLabel}
+          </Badge>
+        </div>
+
+        <div className="relative flex flex-1 flex-col px-6 pb-6">
+          <DateBlock date={event.startDate} className="-mt-10 mb-4" />
+          <h3 className="text-2xl font-bold leading-tight">
+            <button
+              type="button"
+              onClick={() => setIsDetailsOpen(true)}
+              className="text-left after:absolute after:inset-0 after:rounded-[14px] after:content-[''] focus-visible:outline-none group-hover:text-brand focus-visible:after:outline focus-visible:after:outline-[3px] focus-visible:after:outline-offset-2 focus-visible:after:outline-marker dark:group-hover:text-marker"
+            >
+              {event.title}
+            </button>
+          </h3>
+
+          <dl className="mt-3 space-y-1.5 text-sm text-muted-foreground">
+            <div className="flex items-center gap-2">
+              <dt className="sr-only">{t("eventCard.date")}</dt>
+              <CalendarIcon aria-hidden className="h-4 w-4 shrink-0" />
+              <dd>
+                <time dateTime={new Date(event.startDate).toISOString()}>
+                  {formatDateRange(event.startDate, event.endDate)}
+                </time>
+              </dd>
+            </div>
+            <div className="flex items-center gap-2">
+              <dt className="sr-only">{t("eventCard.location")}</dt>
+              <MapPinIcon aria-hidden className="h-4 w-4 shrink-0" />
+              <dd>{event.location}</dd>
+            </div>
+          </dl>
+          <p className="mt-1.5 flex items-start gap-2 text-xs leading-relaxed text-muted-foreground">
+            <Clock aria-hidden className="mt-0.5 h-4 w-4 shrink-0" />
+            {getRegistrationPeriodText()}
+          </p>
+
+          <p className="mt-4 line-clamp-3 text-[15px] leading-relaxed">
+            {event.description}
+          </p>
+
+          {!isRegistrationOpen && !ended && (
+            <p className="mt-4 rounded-lg bg-muted px-3 py-2 text-sm text-muted-foreground">
+              {registrationStatus === "not_started"
+                ? t("eventCard.registrationNotStartedMessage")
+                : t("eventCard.registrationEndedMessage")}
+            </p>
+          )}
+
+          <div className="mt-auto pt-6">
+            <Button
+              className="relative z-10 w-full"
+              onClick={() => setIsSignupOpen(true)}
+              disabled={ended || !isRegistrationOpen}
+              variant={isRegistrationOpen && !ended ? "default" : "secondary"}
+            >
+              {ended
+                ? t("eventCard.eventEnded")
+                : !isRegistrationOpen
+                  ? statusLabel
+                  : t("eventCard.signUp")}
+            </Button>
+          </div>
+        </div>
+      </article>
 
       <EventDetailsDialog
         event={event}

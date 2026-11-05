@@ -5,12 +5,23 @@ import Header from "@/components/Header";
 import { I18nextProvider } from "@/components/i18n-provider";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Sofia_Sans, Sofia_Sans_Extra_Condensed } from "next/font/google";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as SonnerToaster } from "sonner";
 
 
-const inter = Inter({ subsets: ["latin"] });
+const sofia = Sofia_Sans({
+  subsets: ["latin", "latin-ext", "greek", "cyrillic", "cyrillic-ext"],
+  variable: "--font-sofia",
+  display: "swap",
+});
+
+const sofiaDisplay = Sofia_Sans_Extra_Condensed({
+  subsets: ["latin", "latin-ext", "greek", "cyrillic", "cyrillic-ext"],
+  weight: ["700", "800", "900"],
+  variable: "--font-sofia-xc",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: "EuropeTalks",
@@ -42,7 +53,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className={`${sofia.variable} ${sofiaDisplay.variable}`}
+    >
       <head>
         {/* Preconnect to critical third-party origins */}
         <link rel="preconnect" href="https://clerk.com" />
@@ -52,12 +67,12 @@ export default function RootLayout({
         <link rel="dns-prefetch" href="https://api.clerk.com" />
         
       </head>
-      <body className={`${inter.className}`}>
+      <body className="font-sans">
         <ThemeProvider>
           <ClerkThemeProvider>
             <I18nextProvider>
               <Header />
-              <main className="min-h-screen">{children}</main>
+              <main id="main" className="min-h-[60vh]">{children}</main>
               <Footer />
               <Toaster />
               <SonnerToaster />

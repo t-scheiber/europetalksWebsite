@@ -39,11 +39,12 @@ export function PrefetchLink({
     }
 
     // Prefetch API data if specified
+    // A failed prefetch is not an error worth surfacing; the page fetches again.
     if (prefetchData) {
-      preload(prefetchData, fetcher);
+      Promise.resolve(preload(prefetchData, fetcher)).catch(() => {});
     } else if (props.href === "/events") {
       // Default prefetch for events page
-      preload("/api/events", fetcher);
+      Promise.resolve(preload("/api/events", fetcher)).catch(() => {});
     }
   }, [prefetch, prefetchData, props.href, router]);
 
