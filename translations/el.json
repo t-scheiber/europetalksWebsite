@@ -47,6 +47,13 @@
     },
     "getToKnowUs": {
       "title": "Γνωρίστε μας"
+    },
+    "quotes": {
+      "previous": "Προηγούμενο απόφθεγμα",
+      "next": "Επόμενο απόφθεγμα",
+      "pause": "Παύση αποφθεγμάτων",
+      "play": "Αναπαραγωγή αποφθεγμάτων",
+      "label": "Αποφθέγματα μελών"
     }
   },
   "about": {
@@ -127,7 +134,9 @@
       },
       "submitting": "Εγγραφή...",
       "errorMessage": "Απέτυχε να εγγραφεί. Προσπαθήστε ξανά.",
-      "successMessage": "Uspješno ste se prijavili za to."
+      "successMessage": "Uspješno ste se prijavili za to.",
+      "description": "Συμπληρώστε αυτή τη φόρμα για να εγγραφείτε στο {{eventTitle}}. Δώστε τα προσωπικά σας στοιχεία και όσα στοιχεία χρειάζεται η εκδήλωση.",
+      "termsAndConditions": "Όροι και προϋποθέσεις"
     },
     "eventCard": {
       "date": "Ημερομηνία",
@@ -139,12 +148,26 @@
       "location": "Τοποθεσία",
       "readMore": "Διαβάστε περισσότερα",
       "eventEnded": "Εκδήλωση που τελείωσε",
-      "registrationClosed": "Η εγγραφή έκλεισε"
+      "registrationClosed": "Η εγγραφή έκλεισε",
+      "registrationOpen": "Εγγραφές ανοιχτές",
+      "registrationNotStarted": "Οι εγγραφές δεν έχουν ξεκινήσει",
+      "registrationNotStartedMessage": "Οι εγγραφές δεν έχουν ξεκινήσει ακόμη. Ελέγξτε ξανά αργότερα.",
+      "registrationEndedMessage": "Η περίοδος εγγραφών έληξε. Δεν γίνονται πλέον δεκτές εγγραφές.",
+      "registrationPeriod": "Εγγραφές: {{start}} έως {{end}}",
+      "registrationOpenUntil": "Εγγραφές ανοιχτές μέχρι την έναρξη της εκδήλωσης ({{date}})",
+      "registrationOpenUntilStart": "Εγγραφές ανοιχτές μέχρι την έναρξη της εκδήλωσης",
+      "now": "τώρα"
     },
     "pastEvents": {
       "title": "Προηγούμενες εκδηλώσεις",
       "noEvents": "Δεν βρέθηκαν προηγούμενες εκδηλώσεις",
       "viewUpcomingEvents": "Προβολή επερχόμενων εκδηλώσεων"
+    },
+    "errorLoading": "Παρουσιάστηκε σφάλμα κατά τη φόρτωση των εκδηλώσεων.",
+    "tryAgain": "Δοκιμάστε ξανά αργότερα.",
+    "refresh": "Ανανέωση",
+    "eventDetails": {
+      "description": "Λεπτομέρειες εκδήλωσης: ημερομηνία, τοποθεσία, εγγραφή και περιγραφή."
     }
   },
   "header": {
@@ -170,7 +193,13 @@
       "email": "Email",
       "submit": "Send Message",
       "message": "Μήνυμα",
-      "subject": "Θέμα"
+      "subject": "Θέμα",
+      "errors": {
+        "nameRequired": "Το όνομα είναι υποχρεωτικό",
+        "emailInvalid": "Μη έγκυρη διεύθυνση email",
+        "subjectRequired": "Το θέμα είναι υποχρεωτικό",
+        "messageMinLength": "Το μήνυμα πρέπει να έχει τουλάχιστον 10 χαρακτήρες"
+      }
     },
     "info": {
       "email": "Στείλτε μας email στο:",
@@ -178,10 +207,23 @@
       "social": "Ακολουθήστε μας στα μέσα κοινωνικής δικτύωσης:"
     },
     "title": "Επικοινωνήστε μαζί μας",
-    "description": "Επικοινωνήστε μαζί μας για οποιεσδήποτε ερωτήσεις ή απορίες."
+    "description": "Επικοινωνήστε μαζί μας για οποιεσδήποτε ερωτήσεις ή απορίες.",
+    "success": {
+      "title": "Επιτυχία",
+      "messageSent": "Το μήνυμά σας στάλθηκε."
+    },
+    "error": {
+      "title": "Σφάλμα",
+      "messageFailed": "Η αποστολή του μηνύματος απέτυχε. Δοκιμάστε ξανά."
+    },
+    "sending": "Αποστολή…"
   },
   "gallery": {
-    "title": "Gallery"
+    "title": "Gallery",
+    "photos": "Φωτογραφίες: {{count}}",
+    "close": "Κλείσιμο",
+    "previous": "Προηγούμενη φωτογραφία",
+    "next": "Επόμενη φωτογραφία"
   },
   "components": {
     "theme": {
@@ -192,11 +234,31 @@
       "eventEnded": "Εκδήλωση που τελείωσε"
     },
     "languageSelector": {
-      "label": "Επιλέξτε γλώσσα"
+      "label": "Επιλέξτε γλώσσα",
+      "success": "Επιτυχία",
+      "languageChanged": "Η γλώσσα άλλαξε σε {{language}}",
+      "error": "Σφάλμα",
+      "errorMessage": "Η αλλαγή γλώσσας απέτυχε. Δοκιμάστε ξανά."
     },
     "languageDetection": {
       "switchTo": "Αλλαγή σε {{γλώσσα}}",
       "available": "Αυτός ο ιστότοπος είναι διαθέσιμος στη γλώσσα σας!"
+    },
+    "translationEditor": {
+      "selectLanguage": "Επιλογή γλώσσας",
+      "selectNamespace": "Επιλογή namespace",
+      "success": "Επιτυχία",
+      "translationsSaved": "Οι μεταφράσεις αποθηκεύτηκαν",
+      "error": "Σφάλμα",
+      "saveFailed": "Η αποθήκευση των μεταφράσεων απέτυχε"
     }
+  },
+  "footer": {
+    "legalNotice": "Νομική σημείωση",
+    "privacyPolicy": "Πολιτική απορρήτου",
+    "facebook": "Facebook",
+    "youtube": "YouTube",
+    "instagram": "Instagram",
+    "email": "Email"
   }
 }

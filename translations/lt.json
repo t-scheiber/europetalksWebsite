@@ -47,6 +47,13 @@
     },
     "getToKnowUs": {
       "title": "Susipažinkite su mumis"
+    },
+    "quotes": {
+      "previous": "Ankstesnė citata",
+      "next": "Kita citata",
+      "pause": "Pristabdyti citatas",
+      "play": "Rodyti citatas",
+      "label": "Narių citatos"
     }
   },
   "about": {
@@ -100,7 +107,8 @@
     "events": {
       "title": "Renginiai",
       "loading": "Kraunami renginiai...",
-      "viewPastEvents": "Peržiūrėti ankstesnius renginius"
+      "viewPastEvents": "Peržiūrėti ankstesnius renginius",
+      "noEvents": "Artėjančių renginių nėra, užsukite vėliau!"
     },
     "signUp": {
       "email": {
@@ -126,7 +134,9 @@
       },
       "submitting": "Registruojama...",
       "errorMessage": "Nepavyko užsiregistruoti. Prašome bandyti dar kartą.",
-      "successMessage": "Jūs sėkmingai užsiregistravote į renginį."
+      "successMessage": "Jūs sėkmingai užsiregistravote į renginį.",
+      "description": "Užpildykite šią formą, kad užsiregistruotumėte į {{eventTitle}}. Nurodykite savo asmens duomenis ir renginiui reikalingą informaciją.",
+      "termsAndConditions": "Taisyklės ir sąlygos"
     },
     "eventCard": {
       "date": "Data",
@@ -137,12 +147,27 @@
       "inPerson": "Asmeniškai",
       "location": "Vieta",
       "readMore": "Skaityti daugiau",
-      "eventEnded": "Renginys baigėsi"
+      "eventEnded": "Renginys baigėsi",
+      "registrationOpen": "Registracija atvira",
+      "registrationNotStarted": "Registracija dar neprasidėjo",
+      "registrationNotStartedMessage": "Registracija dar neprasidėjo. Užsukite vėliau.",
+      "registrationEndedMessage": "Registracijos laikotarpis baigėsi. Registracijos nebepriimamos.",
+      "registrationPeriod": "Registracija: {{start}}–{{end}}",
+      "registrationOpenUntil": "Registracija atvira iki renginio pradžios ({{date}})",
+      "registrationOpenUntilStart": "Registracija atvira iki renginio pradžios",
+      "registrationClosed": "Registracija uždaryta",
+      "now": "dabar"
     },
     "pastEvents": {
       "title": "Ankstesni renginiai",
       "noEvents": "Renginių nerasta",
       "viewUpcomingEvents": "Peržiūrėti būsimus renginius"
+    },
+    "errorLoading": "Įkeliant renginius įvyko klaida.",
+    "tryAgain": "Bandykite vėliau.",
+    "refresh": "Atnaujinti",
+    "eventDetails": {
+      "description": "Renginio informacija: data, vieta, registracija ir aprašymas."
     }
   },
   "header": {
@@ -168,7 +193,13 @@
       "email": "El. paštas",
       "submit": "Siųsti žinutę",
       "message": "Žinutė",
-      "subject": "Tema"
+      "subject": "Tema",
+      "errors": {
+        "nameRequired": "Vardas privalomas",
+        "emailInvalid": "Neteisingas el. pašto adresas",
+        "subjectRequired": "Tema privaloma",
+        "messageMinLength": "Žinutėje turi būti bent 10 simbolių"
+      }
     },
     "info": {
       "email": "Rašykite mums el. laišką:",
@@ -176,10 +207,23 @@
       "social": "Sekite mus socialiniuose tinkluose:"
     },
     "title": "Susisiekite su mumis",
-    "description": "Susisiekite su mumis dėl bet kokių klausimų ar užklausų."
+    "description": "Susisiekite su mumis dėl bet kokių klausimų ar užklausų.",
+    "success": {
+      "title": "Pavyko",
+      "messageSent": "Jūsų žinutė išsiųsta."
+    },
+    "error": {
+      "title": "Klaida",
+      "messageFailed": "Nepavyko išsiųsti žinutės. Bandykite dar kartą."
+    },
+    "sending": "Siunčiama…"
   },
   "gallery": {
-    "title": "Galerija"
+    "title": "Galerija",
+    "photos": "Nuotraukos: {{count}}",
+    "close": "Uždaryti",
+    "previous": "Ankstesnė nuotrauka",
+    "next": "Kita nuotrauka"
   },
   "components": {
     "theme": {
@@ -190,11 +234,31 @@
       "eventEnded": "Renginys baigėsi"
     },
     "languageSelector": {
-      "label": "Pasirinkite kalbą"
+      "label": "Pasirinkite kalbą",
+      "success": "Pavyko",
+      "languageChanged": "Kalba pakeista į {{language}}",
+      "error": "Klaida",
+      "errorMessage": "Nepavyko pakeisti kalbos. Bandykite dar kartą."
     },
     "languageDetection": {
       "switchTo": "Perjungti į lietuvių",
       "available": "Ši svetainė prieinama jūsų kalba!"
+    },
+    "translationEditor": {
+      "selectLanguage": "Pasirinkite kalbą",
+      "selectNamespace": "Pasirinkite vardų sritį",
+      "success": "Pavyko",
+      "translationsSaved": "Vertimai išsaugoti",
+      "error": "Klaida",
+      "saveFailed": "Nepavyko išsaugoti vertimų"
     }
+  },
+  "footer": {
+    "legalNotice": "Teisinė informacija",
+    "privacyPolicy": "Privatumo politika",
+    "facebook": "Facebook",
+    "youtube": "YouTube",
+    "instagram": "Instagram",
+    "email": "El. paštas"
   }
 }

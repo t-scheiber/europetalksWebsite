@@ -47,6 +47,13 @@
     },
     "getToKnowUs": {
       "title": "Lerne unskennen"
+    },
+    "quotes": {
+      "previous": "Vorheriges Zitat",
+      "next": "Nächstes Zitat",
+      "pause": "Zitate pausieren",
+      "play": "Zitate abspielen",
+      "label": "Zitate unserer Mitglieder"
     }
   },
   "about": {
@@ -127,7 +134,9 @@
       },
       "submitting": "Anmeldungen...",
       "errorMessage": "Anmeldung fehlgeschlagen. Bitte versuche es erneut.",
-      "successMessage": "Du hast dich erfolgreich für die Veranstaltung angemeldet."
+      "successMessage": "Du hast dich erfolgreich für die Veranstaltung angemeldet.",
+      "description": "Fülle dieses Formular aus, um dich für {{eventTitle}} anzumelden. Bitte gib deine persönlichen Daten und alle für die Veranstaltung nötigen Angaben an.",
+      "termsAndConditions": "Teilnahmebedingungen"
     },
     "eventCard": {
       "date": "Datum",
@@ -139,12 +148,26 @@
       "location": "Standort",
       "readMore": "Mehr lesen",
       "eventEnded": "Veranstaltung beendet",
-      "registrationClosed": "Registrierung geschlossen."
+      "registrationClosed": "Registrierung geschlossen.",
+      "registrationOpen": "Anmeldung offen",
+      "registrationNotStarted": "Anmeldung noch nicht gestartet",
+      "registrationNotStartedMessage": "Die Anmeldung hat noch nicht begonnen. Bitte schau später wieder vorbei.",
+      "registrationEndedMessage": "Die Anmeldefrist ist abgelaufen. Es werden keine Anmeldungen mehr angenommen.",
+      "registrationPeriod": "Anmeldung: {{start}} bis {{end}}",
+      "registrationOpenUntil": "Anmeldung offen bis Veranstaltungsbeginn ({{date}})",
+      "registrationOpenUntilStart": "Anmeldung offen bis Veranstaltungsbeginn",
+      "now": "jetzt"
     },
     "pastEvents": {
       "title": "Vergangene Ereignisse",
       "noEvents": "Keine Ereignisse gefunden",
       "viewUpcomingEvents": "Kommende Veranstaltungen anzeigen"
+    },
+    "errorLoading": "Beim Laden der Veranstaltungen ist ein Fehler aufgetreten.",
+    "tryAgain": "Bitte versuche es später erneut.",
+    "refresh": "Neu laden",
+    "eventDetails": {
+      "description": "Veranstaltungsdetails: Datum, Ort, Anmeldung und Beschreibung."
     }
   },
   "header": {
@@ -170,7 +193,13 @@
       "email": "Email",
       "submit": "Nachricht senden",
       "message": "Nachricht",
-      "subject": "Thema"
+      "subject": "Thema",
+      "errors": {
+        "nameRequired": "Name ist erforderlich",
+        "emailInvalid": "Ungültige E-Mail-Adresse",
+        "subjectRequired": "Betreff ist erforderlich",
+        "messageMinLength": "Die Nachricht muss mindestens 10 Zeichen lang sein"
+      }
     },
     "info": {
       "email": "Sende uns eine Email an:",
@@ -178,10 +207,23 @@
       "social": "Folge uns auf den sozialen Medien:"
     },
     "title": "Kontakt",
-    "description": "Nehme mit uns Kontakt auf, wenn du Fragen oder Anfragen hast."
+    "description": "Nehme mit uns Kontakt auf, wenn du Fragen oder Anfragen hast.",
+    "success": {
+      "title": "Erfolg",
+      "messageSent": "Deine Nachricht wurde erfolgreich gesendet."
+    },
+    "error": {
+      "title": "Fehler",
+      "messageFailed": "Die Nachricht konnte nicht gesendet werden. Bitte versuche es erneut."
+    },
+    "sending": "Wird gesendet …"
   },
   "gallery": {
-    "title": "Galerie"
+    "title": "Galerie",
+    "photos": "{{count}} Fotos",
+    "close": "Schließen",
+    "previous": "Vorheriges Foto",
+    "next": "Nächstes Foto"
   },
   "components": {
     "theme": {
@@ -192,11 +234,31 @@
       "eventEnded": "Veranstaltung beendet"
     },
     "languageSelector": {
-      "label": "Sprache auswählen"
+      "label": "Sprache auswählen",
+      "success": "Erfolg",
+      "languageChanged": "Sprache geändert zu {{language}}",
+      "error": "Fehler",
+      "errorMessage": "Die Sprache konnte nicht geändert werden. Bitte versuche es erneut."
     },
     "languageDetection": {
       "switchTo": "Wechseln zu {{Sprache}}",
       "available": "Diese Website ist in Ihrer Sprache verfügbar!"
+    },
+    "translationEditor": {
+      "selectLanguage": "Sprache auswählen",
+      "selectNamespace": "Namespace auswählen",
+      "success": "Erfolg",
+      "translationsSaved": "Übersetzungen erfolgreich gespeichert",
+      "error": "Fehler",
+      "saveFailed": "Übersetzungen konnten nicht gespeichert werden"
     }
+  },
+  "footer": {
+    "legalNotice": "Impressum",
+    "privacyPolicy": "Datenschutzerklärung",
+    "facebook": "Facebook",
+    "youtube": "YouTube",
+    "instagram": "Instagram",
+    "email": "E-Mail"
   }
 }
