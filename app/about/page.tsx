@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
+import Link from "@/components/TransitionLink";
 import { ArrowRight } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { PageHero } from "@/components/brand/PageHero";
@@ -61,7 +61,7 @@ export default function AboutPage() {
       <AboutSection id="leadership" title={t("leadership.title")} color="rot" variant={5}>
         <p className="text-muted-foreground">{t("leadership.intro")}</p>
         <figure className="flex flex-col gap-6 sm:flex-row sm:items-end">
-          <div className="relative aspect-[4/5] w-56 shrink-0 -rotate-2 bg-white p-2.5 pb-9 shadow-[0_2px_4px_hsl(var(--brand-ink)/0.08),0_18px_40px_-16px_hsl(var(--brand-ink)/0.45)] transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] hover:rotate-0">
+          <div className="relative aspect-[4/5] w-56 shrink-0 reveal-settle -rotate-2 bg-white p-2.5 pb-9 shadow-[0_2px_4px_hsl(var(--brand-ink)/0.08),0_18px_40px_-16px_hsl(var(--brand-ink)/0.45)] transition-[rotate] duration-(--dur-base) ease-out motion-safe:hover:rotate-0">
             <div className="relative h-full w-full overflow-hidden bg-muted">
             <Image
               src="/images/vivien-costanzo.jpeg"

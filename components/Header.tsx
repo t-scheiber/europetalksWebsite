@@ -67,13 +67,20 @@ export default function Header() {
               href={href}
               prefetchOnViewport
               aria-current={isActive(href) ? "page" : undefined}
-              className={`relative flex items-center px-3 text-[15px] font-semibold tracking-wide transition-colors after:absolute after:inset-x-3 after:bottom-0 after:h-[3px] after:origin-left after:bg-marker after:transition-transform after:duration-300 after:ease-[cubic-bezier(0.16,1,0.3,1)] ${
+              className={`relative flex items-center px-3 text-[15px] font-semibold tracking-wide transition-colors after:absolute after:inset-x-3 after:bottom-0 after:h-[3px] after:origin-left after:bg-marker after:transition-transform after:duration-(--dur-base) after:ease-out ${
                 isActive(href)
-                  ? "text-white after:scale-x-100"
+                  ? "text-white after:scale-x-0"
                   : "text-white/75 after:scale-x-0 hover:text-white hover:after:scale-x-100"
               }`}
             >
               {label}
+              {isActive(href) && (
+                <span
+                  aria-hidden
+                  className="absolute inset-x-3 bottom-0 h-[3px] bg-marker"
+                  style={{ viewTransitionName: "nav-indicator" }}
+                />
+              )}
             </PrefetchLink>
           ))}
           <div className="flex items-center gap-4 pl-3 text-[15px] font-semibold text-white/75">

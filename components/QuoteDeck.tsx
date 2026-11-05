@@ -14,12 +14,16 @@ const cards = Array.from({ length: TOTAL }, (_, i) => ({
   src: `/images/slideshow/quotes${TOTAL - i}.webp`,
 }));
 
+// Poses are full transform strings, not x/y/scale/rotate shorthands, so Motion can run
+// them on the compositor. Every string keeps the same function order to interpolate.
+const pose = (x: number, y: number, scale: number, rotate: number) =>
+  `translate(${x}%, ${y}%) scale(${scale}) rotate(${rotate}deg)`;
+
 // Resting pose for the three visible cards: top, middle, back.
-const poses = [
-  { rotate: -2.5, x: "0%", y: "0%", scale: 1 },
-  { rotate: 4, x: "5%", y: "2.5%", scale: 0.95 },
-  { rotate: -7, x: "-5%", y: "5%", scale: 0.9 },
-];
+const poses = [pose(0, 0, 1, -2.5), pose(5, 2.5, 0.95, 4), pose(-5, 5, 0.9, -7)];
+const enterFromBack = pose(-5, 5, 0.84, -7);
+const throwLeft = pose(-55, 8, 1, -16);
+const enterFromLeft = pose(-45, 6, 1, -14);
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
@@ -79,18 +83,18 @@ export function QuoteDeck({ interval = 6000, className }: QuoteDeckProps) {
                 style={{ zIndex: 3 - depth }}
                 initial={
                   reduceMotion
-                    ? { opacity: 0 }
+                    ? { opacity: 0, transform: poses[2] }
                     : direction === 1
-                      ? { ...poses[2], opacity: 0, scale: 0.84 }
-                      : { rotate: -14, x: "-45%", y: "6%", scale: 1, opacity: 0 }
+                      ? { transform: enterFromBack, opacity: 0 }
+                      : { transform: enterFromLeft, opacity: 0 }
                 }
-                animate={{ ...poses[depth], opacity: 1 }}
+                animate={{ transform: poses[depth], opacity: 1 }}
                 exit={
                   reduceMotion
                     ? { opacity: 0 }
                     : direction === 1
-                      ? { rotate: -16, x: "-55%", y: "8%", opacity: 0, zIndex: 4 }
-                      : { ...poses[2], opacity: 0, scale: 0.84 }
+                      ? { transform: throwLeft, opacity: 0, zIndex: 4 }
+                      : { transform: enterFromBack, opacity: 0 }
                 }
                 transition={{ duration: reduceMotion ? 0.2 : 0.7, ease }}
                 aria-hidden={depth !== 0}
