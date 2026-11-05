@@ -164,6 +164,13 @@ const config: InitOptions = {
 
 i18next.use(initReactI18next).init(config);
 
+// Keep <html lang> in sync so hyphenation, screen readers and fonts use the right language.
+i18next.on("languageChanged", (lng) => {
+  if (typeof document !== "undefined") {
+    document.documentElement.lang = lng;
+  }
+});
+
 export function I18nextProvider({ children }: { children: React.ReactNode }) {
   const [showLanguageHint, setShowLanguageHint] = useState(false);
   const [detectedLanguage, setDetectedLanguage] = useState<string | null>(null);
@@ -181,7 +188,7 @@ export function I18nextProvider({ children }: { children: React.ReactNode }) {
     lt: "Lietuvių",
     hr: "Hrvatski",
     hu: "Magyar",
-    el: "Greek",
+    el: "Ελληνικά",
   } as const;
 
   useEffect(() => {
@@ -229,7 +236,7 @@ export function I18nextProvider({ children }: { children: React.ReactNode }) {
   return (
     <Provider i18n={i18n}>
       {showLanguageHint && detectedLanguage && (
-        <div className="fixed bottom-4 right-4 z-50 max-w-sm bg-background border rounded-lg shadow-lg p-4">
+        <div className="fixed bottom-4 right-4 z-50 max-w-sm rounded-xl border-t-4 border-t-marker bg-card p-5 pr-10 shadow-[0_12px_40px_-12px_hsl(var(--brand-ink)/0.35)]">
           <button
             onClick={() => setShowLanguageHint(false)}
             className="absolute top-2 right-2 text-muted-foreground hover:text-foreground"

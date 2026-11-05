@@ -1,15 +1,18 @@
 "use client";
 
-import ContentWrapper from "@/components/ContentWrapper";
 import { EventCard } from "@/components/events/EventCard";
+import { EventGridSkeleton } from "@/components/events/EventGridSkeleton";
+import { PageHero } from "@/components/brand/PageHero";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
+type PastEvent = Parameters<typeof EventCard>[0]["event"];
+
 export default function PastEventsPage() {
   const { t } = useTranslation("events");
-  const [events, setEvents] = useState([]);
+  const [events, setEvents] = useState<PastEvent[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -17,7 +20,7 @@ export default function PastEventsPage() {
       try {
         const response = await fetch("/api/events");
         const data = await response.json();
-        setEvents(data.past);
+        setEvents(data.past ?? []);
       } catch (error) {
         console.error("Error fetching events:", error);
       } finally {
@@ -28,25 +31,36 @@ export default function PastEventsPage() {
     fetchEvents();
   }, []);
 
-  if (isLoading) {
-    return <div>{t("loading")}</div>;
-  }
-
   return (
-    <ContentWrapper>
-      <div className="container py-8">
-        <div className="flex justify-between items-center mb-8">
-        <h1 className="text-4xl font-bold">{t("pastEvents.title")}</h1>
-        <Button variant="outline" asChild>
-          <Link href="/events">{t("pastEvents.viewUpcomingEvents")}</Link>
-        </Button>
+    <>
+      <PageHero
+        title={t("pastEvents.title")}
+        actions={
+          <Button variant="inverse" asChild>
+            <Link href="/events">{t("pastEvents.viewUpcomingEvents")}</Link>
+          </Button>
+        }
+      />
+      <div className="mx-auto max-w-7xl px-5 py-14 sm:px-8 md:py-20">
+        {isLoading ? (
+          <>
+            <span className="sr-only" role="status">
+              {t("events.loading")}
+            </span>
+            <EventGridSkeleton />
+          </>
+        ) : events.length === 0 ? (
+          <p className="py-16 text-center text-lg text-muted-foreground">
+            {t("pastEvents.noEvents")}
+          </p>
+        ) : (
+          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+            {events.map((event) => (
+              <EventCard key={event.id} event={event} />
+            ))}
+          </div>
+        )}
       </div>
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-        {events.map((event) => (
-          <EventCard key={event.id} event={event} />
-        ))}
-        </div>
-      </div>
-    </ContentWrapper>
+    </>
   );
 }

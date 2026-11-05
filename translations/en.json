@@ -29,6 +29,13 @@
         "contact": "Contact Us"
       },
       "description": "Become a member and get access to exclusive events and features."
+    },
+    "quotes": {
+      "previous": "Previous quote",
+      "next": "Next quote",
+      "pause": "Pause quotes",
+      "play": "Play quotes",
+      "label": "Member quotes"
     }
   },
   "header": {
@@ -200,7 +207,11 @@
     "refresh": "Refresh"
   },
   "gallery": {
-    "title": "Gallery"
+    "title": "Gallery",
+    "photos": "{{count}} photos",
+    "close": "Close",
+    "previous": "Previous photo",
+    "next": "Next photo"
   },
   "contact": {
     "title": "Contact Us",
