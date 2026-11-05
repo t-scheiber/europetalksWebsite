@@ -111,7 +111,7 @@ export default function ContactPage() {
                   {label}
                   <ArrowUpRight
                     aria-hidden
-                    className="h-4 w-4 transition-transform duration-300 ease-out group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+                    className="h-4 w-4 transition-transform duration-(--dur-base) ease-out motion-safe:group-hover:-translate-y-0.5 motion-safe:group-hover:translate-x-0.5"
                   />
                 </a>
               </li>

@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
+import Link from "@/components/TransitionLink";
 import useSWR from "swr";
 import { ArrowRight, ArrowUpRight, MapPin } from "lucide-react";
 import { useTranslation } from "react-i18next";
@@ -56,23 +56,24 @@ export default function HomeView({ gallery }: { gallery: GalleryEvent[] }) {
   return (
     <>
       {/* Hero: continues the blue header field */}
-      <section className="relative isolate overflow-hidden bg-brand text-white">
+      <section className="relative isolate overflow-clip bg-brand text-white">
         <Watercolor
           color="blau"
           variant={4}
           priority
+          bloom="load"
           className="-right-[20%] top-[10%] -z-10 h-[120%] w-[90%] opacity-40 md:-right-[8%] md:w-[60%] dark:opacity-25"
         />
         <div className="mx-auto grid max-w-7xl items-center gap-14 px-5 pb-16 pt-12 sm:px-8 md:pb-24 md:pt-16 lg:grid-cols-12 lg:gap-8">
           <div className="min-w-0 lg:col-span-7">
-            <Stripes className="mb-8 w-16 text-white/70" />
-            <h1 className="display text-[clamp(3.5rem,9vw,7.5rem)] [hyphens:auto]">
+            <Stripes className="hero-stripes mb-8 w-16 text-white/70" />
+            <h1 className="hero-headline display text-[clamp(3.5rem,9vw,7.5rem)] [hyphens:auto]">
               {markBrand(t("hero.title"))}
             </h1>
-            <p className="mt-8 max-w-xl text-xl leading-relaxed text-brand-mist md:text-2xl md:leading-snug">
+            <p className="hero-in mt-8 max-w-xl text-xl leading-relaxed text-brand-mist [animation-delay:70ms] md:text-2xl md:leading-snug">
               {t("whoWeAre.intro", { ns: "about" })}
             </p>
-            <div className="mt-10 flex flex-wrap gap-3">
+            <div className="hero-in mt-10 flex flex-wrap gap-3 [animation-delay:140ms]">
               <Button size="lg" variant="marker" asChild>
                 <Link href="/about">
                   {t("cta.buttons.learnMore")}
@@ -84,14 +85,14 @@ export default function HomeView({ gallery }: { gallery: GalleryEvent[] }) {
               </Button>
             </div>
           </div>
-          <div className="mx-auto w-full min-w-0 max-w-[min(26rem,82vw)] lg:col-span-5 lg:max-w-[28rem]">
+          <div className="hero-deck mx-auto w-full min-w-0 max-w-[min(26rem,82vw)] lg:col-span-5 lg:max-w-[28rem]">
             <QuoteDeck />
           </div>
         </div>
       </section>
 
       {/* Who we are: mission statement and three ways of working */}
-      <section className="relative overflow-hidden">
+      <section className="relative overflow-clip">
         <div className="mx-auto grid max-w-7xl gap-16 px-5 py-20 sm:px-8 md:py-28 lg:grid-cols-12 lg:gap-10">
           <div className="lg:col-span-6">
             <h2 className="display text-[clamp(2.75rem,5.5vw,4.5rem)] text-brand dark:text-white">
@@ -107,14 +108,14 @@ export default function HomeView({ gallery }: { gallery: GalleryEvent[] }) {
               {t("cta.buttons.learnMore")}
               <ArrowRight
                 aria-hidden
-                className="h-5 w-5 transition-transform duration-300 ease-out group-hover:translate-x-1"
+                className="h-5 w-5 transition-transform duration-(--dur-base) ease-out motion-safe:group-hover:translate-x-1"
               />
             </Link>
           </div>
 
           <ul className="flex flex-col gap-12 lg:col-span-5 lg:col-start-8 lg:pt-4">
             {pillars.map(({ key, color, variant }) => (
-              <li key={key}>
+              <li key={key} className="reveal">
                 <SplashHeading
                   as="h3"
                   color={color}
@@ -167,7 +168,7 @@ export default function HomeView({ gallery }: { gallery: GalleryEvent[] }) {
                     </div>
                     <ArrowRight
                       aria-hidden
-                      className="h-6 w-6 shrink-0 text-brand transition-transform duration-300 ease-out group-hover:translate-x-1 dark:text-white"
+                      className="h-6 w-6 shrink-0 text-brand transition-transform duration-(--dur-base) ease-out motion-safe:group-hover:translate-x-1 dark:text-white"
                     />
                   </Link>
                 </li>
@@ -199,7 +200,7 @@ export default function HomeView({ gallery }: { gallery: GalleryEvent[] }) {
                 <Link
                   key={event.id}
                   href={`/gallery#${encodeURIComponent(event.id)}`}
-                  className={`group relative overflow-hidden rounded-[14px] bg-brand-deep ${
+                  className={`reveal-scale group relative overflow-hidden rounded-[14px] bg-brand-deep ${
                     i === 0 ? "col-span-2 row-span-2" : ""
                   }`}
                 >
@@ -208,7 +209,7 @@ export default function HomeView({ gallery }: { gallery: GalleryEvent[] }) {
                     alt=""
                     fill
                     sizes={i === 0 ? "(max-width: 768px) 100vw, 50vw" : "(max-width: 768px) 50vw, 25vw"}
-                    className="object-cover transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.04]"
+                    className="object-cover transition-transform duration-300 ease-out group-hover:scale-(--hover-zoom)"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[rgba(4,14,40,0.92)] via-[rgba(4,14,40,0.35)] to-transparent" />
                   <div className="absolute inset-x-0 bottom-0 p-4 text-white md:p-5">
@@ -234,7 +235,7 @@ export default function HomeView({ gallery }: { gallery: GalleryEvent[] }) {
       )}
 
       {/* Closing call to action */}
-      <section className="relative isolate overflow-hidden bg-brand text-white">
+      <section className="relative isolate overflow-clip bg-brand text-white">
         <Watercolor
           color="gelb"
           variant={6}
@@ -243,7 +244,7 @@ export default function HomeView({ gallery }: { gallery: GalleryEvent[] }) {
         <div className="mx-auto flex max-w-7xl flex-col items-start gap-8 px-5 py-20 sm:px-8 md:flex-row md:items-end md:justify-between md:py-24">
           <div className="max-w-2xl">
             <Stripes className="mb-6 w-14 text-white/70" />
-            <h2 className="display text-[clamp(3rem,7vw,5.5rem)]">{t("cta.title")}</h2>
+            <h2 className="reveal display text-[clamp(3rem,7vw,5.5rem)]">{t("cta.title")}</h2>
             <p className="mt-5 text-xl leading-relaxed text-brand-mist">
               {t("cta.description")}
             </p>

@@ -616,49 +616,89 @@
     ],
     "motion": [
       {
+        "name": "durations",
+        "value": "--dur-fast 160ms, --dur-base 220ms, --dur-slow 360ms, --dur-hero 640ms",
+        "purpose": "Shared durations on :root; reduced motion shortens base, slow and hero."
+      },
+      {
+        "name": "ease-out",
+        "value": "cubic-bezier(0.23, 1, 0.32, 1)",
+        "purpose": "Entrances, reveals, state changes and the route crossfade (--ease-out)."
+      },
+      {
+        "name": "ease-spring",
+        "value": "linear() damped spring, about 9 percent overshoot",
+        "purpose": "Nav indicator slide only. Too small to see on press or small rotations."
+      },
+      {
         "name": "ease-out-expo",
         "value": "cubic-bezier(0.16, 1, 0.3, 1)",
-        "purpose": "Shared easing (--ease-out-expo) for card lifts, photo zooms, the nav bar and the quote deck."
+        "purpose": "Quote deck shuffle (--ease-out-expo)."
       },
       {
         "name": "button-state",
-        "value": "150ms ease-out",
-        "purpose": "Button colour, shadow and 1px press."
+        "value": "160ms ease-out, press scale 0.97",
+        "purpose": "Button colour, shadow and press."
       },
       {
         "name": "card-lift",
-        "value": "300ms ease-out-expo, translateY(-2px)",
-        "purpose": "Event card hover and focus-within."
+        "value": "220ms ease-out, translateY(-2px)",
+        "purpose": "Event card hover only; never on keyboard focus."
       },
       {
         "name": "photo-zoom",
-        "value": "700ms ease-out-expo, scale(1.03 to 1.04)",
+        "value": "300ms ease-out, scale(1.04)",
         "purpose": "Photo tiles and event images on hover."
       },
       {
         "name": "nav-bar",
-        "value": "300ms ease-out-expo, scaleX from left",
-        "purpose": "3px marker bar under header links."
+        "value": "220ms ease-out, scaleX from left; active bar slides between links (280ms ease-spring)",
+        "purpose": "3px marker bar under header links; view-transition-name nav-indicator."
       },
       {
         "name": "arrow-nudge",
-        "value": "300ms ease-out, translateX(4px)",
+        "value": "220ms ease-out, translateX(4px)",
         "purpose": "Trailing arrows on text links and event rows."
       },
       {
+        "name": "hero-entrance",
+        "value": "640ms ease-out; headline clip reveal and stripes at 0ms, intro +70ms, buttons +140ms, deck settle +210ms",
+        "purpose": "Home hero only, CSS keyframes on server-rendered markup, about 850ms total."
+      },
+      {
+        "name": "watercolor-bloom",
+        "value": "Scroll: opacity 0 and scale(0.85) to 1, scroll-driven. Load: scale(0.85) to 1 over 900ms with no fade, because the hero splash is the desktop LCP element.",
+        "purpose": "Signature moment. GPU only (no mask animation). Fade under reduced motion; the load bloom is off."
+      },
+      {
+        "name": "scroll-reveal",
+        "value": "animation-timeline: view() with ease-out, rise 18px or scale 0.97 with fade",
+        "purpose": "Home pillars, gallery tiles, CTA headline, About portrait settle. Static where unsupported."
+      },
+      {
+        "name": "route-crossfade",
+        "value": "280ms ease-out, nav-typed navigations only",
+        "purpose": "React <ViewTransition> around page content; 150ms fade under reduced motion."
+      },
+      {
+        "name": "overlays",
+        "value": "dialog 220ms in, 160ms out; sheet 360ms in, 240ms out on cubic-bezier(0.32, 0.72, 0, 1) with matching overlay; menus, selects and tooltips 150ms ease-out from the trigger origin",
+        "purpose": "tailwindcss-animate enter/exit; zoom and slide drop under reduced motion."
+      },
+      {
         "name": "quote-deck",
-        "value": "700ms ease-out-expo, every 6000ms",
+        "value": "700ms ease-out-expo, every 6000ms; full transform strings (translate, scale, rotate) so Motion can run them on the compositor",
         "purpose": "Quote card shuffle; pauses on hover and focus; 200ms fade and no autoplay under reduced motion."
       },
       {
-        "name": "print-straighten",
-        "value": "500ms ease-out-expo, rotate(-2deg) to 0",
-        "purpose": "Leadership portrait on hover."
+        "name": "reduced-motion",
+        "value": "distance tokens 0, press scale 1, shorter durations",
+        "purpose": "Movement drops, short fades stay."
       },
       {
-        "name": "reduced-motion",
-        "value": "0.01ms",
-        "purpose": "Global kill for animations and transitions under prefers-reduced-motion."
+        "name": "hover-gating",
+        "value": "@media (hover: hover) and (pointer: fine)",
+        "purpose": "Custom hover variant in globals.css; touch screens never get hover motion."
       }
     ],
     "breakpoints": [

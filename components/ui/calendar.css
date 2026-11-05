@@ -1,0 +1,2 @@
+/* Day picker base styles, loaded only where the calendar renders (admin event form). */
+@import 'react-day-picker/dist/style.css' layer(base);

@@ -4,7 +4,7 @@ import { EventCard } from "@/components/events/EventCard";
 import { EventGridSkeleton } from "@/components/events/EventGridSkeleton";
 import { PageHero } from "@/components/brand/PageHero";
 import { Button } from "@/components/ui/button";
-import Link from "next/link";
+import Link from "@/components/TransitionLink";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
