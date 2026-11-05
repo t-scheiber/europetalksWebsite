@@ -63,7 +63,7 @@ To create a space where Europeans can share ideas, celebrate cultural diversity,
 ### Frontend
 
 - **Framework**: [Next.js 16](https://nextjs.org/) (App Router, webpack production build)
-- **React**: 19.2 with Server Components
+- **React**: 19.3 with Server Components
 - **Styling**: [Tailwind CSS 4](https://tailwindcss.com/) with design tokens in `app/globals.css` (see [DESIGN.md](DESIGN.md))
 - **UI Components**: [Radix UI](https://www.radix-ui.com/)
 - **Animations**: CSS motion tokens, scroll-driven reveals and React `<ViewTransition>` route crossfades; [Motion](https://motion.dev/) for the quote deck
