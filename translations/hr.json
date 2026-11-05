@@ -47,6 +47,13 @@
     },
     "getToKnowUs": {
       "title": "Upoznaj nas."
+    },
+    "quotes": {
+      "previous": "Prethodni citat",
+      "next": "Sljedeći citat",
+      "pause": "Pauziraj citate",
+      "play": "Pokreni citate",
+      "label": "Citati članova"
     }
   },
   "about": {
@@ -127,7 +134,9 @@
       },
       "submitting": "Prijava...",
       "errorMessage": "Registracija nije uspjela. Molimo pokušajte ponovno.",
-      "successMessage": "Uspješno ste se prijavili za događaj."
+      "successMessage": "Uspješno ste se prijavili za događaj.",
+      "description": "Ispunite ovaj obrazac za prijavu na {{eventTitle}}. Navedite svoje osobne podatke i sve podatke potrebne za događaj.",
+      "termsAndConditions": "Uvjeti sudjelovanja"
     },
     "eventCard": {
       "date": "Datum",
@@ -139,12 +148,26 @@
       "location": "Lokacija",
       "readMore": "Pročitaj više",
       "eventEnded": "Događaj je završio",
-      "registrationClosed": "Registracija zatvorena"
+      "registrationClosed": "Registracija zatvorena",
+      "registrationOpen": "Prijave otvorene",
+      "registrationNotStarted": "Prijave još nisu počele",
+      "registrationNotStartedMessage": "Prijave još nisu počele. Provjerite ponovno kasnije.",
+      "registrationEndedMessage": "Razdoblje prijava je završilo. Prijave se više ne primaju.",
+      "registrationPeriod": "Prijave: {{start}} – {{end}}",
+      "registrationOpenUntil": "Prijave otvorene do početka događaja ({{date}})",
+      "registrationOpenUntilStart": "Prijave otvorene do početka događaja",
+      "now": "sada"
     },
     "pastEvents": {
       "title": "Prethodni događaji",
       "noEvents": "Nema prošlih događaja",
       "viewUpcomingEvents": "Pogledajte nadolazeće događaje"
+    },
+    "errorLoading": "Došlo je do greške pri učitavanju događaja.",
+    "tryAgain": "Pokušajte ponovno kasnije.",
+    "refresh": "Osvježi",
+    "eventDetails": {
+      "description": "Detalji događaja: datum, mjesto, prijava i opis."
     }
   },
   "header": {
@@ -170,7 +193,13 @@
       "email": "Email",
       "submit": "Pošalji Poruku",
       "message": "Poruka",
-      "subject": "Predmet"
+      "subject": "Predmet",
+      "errors": {
+        "nameRequired": "Ime je obavezno",
+        "emailInvalid": "Neispravna e-mail adresa",
+        "subjectRequired": "Predmet je obavezan",
+        "messageMinLength": "Poruka mora imati najmanje 10 znakova"
+      }
     },
     "info": {
       "email": "Pošaljite nam e-poštu na:",
@@ -178,10 +207,23 @@
       "social": "Pratite nas na društvenim mrežama:"
     },
     "title": "Kontaktirajte nas",
-    "description": "Kontaktirajte nas za sva pitanja:"
+    "description": "Kontaktirajte nas za sva pitanja:",
+    "success": {
+      "title": "Uspjeh",
+      "messageSent": "Vaša poruka je poslana."
+    },
+    "error": {
+      "title": "Greška",
+      "messageFailed": "Slanje poruke nije uspjelo. Pokušajte ponovno."
+    },
+    "sending": "Slanje…"
   },
   "gallery": {
-    "title": "Galerija"
+    "title": "Galerija",
+    "photos": "Fotografije: {{count}}",
+    "close": "Zatvori",
+    "previous": "Prethodna fotografija",
+    "next": "Sljedeća fotografija"
   },
   "components": {
     "theme": {
@@ -192,11 +234,31 @@
       "eventEnded": "Događaj je završio"
     },
     "languageSelector": {
-      "label": "Odaberite jezik"
+      "label": "Odaberite jezik",
+      "success": "Uspjeh",
+      "languageChanged": "Jezik promijenjen u {{language}}",
+      "error": "Greška",
+      "errorMessage": "Promjena jezika nije uspjela. Pokušajte ponovno."
     },
     "languageDetection": {
       "switchTo": "Prebaci na {{jezik}}",
       "available": "Ova web stranica dostupna je na vašem jeziku!"
+    },
+    "translationEditor": {
+      "selectLanguage": "Odaberite jezik",
+      "selectNamespace": "Odaberite namespace",
+      "success": "Uspjeh",
+      "translationsSaved": "Prijevodi su spremljeni",
+      "error": "Greška",
+      "saveFailed": "Spremanje prijevoda nije uspjelo"
     }
+  },
+  "footer": {
+    "legalNotice": "Pravna napomena",
+    "privacyPolicy": "Pravila privatnosti",
+    "facebook": "Facebook",
+    "youtube": "YouTube",
+    "instagram": "Instagram",
+    "email": "E-mail"
   }
 }

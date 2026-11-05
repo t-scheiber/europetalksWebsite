@@ -11,6 +11,8 @@ interface WatercolorProps {
   priority?: boolean;
   /** "fill" stretches the splash to the box, for strokes behind headings. */
   fit?: "contain" | "fill";
+  /** Paint spreads in once on page load, or as the splash scrolls into view. */
+  bloom?: "load" | "scroll";
 }
 
 /**
@@ -23,6 +25,7 @@ export function Watercolor({
   className,
   priority = false,
   fit = "contain",
+  bloom,
 }: WatercolorProps) {
   return (
     <div
@@ -39,7 +42,11 @@ export function Watercolor({
         priority={priority}
         sizes="(max-width: 768px) 90vw, 50vw"
         quality={60}
-        className={fit === "fill" ? "object-fill" : "object-contain"}
+        className={cn(
+          fit === "fill" ? "object-fill" : "object-contain",
+          bloom === "load" && "bloom-load",
+          bloom === "scroll" && "bloom-scroll"
+        )}
       />
     </div>
   );

@@ -5,7 +5,7 @@ import { EventGridSkeleton } from "@/components/events/EventGridSkeleton";
 import { PageHero } from "@/components/brand/PageHero";
 import { Watercolor } from "@/components/brand/Watercolor";
 import { Button } from "@/components/ui/button";
-import Link from "next/link";
+import Link from "@/components/TransitionLink";
 import { useTranslation } from "react-i18next";
 import useSWR from "swr";
 

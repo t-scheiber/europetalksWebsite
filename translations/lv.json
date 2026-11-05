@@ -47,6 +47,13 @@
     },
     "getToKnowUs": {
       "title": "Iepazīsti mūs"
+    },
+    "quotes": {
+      "previous": "Iepriekšējais citāts",
+      "next": "Nākamais citāts",
+      "pause": "Apturēt citātus",
+      "play": "Atskaņot citātus",
+      "label": "Biedru citāti"
     }
   },
   "about": {
@@ -150,14 +157,18 @@
       "registrationNotStarted": "Reģistrācija vēl nav sākusies",
       "registrationEndedMessage": "Reģistrācijas periods ir beidzies. Jaunas pieteikšanās vairs netiek pieņemtas.",
       "registrationOpenUntilStart": "Reģistrācija atvērta līdz pasākuma sākumam",
-      "registrationNotStartedMessage": "Reģistrācija vēl nav sākusies. Lūdzu, pārbaudi vēlāk."
+      "registrationNotStartedMessage": "Reģistrācija vēl nav sākusies. Lūdzu, pārbaudi vēlāk.",
+      "now": "tagad"
     },
     "pastEvents": {
       "title": "Iepriekšējie pasākumi",
       "noEvents": "Nav atrastu iepriekšējo pasākumu",
       "viewUpcomingEvents": "Skatīt gaidāmos pasākumus"
     },
-    "errorLoading": "Notikusi kļūda, ielādējot pasākumus."
+    "errorLoading": "Notikusi kļūda, ielādējot pasākumus.",
+    "eventDetails": {
+      "description": "Pasākuma informācija: datums, vieta, reģistrācija un apraksts."
+    }
   },
   "header": {
     "other": {
@@ -208,7 +219,11 @@
     "description": "Sazinies ar mums, ja tev ir kādi jautājumi vai neskaidrības."
   },
   "gallery": {
-    "title": "Galerija"
+    "title": "Galerija",
+    "photos": "Fotogrāfijas: {{count}}",
+    "close": "Aizvērt",
+    "previous": "Iepriekšējā fotogrāfija",
+    "next": "Nākamā fotogrāfija"
   },
   "components": {
     "theme": {
@@ -237,5 +252,13 @@
       "selectNamespace": "Izvēlies namespace",
       "translationsSaved": "Tulkojumi veiksmīgi saglabāti"
     }
+  },
+  "footer": {
+    "legalNotice": "Juridiskā informācija",
+    "privacyPolicy": "Privātuma politika",
+    "facebook": "Facebook",
+    "youtube": "YouTube",
+    "instagram": "Instagram",
+    "email": "E-pasts"
   }
 }

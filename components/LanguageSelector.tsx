@@ -39,10 +39,12 @@ export function LanguageSelector() {
     try {
       setIsChanging(true);
       await i18n.changeLanguage(langCode);
-      
+      // `t` from this render is still bound to the previous language.
+      const tNew = i18n.getFixedT(langCode, "components");
+
       toast({
-        title: t("languageSelector.success"),
-        description: t("languageSelector.languageChanged", {
+        title: tNew("languageSelector.success"),
+        description: tNew("languageSelector.languageChanged", {
           language: languages.find(lang => lang.code === langCode)?.name || langCode
         }),
       });

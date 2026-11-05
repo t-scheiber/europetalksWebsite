@@ -172,7 +172,8 @@
       "location": "Location",
       "online": "Online",
       "hybrid": "Hybrid",
-      "inPerson": "In Person"
+      "inPerson": "In Person",
+      "now": "now"
     },
     "signUp": {
       "title": "Sign Up for",
@@ -204,7 +205,10 @@
     },
     "errorLoading": "An error occurred while loading events.",
     "tryAgain": "Please try again later.",
-    "refresh": "Refresh"
+    "refresh": "Refresh",
+    "eventDetails": {
+      "description": "Event details: date, location, registration and description."
+    }
   },
   "gallery": {
     "title": "Gallery",

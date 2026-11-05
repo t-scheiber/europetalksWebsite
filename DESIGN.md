@@ -204,7 +204,7 @@ components:
 
 The site reads like a campaign poster for a real network. Big condensed caps, a field of logo blue and the faces and words of actual members carry the message. Every brand band (header, home hero, inner page heads, the closing call to action) is one continuous slab of the logo's EU blue, and the header merges into it so the top of each page reads as a single printed sheet. Paper sections between the bands are calm and cool white, set in Sofia Sans at reading size, so the poster moments have room to hit.
 
-The hand-made layer comes from the brand's own materials. Hand-painted watercolor splashes in red, yellow, blue and green sit behind section headings like a marker stroke on a printed flyer. The three white bars from the top of the logo open each blue band. Member quote cards and event photos are the proof; stock imagery stays secondary. Motion is short and physical: cards lift by 2px, photos zoom 3 to 4 percent, and the quote deck fans and shuffles.
+The hand-made layer comes from the brand's own materials. Hand-painted watercolor splashes in red, yellow, blue and green sit behind section headings like a marker stroke on a printed flyer. The three white bars from the top of the logo open each blue band. Member quote cards and event photos are the proof; stock imagery stays secondary. Motion is short, warm and physical: buttons press down to 0.97, cards lift 2px, photos zoom 4 percent, the home hero assembles in about 850ms, watercolor splashes spread like paint as they come into view, and the quote deck fans and shuffles.
 
 The world was set against one specific look: a darkened stock-photo hero with centred typewriter text above three identical image cards. Nothing in this system should drift back toward it.
 
@@ -231,7 +231,7 @@ A two-colour brand (logo blue and marker yellow) over cool blue-tinted neutrals,
 
 ### Tertiary
 - **Series Red / Series Blue / Series Green**, plus marker yellow: the event series dots, matched to the watercolor of the same series (see The Series Colour Rule).
-- **Status washes** (open green, soon yellow): registration badges on event cards. Closed reuses Muted Wash with Slate Ink.
+- **Status washes** (open green, soon yellow): registration badges on event cards and in the event details dialog. Closed reuses Muted Wash with Slate Ink.
 
 ### Neutral
 - **Paper** (`--background`): page background in light mode, a blue-tinted white.
@@ -322,7 +322,7 @@ Firm, poster-flat buttons with one bright exception.
 - **Marker:** marker yellow fill, navy ink, marker glow; hover brightens to Marker Yellow Bright. The default action on every blue field, usually with a trailing arrow icon.
 - **Inverse:** transparent with a 1px white border at 70 percent and white text; hover fills white with logo blue text. Always paired as the second action next to a marker button on blue.
 - **Secondary / Outline / Ghost:** Blue Wash fill, or a 1px input border on paper; hover moves to Blue Wash. Disabled event signups fall back to secondary.
-- **States:** 150ms colour transition, 1px press-down on active, 50 percent opacity when disabled. Focus is a 3px ring with 2px offset: Ring Blue on paper, marker yellow inside blue fields (`.bg-brand`, `.bg-brand-deep` remap `--ring`) and in dark mode.
+- **States:** 160ms colour transition (`--dur-fast`, `--ease-out`), press scales to 0.97 over 160ms ease-out, 50 percent opacity when disabled. Focus is a 3px ring with 2px offset: Ring Blue on paper, marker yellow inside blue fields (`.bg-brand`, `.bg-brand-deep` remap `--ring`) and in dark mode.
 - **Text links as actions:** bold logo blue (white in dark) with a 3px marker underline at 6px offset and an arrow that nudges 4px right on hover.
 
 ### Chips
@@ -342,7 +342,7 @@ Firm, poster-flat buttons with one bright exception.
 - **Error / Disabled:** errors use Signal Red text below the field; disabled fields drop to 50 percent opacity.
 
 ### Navigation
-- **Header:** sticky, 64px, logo blue, logo image at full header height on the left. Desktop links are Sofia Sans semibold 15px with slight tracking, white at 75 percent; the active and hovered link turns white and grows a 3px marker bar along the bottom edge (scale-x from the left, 300ms, ease-out-expo).
+- **Header:** sticky, 64px, logo blue, logo image at full header height on the left. Desktop links are Sofia Sans semibold 15px with slight tracking, white at 75 percent; the active and hovered link turns white and grows a 3px marker bar along the bottom edge (scale-x from the left, 220ms, `--ease-out`). The active link's bar is a real element named `nav-indicator`, so on navigation it slides to the new link inside the route view transition.
 - **Mobile:** a logo blue sheet from the right. Links are display caps at 3rem, white, marker yellow when active or hovered. The stripes mark closes the sheet at the bottom.
 - **Footer:** deep blue. Logo, the tagline in Blue Mist and the email link with a 2px marker underline on the left; footer nav as display caps at 1.875rem; social links with 40px circular icon frames that fill marker yellow on hover. A small stripes mark and the copyright sit above a 15 percent white hairline.
 
@@ -371,7 +371,10 @@ Event photos as full-bleed 14px tiles on a deep blue backing. A navy scrim rises
 - **Do** pick heading watercolor strokes only from blau 1/7/8, rot 1/5/6, gelb 1/6/8 and grün 4-7.
 - **Do** colour-code event series through `seriesColor()` and `seriesDot` from `lib/event-series.ts`.
 - **Do** tint shadows with navy ink (`--brand-ink`) and add a hairline white ring to cards in dark mode.
-- **Do** use the shared easing `--ease-out-expo` (cubic-bezier(0.16, 1, 0.3, 1)) for lifts, zooms, the nav bar and the quote deck, and keep every animation off under `prefers-reduced-motion`.
+- **Do** use the motion tokens in `app/globals.css`: `--dur-fast` 160ms, `--dur-base` 220ms, `--dur-slow` 360ms, `--dur-hero` 640ms, `--ease-out` (cubic-bezier(0.23, 1, 0.32, 1)) for entrances and state changes, and `--ease-spring` (about 9 percent overshoot) only for the nav indicator slide, where the distance is large enough for the overshoot to show. Hover motion uses the project's `hover:` variant, which requires `(hover: hover) and (pointer: fine)`. Radix overlays scale from their trigger with `origin-(--radix-…-transform-origin)`. Never animate on keyboard focus. Under `prefers-reduced-motion` the distance tokens drop to zero, so motion becomes short fades rather than nothing.
+- **Do** format dates with `lib/format-date.ts` (Intl in the active i18n language). date-fns `format` without a locale always prints English.
+- **Do** link internally with `@/components/TransitionLink` (or `PrefetchLink`). It tags navigations with the `nav` type, which is the only thing the page `<ViewTransition>` in `app/layout.tsx` crossfades.
+- **Don't** put scroll-driven reveals (`.reveal`, `.reveal-scale`, `.reveal-settle`, `.bloom-scroll`) inside an `overflow: hidden` ancestor. That makes the ancestor the scroll container and the reveal never plays; use `overflow-clip` instead.
 - **Do** use Ring Blue for focus indicators on paper surfaces, as inputs already do.
 
 ### Don't:

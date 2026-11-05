@@ -47,6 +47,13 @@
     },
     "getToKnowUs": {
       "title": "Leer ons kennen"
+    },
+    "quotes": {
+      "previous": "Vorig citaat",
+      "next": "Volgend citaat",
+      "pause": "Citaten pauzeren",
+      "play": "Citaten afspelen",
+      "label": "Citaten van leden"
     }
   },
   "about": {
@@ -100,7 +107,8 @@
     "events": {
       "title": "Evenementen",
       "loading": "Gebeurtenissen aan het laden...",
-      "viewPastEvents": "Bekijk eerdere evenementen"
+      "viewPastEvents": "Bekijk eerdere evenementen",
+      "noEvents": "Geen komende evenementen gevonden, kom later terug!"
     },
     "signUp": {
       "email": {
@@ -126,7 +134,9 @@
       },
       "submitting": "Aanmelden...",
       "errorMessage": "Aanmelden mislukt. Probeer het opnieuw.",
-      "successMessage": "Je hebt je met succes aangemeld voor het evenement."
+      "successMessage": "Je hebt je met succes aangemeld voor het evenement.",
+      "description": "Vul dit formulier in om je aan te melden voor {{eventTitle}}. Geef je persoonlijke gegevens en de informatie die het evenement nodig heeft.",
+      "termsAndConditions": "Algemene voorwaarden"
     },
     "eventCard": {
       "date": "Datum",
@@ -137,12 +147,27 @@
       "inPerson": "Persoonlijk",
       "location": "Locatie",
       "readMore": "Meer lezen",
-      "eventEnded": "Evenement beëindigd"
+      "eventEnded": "Evenement beëindigd",
+      "registrationOpen": "Aanmelding open",
+      "registrationNotStarted": "Aanmelding nog niet gestart",
+      "registrationNotStartedMessage": "De aanmelding is nog niet begonnen. Kijk later nog eens.",
+      "registrationEndedMessage": "De aanmeldperiode is voorbij. Er worden geen aanmeldingen meer aangenomen.",
+      "registrationPeriod": "Aanmelden: {{start}} tot {{end}}",
+      "registrationOpenUntil": "Aanmelding open tot het evenement begint ({{date}})",
+      "registrationOpenUntilStart": "Aanmelding open tot het evenement begint",
+      "registrationClosed": "Aanmelding gesloten",
+      "now": "nu"
     },
     "pastEvents": {
       "title": "Gebeurtenissen in het verleden",
       "noEvents": "Geen evenementen gevonden",
       "viewUpcomingEvents": "Komende evenementen bekijken"
+    },
+    "errorLoading": "Er ging iets mis bij het laden van de evenementen.",
+    "tryAgain": "Probeer het later opnieuw.",
+    "refresh": "Vernieuwen",
+    "eventDetails": {
+      "description": "Details van het evenement: datum, locatie, aanmelding en beschrijving."
     }
   },
   "header": {
@@ -168,7 +193,13 @@
       "email": "Email",
       "submit": "Send Message",
       "message": "Bericht",
-      "subject": "Onderwerp"
+      "subject": "Onderwerp",
+      "errors": {
+        "nameRequired": "Naam is verplicht",
+        "emailInvalid": "Ongeldig e-mailadres",
+        "subjectRequired": "Onderwerp is verplicht",
+        "messageMinLength": "Het bericht moet minstens 10 tekens bevatten"
+      }
     },
     "info": {
       "email": "Email ons op:",
@@ -176,10 +207,23 @@
       "social": "Volg ons op sociale media:"
     },
     "title": "Neem contact met ons op",
-    "description": "Neem contact met ons op voor vragen."
+    "description": "Neem contact met ons op voor vragen.",
+    "success": {
+      "title": "Gelukt",
+      "messageSent": "Je bericht is verzonden."
+    },
+    "error": {
+      "title": "Fout",
+      "messageFailed": "Het bericht kon niet worden verzonden. Probeer het opnieuw."
+    },
+    "sending": "Bezig met verzenden…"
   },
   "gallery": {
-    "title": "Gallery"
+    "title": "Gallery",
+    "photos": "{{count}} foto's",
+    "close": "Sluiten",
+    "previous": "Vorige foto",
+    "next": "Volgende foto"
   },
   "components": {
     "theme": {
@@ -190,11 +234,31 @@
       "eventEnded": "Evenement beëindigd"
     },
     "languageSelector": {
-      "label": "Selecteer taal"
+      "label": "Selecteer taal",
+      "success": "Gelukt",
+      "languageChanged": "Taal gewijzigd naar {{language}}",
+      "error": "Fout",
+      "errorMessage": "De taal kon niet worden gewijzigd. Probeer het opnieuw."
     },
     "languageDetection": {
       "switchTo": "Schakel over naar {{taal}}",
       "available": "Deze website is beschikbaar in jouw taal!"
+    },
+    "translationEditor": {
+      "selectLanguage": "Kies een taal",
+      "selectNamespace": "Kies een namespace",
+      "success": "Gelukt",
+      "translationsSaved": "Vertalingen opgeslagen",
+      "error": "Fout",
+      "saveFailed": "Vertalingen konden niet worden opgeslagen"
     }
+  },
+  "footer": {
+    "legalNotice": "Juridische informatie",
+    "privacyPolicy": "Privacybeleid",
+    "facebook": "Facebook",
+    "youtube": "YouTube",
+    "instagram": "Instagram",
+    "email": "E-mail"
   }
 }
