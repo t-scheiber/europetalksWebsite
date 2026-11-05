@@ -1,0 +1,885 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-05T11:34:37.136Z",
+  "title": "Design System: EuropeTalks",
+  "extensions": {
+    "colorMeta": {
+      "logo-blue": {
+        "role": "primary",
+        "displayName": "Logo Blue",
+        "canonical": "hsl(215 86% 31%)",
+        "source": "--brand",
+        "tonalRamp": [
+          "#052147",
+          "#09397B",
+          "#0D51AF",
+          "#1169E4",
+          "#3D87F0",
+          "#71A8F4",
+          "#AACBF9",
+          "#E7F0FD"
+        ]
+      },
+      "deep-blue": {
+        "role": "secondary",
+        "displayName": "Deep Blue",
+        "canonical": "hsl(217 82% 17%)",
+        "source": "--brand-deep",
+        "tonalRamp": [
+          "#071F46",
+          "#0C3679",
+          "#114CAC",
+          "#1663DF",
+          "#4182EC",
+          "#74A4F1",
+          "#ABC8F7",
+          "#E8F0FD"
+        ]
+      },
+      "night-band": {
+        "role": "secondary",
+        "displayName": "Night Band",
+        "canonical": "hsl(222 70% 9%)",
+        "source": "--brand-deep (.dark)",
+        "tonalRamp": [
+          "#0B1C41",
+          "#143071",
+          "#1C44A0",
+          "#2558D0",
+          "#4D79E0",
+          "#7D9DE8",
+          "#B1C4F1",
+          "#E9EFFB"
+        ]
+      },
+      "navy-ink": {
+        "role": "neutral",
+        "displayName": "Navy Ink",
+        "canonical": "hsl(220 71% 13%)",
+        "source": "--brand-ink",
+        "tonalRamp": [
+          "#0B1D41",
+          "#133371",
+          "#1B48A1",
+          "#235DD1",
+          "#4C7EE1",
+          "#7CA0E9",
+          "#B1C6F2",
+          "#E9EFFB"
+        ]
+      },
+      "blue-mist": {
+        "role": "secondary",
+        "displayName": "Blue Mist",
+        "canonical": "hsl(214 70% 88%)",
+        "source": "--brand-mist",
+        "tonalRamp": [
+          "#0B2341",
+          "#143C71",
+          "#1C56A0",
+          "#256FD0",
+          "#4D8DE0",
+          "#7DABE8",
+          "#B1CDF1",
+          "#E9F1FB"
+        ]
+      },
+      "marker-yellow": {
+        "role": "primary",
+        "displayName": "Marker Yellow",
+        "canonical": "hsl(46 90% 62%)",
+        "source": "--marker",
+        "tonalRamp": [
+          "#493904",
+          "#7E6207",
+          "#B38C09",
+          "#E9B50C",
+          "#F5C938",
+          "#F7D76E",
+          "#FAE7A8",
+          "#FEF8E7"
+        ]
+      },
+      "marker-yellow-bright": {
+        "role": "primary",
+        "displayName": "Marker Yellow Bright",
+        "canonical": "hsl(46 95% 68%)",
+        "source": "literal in components/ui/button.tsx marker hover",
+        "tonalRamp": [
+          "#4B3A02",
+          "#816403",
+          "#B88E05",
+          "#EFB806",
+          "#FACB33",
+          "#FBD96A",
+          "#FDE8A5",
+          "#FEF9E6"
+        ]
+      },
+      "paper": {
+        "role": "neutral",
+        "displayName": "Paper",
+        "canonical": "hsl(220 45% 98%)",
+        "source": "--background",
+        "tonalRamp": [
+          "#152137",
+          "#243860",
+          "#345089",
+          "#4368B1",
+          "#6787C5",
+          "#90A7D5",
+          "#BCCAE6",
+          "#EDF0F8"
+        ]
+      },
+      "card-white": {
+        "role": "neutral",
+        "displayName": "Card White",
+        "canonical": "hsl(0 0% 100%)",
+        "source": "--card",
+        "tonalRamp": [
+          "#262626",
+          "#424242",
+          "#5E5E5E",
+          "#7A7A7A",
+          "#969696",
+          "#B3B3B3",
+          "#D1D1D1",
+          "#F2F2F2"
+        ]
+      },
+      "blue-wash": {
+        "role": "neutral",
+        "displayName": "Blue Wash",
+        "canonical": "hsl(216 60% 94%)",
+        "source": "--secondary",
+        "tonalRamp": [
+          "#0F223D",
+          "#1B3A6A",
+          "#265397",
+          "#316CC4",
+          "#588AD5",
+          "#85A9E0",
+          "#B6CCED",
+          "#EBF1FA"
+        ]
+      },
+      "blue-wash-ink": {
+        "role": "neutral",
+        "displayName": "Blue Wash Ink",
+        "canonical": "hsl(215 86% 24%)",
+        "source": "--secondary-foreground",
+        "tonalRamp": [
+          "#052147",
+          "#09397B",
+          "#0D51AF",
+          "#1169E4",
+          "#3D87F0",
+          "#71A8F4",
+          "#AACBF9",
+          "#E7F0FD"
+        ]
+      },
+      "muted-wash": {
+        "role": "neutral",
+        "displayName": "Muted Wash",
+        "canonical": "hsl(218 42% 94%)",
+        "source": "--muted",
+        "tonalRamp": [
+          "#162236",
+          "#263B5E",
+          "#375486",
+          "#476DAE",
+          "#6B8BC2",
+          "#92AAD3",
+          "#BECCE4",
+          "#EDF1F8"
+        ]
+      },
+      "slate-ink": {
+        "role": "neutral",
+        "displayName": "Slate Ink",
+        "canonical": "hsl(220 24% 36%)",
+        "source": "--muted-foreground",
+        "tonalRamp": [
+          "#1D232F",
+          "#323D52",
+          "#485775",
+          "#5D7198",
+          "#7D8EB0",
+          "#A0ACC5",
+          "#C6CDDC",
+          "#EFF1F5"
+        ]
+      },
+      "border-blue-grey": {
+        "role": "neutral",
+        "displayName": "Border Blue-Grey",
+        "canonical": "hsl(218 35% 87%)",
+        "source": "--border",
+        "tonalRamp": [
+          "#192334",
+          "#2B3C5A",
+          "#3D567F",
+          "#506FA5",
+          "#728DBB",
+          "#98ABCD",
+          "#C1CDE1",
+          "#EEF1F7"
+        ]
+      },
+      "input-blue-grey": {
+        "role": "neutral",
+        "displayName": "Input Blue-Grey",
+        "canonical": "hsl(218 30% 80%)",
+        "source": "--input",
+        "tonalRamp": [
+          "#1B2332",
+          "#2E3D56",
+          "#42577B",
+          "#56719F",
+          "#778EB6",
+          "#9CACC9",
+          "#C3CDDF",
+          "#EEF1F6"
+        ]
+      },
+      "ring-blue": {
+        "role": "neutral",
+        "displayName": "Ring Blue",
+        "canonical": "hsl(215 86% 40%)",
+        "source": "--ring",
+        "tonalRamp": [
+          "#052147",
+          "#09397B",
+          "#0D51AF",
+          "#1169E4",
+          "#3D87F0",
+          "#71A8F4",
+          "#AACBF9",
+          "#E7F0FD"
+        ]
+      },
+      "signal-red": {
+        "role": "neutral",
+        "displayName": "Signal Red",
+        "canonical": "hsl(0 70% 46%)",
+        "source": "--destructive",
+        "tonalRamp": [
+          "#410B0B",
+          "#711414",
+          "#A01C1C",
+          "#D02525",
+          "#E04D4D",
+          "#E87D7D",
+          "#F1B1B1",
+          "#FBE9E9"
+        ]
+      },
+      "night": {
+        "role": "neutral",
+        "displayName": "Night",
+        "canonical": "hsl(222 58% 7%)",
+        "source": "--background (.dark)",
+        "tonalRamp": [
+          "#101D3C",
+          "#1C3369",
+          "#284895",
+          "#335EC1",
+          "#5A7ED3",
+          "#86A1DF",
+          "#B6C6EC",
+          "#EBEFFA"
+        ]
+      },
+      "night-card": {
+        "role": "neutral",
+        "displayName": "Night Card",
+        "canonical": "hsl(222 48% 11%)",
+        "source": "--card (.dark)",
+        "tonalRamp": [
+          "#141F39",
+          "#223662",
+          "#314C8C",
+          "#4063B5",
+          "#6482C9",
+          "#8EA4D7",
+          "#BBC8E7",
+          "#ECF0F8"
+        ]
+      },
+      "night-wash": {
+        "role": "neutral",
+        "displayName": "Night Wash",
+        "canonical": "hsl(222 40% 17%)",
+        "source": "--secondary (.dark)",
+        "tonalRamp": [
+          "#172036",
+          "#28385D",
+          "#394F84",
+          "#4967AB",
+          "#6D86C0",
+          "#94A6D1",
+          "#BFCAE3",
+          "#EDF0F7"
+        ]
+      },
+      "night-muted": {
+        "role": "neutral",
+        "displayName": "Night Muted",
+        "canonical": "hsl(222 40% 14%)",
+        "source": "--muted (.dark)",
+        "tonalRamp": [
+          "#172036",
+          "#28385D",
+          "#394F84",
+          "#4967AB",
+          "#6D86C0",
+          "#94A6D1",
+          "#BFCAE3",
+          "#EDF0F7"
+        ]
+      },
+      "night-text": {
+        "role": "neutral",
+        "displayName": "Night Text",
+        "canonical": "hsl(220 40% 95%)",
+        "source": "--foreground (.dark)",
+        "tonalRamp": [
+          "#172136",
+          "#28395D",
+          "#395284",
+          "#496AAB",
+          "#6D89C0",
+          "#94A8D1",
+          "#BFCBE3",
+          "#EDF1F7"
+        ]
+      },
+      "night-slate": {
+        "role": "neutral",
+        "displayName": "Night Slate",
+        "canonical": "hsl(220 26% 72%)",
+        "source": "--muted-foreground (.dark)",
+        "tonalRamp": [
+          "#1C2330",
+          "#313D54",
+          "#465677",
+          "#5B709A",
+          "#7B8DB2",
+          "#9FACC6",
+          "#C5CDDD",
+          "#EFF1F6"
+        ]
+      },
+      "night-border": {
+        "role": "neutral",
+        "displayName": "Night Border",
+        "canonical": "hsl(222 34% 20%)",
+        "source": "--border (.dark)",
+        "tonalRamp": [
+          "#192133",
+          "#2C3959",
+          "#3E527E",
+          "#516AA4",
+          "#7388BA",
+          "#98A8CD",
+          "#C1CBE1",
+          "#EEF1F7"
+        ]
+      },
+      "night-input": {
+        "role": "neutral",
+        "displayName": "Night Input",
+        "canonical": "hsl(222 30% 26%)",
+        "source": "--input (.dark)",
+        "tonalRamp": [
+          "#1B2232",
+          "#2E3A56",
+          "#42537B",
+          "#566C9F",
+          "#778AB6",
+          "#9CA9C9",
+          "#C3CCDF",
+          "#EEF1F6"
+        ]
+      },
+      "night-signal-red": {
+        "role": "neutral",
+        "displayName": "Night Signal Red",
+        "canonical": "hsl(0 72% 58%)",
+        "source": "--destructive (.dark)",
+        "tonalRamp": [
+          "#420B0B",
+          "#721313",
+          "#A21A1A",
+          "#D32222",
+          "#E24B4B",
+          "#EA7B7B",
+          "#F2B0B0",
+          "#FBE9E9"
+        ]
+      },
+      "series-red": {
+        "role": "tertiary",
+        "displayName": "Series Red",
+        "canonical": "hsl(0 68% 52%)",
+        "source": "seriesDot.rot in lib/event-series.ts",
+        "tonalRamp": [
+          "#400C0C",
+          "#6F1515",
+          "#9F1E1E",
+          "#CE2727",
+          "#DE4F4F",
+          "#E77E7E",
+          "#F0B2B2",
+          "#FBEAEA"
+        ]
+      },
+      "series-blue": {
+        "role": "tertiary",
+        "displayName": "Series Blue",
+        "canonical": "hsl(214 80% 52%)",
+        "source": "seriesDot.blau in lib/event-series.ts",
+        "tonalRamp": [
+          "#082245",
+          "#0D3B77",
+          "#1354AA",
+          "#186DDC",
+          "#438BEA",
+          "#75AAF0",
+          "#ACCCF6",
+          "#E8F1FC"
+        ]
+      },
+      "series-green": {
+        "role": "tertiary",
+        "displayName": "Series Green",
+        "canonical": "hsl(150 50% 40%)",
+        "source": "seriesDot.grün in lib/event-series.ts",
+        "tonalRamp": [
+          "#133926",
+          "#216342",
+          "#2F8E5E",
+          "#3DB87A",
+          "#62CB96",
+          "#8CD9B3",
+          "#BAE8D1",
+          "#ECF9F2"
+        ]
+      },
+      "status-open-wash": {
+        "role": "tertiary",
+        "displayName": "Status Open Wash",
+        "canonical": "hsl(150 55% 92%)",
+        "source": "badge variant open",
+        "tonalRamp": [
+          "#113B26",
+          "#1E6742",
+          "#2A925E",
+          "#37BE7A",
+          "#5DD096",
+          "#88DDB3",
+          "#B8EAD1",
+          "#EBF9F2"
+        ]
+      },
+      "status-open-ink": {
+        "role": "tertiary",
+        "displayName": "Status Open Ink",
+        "canonical": "hsl(152 60% 22%)",
+        "source": "badge variant open",
+        "tonalRamp": [
+          "#0F3D28",
+          "#1B6A45",
+          "#269762",
+          "#31C47F",
+          "#58D59B",
+          "#85E0B6",
+          "#B6EDD3",
+          "#EBFAF3"
+        ]
+      },
+      "status-soon-wash": {
+        "role": "tertiary",
+        "displayName": "Status Soon Wash",
+        "canonical": "hsl(46 95% 86%)",
+        "source": "badge variant soon",
+        "tonalRamp": [
+          "#4B3A02",
+          "#816403",
+          "#B88E05",
+          "#EFB806",
+          "#FACB33",
+          "#FBD96A",
+          "#FDE8A5",
+          "#FEF9E6"
+        ]
+      },
+      "status-soon-ink": {
+        "role": "tertiary",
+        "displayName": "Status Soon Ink",
+        "canonical": "hsl(36 75% 22%)",
+        "source": "badge variant soon",
+        "tonalRamp": [
+          "#432C0A",
+          "#744C11",
+          "#A56D18",
+          "#D68D1F",
+          "#E5A648",
+          "#ECBE79",
+          "#F4D8AF",
+          "#FCF4E9"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Home hero headline only. Uppercase via the .display class."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Inner page heads (PageHero) and the closing call-to-action band. Uppercase."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Section headings on paper. Uppercase."
+      },
+      "title-sm": {
+        "displayName": "Title Small",
+        "purpose": "Watercolor pillar headings, leadership name, mobile menu and footer nav links. Uppercase."
+      },
+      "card-title": {
+        "displayName": "Card Title",
+        "purpose": "Event card titles and upcoming-event rows, sentence case."
+      },
+      "lede": {
+        "displayName": "Lede",
+        "purpose": "First sentence under a hero; first paragraph of about sections."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Long reading, capped at 68ch (.measure)."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Header navigation links."
+      }
+    },
+    "shadows": [
+      {
+        "name": "card-rest",
+        "value": "0 1px 2px hsl(var(--brand-ink) / 0.06), 0 10px 30px -14px hsl(var(--brand-ink) / 0.28)",
+        "purpose": "Event cards at rest."
+      },
+      {
+        "name": "card-lift",
+        "value": "0 2px 4px hsl(var(--brand-ink) / 0.08), 0 22px 44px -18px hsl(var(--brand-ink) / 0.4)",
+        "purpose": "Event card hover and focus-within, with a 2px upward move."
+      },
+      {
+        "name": "panel",
+        "value": "0 1px 2px hsl(var(--brand-ink) / 0.06), 0 16px 40px -20px hsl(var(--brand-ink) / 0.35)",
+        "purpose": "Contact form panel."
+      },
+      {
+        "name": "leaf",
+        "value": "0 6px 20px -8px hsl(var(--brand-ink) / 0.45)",
+        "purpose": "Date block overlapping the card image."
+      },
+      {
+        "name": "print",
+        "value": "0 2px 4px hsl(var(--brand-ink) / 0.08), 0 18px 40px -16px hsl(var(--brand-ink) / 0.45)",
+        "purpose": "Framed leadership portrait."
+      },
+      {
+        "name": "deck",
+        "value": "0 24px 60px -20px rgba(3, 10, 35, 0.65)",
+        "purpose": "Quote cards on a blue field."
+      },
+      {
+        "name": "marker-glow",
+        "value": "0 2px 10px -2px hsl(var(--marker) / 0.5)",
+        "purpose": "Marker buttons only."
+      },
+      {
+        "name": "dark-ring-card",
+        "value": "0 0 0 1px rgb(255 255 255 / 0.05)",
+        "purpose": "Dark mode edge for cards and panels."
+      },
+      {
+        "name": "dark-ring-object",
+        "value": "0 0 0 1px rgb(255 255 255 / 0.15)",
+        "purpose": "Dark mode edge for date blocks and quote cards."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-out-expo",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Shared easing (--ease-out-expo) for card lifts, photo zooms, the nav bar and the quote deck."
+      },
+      {
+        "name": "button-state",
+        "value": "150ms ease-out",
+        "purpose": "Button colour, shadow and 1px press."
+      },
+      {
+        "name": "card-lift",
+        "value": "300ms ease-out-expo, translateY(-2px)",
+        "purpose": "Event card hover and focus-within."
+      },
+      {
+        "name": "photo-zoom",
+        "value": "700ms ease-out-expo, scale(1.03 to 1.04)",
+        "purpose": "Photo tiles and event images on hover."
+      },
+      {
+        "name": "nav-bar",
+        "value": "300ms ease-out-expo, scaleX from left",
+        "purpose": "3px marker bar under header links."
+      },
+      {
+        "name": "arrow-nudge",
+        "value": "300ms ease-out, translateX(4px)",
+        "purpose": "Trailing arrows on text links and event rows."
+      },
+      {
+        "name": "quote-deck",
+        "value": "700ms ease-out-expo, every 6000ms",
+        "purpose": "Quote card shuffle; pauses on hover and focus; 200ms fade and no autoplay under reduced motion."
+      },
+      {
+        "name": "print-straighten",
+        "value": "500ms ease-out-expo, rotate(-2deg) to 0",
+        "purpose": "Leadership portrait on hover."
+      },
+      {
+        "name": "reduced-motion",
+        "value": "0.01ms",
+        "purpose": "Global kill for animations and transitions under prefers-reduced-motion."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "sm",
+        "value": "640px"
+      },
+      {
+        "name": "md",
+        "value": "768px"
+      },
+      {
+        "name": "lg",
+        "value": "1024px"
+      },
+      {
+        "name": "container",
+        "value": "1280px"
+      }
+    ],
+    "watercolor": {
+      "assets": "public/images/aquarelle/{blau,rot,gelb,grün}/1-8.webp",
+      "headingStrokeVariants": {
+        "blau": [
+          1,
+          7,
+          8
+        ],
+        "rot": [
+          1,
+          5,
+          6
+        ],
+        "gelb": [
+          1,
+          6,
+          8
+        ],
+        "grün": [
+          4,
+          5,
+          6,
+          7
+        ]
+      },
+      "blend": {
+        "light": "mix-blend-mode: multiply; opacity 0.6",
+        "dark": "mix-blend-mode: screen; opacity 0.25; gelb hidden"
+      },
+      "series": {
+        "Beer and Roses": "rot",
+        "conference / congress": "blau",
+        "goes to / visits": "grün",
+        "other": "gelb"
+      }
+    }
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Main action on paper: logo blue with white text. Becomes marker yellow in dark mode.",
+      "html": "<button class=\"ds-btn-primary\">Sign up</button>",
+      "css": ".ds-btn-primary{display:inline-flex;align-items:center;gap:8px;height:40px;padding:8px 16px;border:0;border-radius:10px;background:hsl(var(--primary));color:hsl(var(--primary-foreground));font-family:var(--font-sans);font-size:.875rem;font-weight:600;box-shadow:0 1px 2px rgb(0 0 0 / .05);cursor:pointer;transition:background-color 150ms ease-out,transform 150ms ease-out}.ds-btn-primary:hover{background:hsl(var(--primary) / .9)}.ds-btn-primary:active{transform:translateY(1px)}.ds-btn-primary:focus-visible{outline:none;box-shadow:0 0 0 2px hsl(var(--background)),0 0 0 5px hsl(var(--ring))}"
+    },
+    {
+      "name": "Marker Button",
+      "kind": "button",
+      "refersTo": "button-marker",
+      "description": "Main action on blue fields: marker yellow with navy ink and a soft yellow glow.",
+      "html": "<div class=\"ds-blue-field\"><button class=\"ds-btn-marker\">Learn more <svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M5 12h14\"/><path d=\"m12 5 7 7-7 7\"/></svg></button></div>",
+      "css": ".ds-blue-field{background:hsl(var(--brand));padding:24px;display:inline-block}.ds-btn-marker{display:inline-flex;align-items:center;gap:8px;height:48px;padding:0 24px;border:0;border-radius:10px;background:hsl(var(--marker));color:hsl(var(--brand-ink));font-family:var(--font-sans);font-size:1rem;font-weight:600;box-shadow:0 2px 10px -2px hsl(var(--marker) / .5);cursor:pointer;transition:background-color 150ms ease-out,transform 150ms ease-out}.ds-btn-marker:hover{background:hsl(46 95% 68%)}.ds-btn-marker:active{transform:translateY(1px)}.ds-btn-marker:focus-visible{outline:3px solid hsl(var(--marker));outline-offset:3px}"
+    },
+    {
+      "name": "Inverse Button",
+      "kind": "button",
+      "refersTo": "button-inverse",
+      "description": "Second action on blue fields: white outline that fills white on hover.",
+      "html": "<div class=\"ds-blue-field\"><button class=\"ds-btn-inverse\">Explore events</button></div>",
+      "css": ".ds-blue-field{background:hsl(var(--brand));padding:24px;display:inline-block}.ds-btn-inverse{display:inline-flex;align-items:center;height:48px;padding:0 24px;border:1px solid rgb(255 255 255 / .7);border-radius:10px;background:transparent;color:#fff;font-family:var(--font-sans);font-size:1rem;font-weight:600;cursor:pointer;transition:background-color 150ms ease-out,color 150ms ease-out}.ds-btn-inverse:hover{background:#fff;color:hsl(var(--brand))}.ds-btn-inverse:focus-visible{outline:3px solid hsl(var(--marker));outline-offset:3px}"
+    },
+    {
+      "name": "Text Field",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "44px field with a blue-grey stroke and a ring-blue focus glow.",
+      "html": "<label class=\"ds-field\"><span class=\"ds-field-label\">Email</span><input class=\"ds-input\" type=\"email\" placeholder=\"you@example.eu\"></label>",
+      "css": ".ds-field{display:flex;flex-direction:column;gap:8px;font-family:var(--font-sans);max-width:320px}.ds-field-label{font-size:.875rem;font-weight:500;color:hsl(var(--foreground))}.ds-input{height:44px;padding:4px 14px;border:1px solid hsl(var(--input));border-radius:10px;background:hsl(var(--background));color:hsl(var(--foreground));font-size:1rem;caret-color:hsl(var(--brand));transition:border-color 150ms,box-shadow 150ms}.ds-input::placeholder{color:hsl(var(--muted-foreground))}.ds-input:focus-visible{outline:none;border-color:hsl(var(--ring));box-shadow:0 0 0 3px hsl(var(--ring) / .25)}"
+    },
+    {
+      "name": "Site Header",
+      "kind": "nav",
+      "refersTo": "site-header",
+      "description": "Sticky logo blue bar; the active link carries a 3px marker bar.",
+      "html": "<header class=\"ds-header\"><span class=\"ds-logo\">EUROPE TALKS</span><nav class=\"ds-nav\"><a href=\"#\" aria-current=\"page\">Home</a><a href=\"#\">About</a><a href=\"#\">Events</a><a href=\"#\">Gallery</a><a href=\"#\">Contact</a></nav></header>",
+      "css": ".ds-header{display:flex;align-items:stretch;justify-content:space-between;height:64px;padding:0 32px;background:hsl(var(--brand));color:#fff;font-family:var(--font-sans)}.ds-logo{display:flex;align-items:center;font-family:var(--font-display);font-weight:900;font-size:1.75rem;letter-spacing:-.005em}.ds-nav{display:flex;gap:4px}.ds-nav a{position:relative;display:flex;align-items:center;padding:0 12px;font-size:15px;font-weight:600;letter-spacing:.025em;color:rgb(255 255 255 / .75);text-decoration:none;transition:color 150ms}.ds-nav a::after{content:\"\";position:absolute;left:12px;right:12px;bottom:0;height:3px;background:hsl(var(--marker));transform:scaleX(0);transform-origin:left;transition:transform 300ms cubic-bezier(.16,1,.3,1)}.ds-nav a:hover,.ds-nav a[aria-current=page]{color:#fff}.ds-nav a:hover::after,.ds-nav a[aria-current=page]::after{transform:scaleX(1)}.ds-nav a:focus-visible{outline:3px solid hsl(var(--marker));outline-offset:-3px}"
+    },
+    {
+      "name": "Status Badges",
+      "kind": "chip",
+      "refersTo": "badge-open",
+      "description": "Registration status pills: open, soon, closed.",
+      "html": "<div class=\"ds-badges\"><span class=\"ds-badge ds-badge-open\">Registration open</span><span class=\"ds-badge ds-badge-soon\">Opens soon</span><span class=\"ds-badge ds-badge-closed\">Closed</span></div>",
+      "css": ".ds-badges{display:flex;gap:8px;font-family:var(--font-sans)}.ds-badge{display:inline-flex;align-items:center;padding:2px 10px;border-radius:9999px;font-size:.75rem;font-weight:600}.ds-badge-open{background:hsl(150 55% 92%);color:hsl(152 60% 22%)}.ds-badge-soon{background:hsl(46 95% 86%);color:hsl(36 75% 22%)}.ds-badge-closed{background:hsl(218 42% 94%);color:hsl(220 24% 32%)}"
+    },
+    {
+      "name": "Event Card",
+      "kind": "card",
+      "refersTo": "event-card",
+      "description": "14px card with a navy-tinted shadow, an overlapping date block and a full-width signup button.",
+      "html": "<article class=\"ds-card\"><div class=\"ds-card-img\"><div class=\"ds-stripes\"><span></span><span></span><span></span></div></div><div class=\"ds-card-body\"><div class=\"ds-date\"><span class=\"ds-date-m\">Nov</span><span class=\"ds-date-d\">25</span><span class=\"ds-date-y\">2026</span></div><h3 class=\"ds-card-title\">Beer and Roses Vienna</h3><p class=\"ds-card-meta\">Vienna, Austria</p><button class=\"ds-card-btn\">Sign up</button></div></article>",
+      "css": ".ds-card{width:320px;border-radius:14px;background:hsl(var(--card));color:hsl(var(--card-foreground));font-family:var(--font-sans);box-shadow:0 1px 2px hsl(var(--brand-ink) / .06),0 10px 30px -14px hsl(var(--brand-ink) / .28);transition:box-shadow 300ms cubic-bezier(.16,1,.3,1),transform 300ms cubic-bezier(.16,1,.3,1)}.ds-card:hover,.ds-card:focus-within{transform:translateY(-2px);box-shadow:0 2px 4px hsl(var(--brand-ink) / .08),0 22px 44px -18px hsl(var(--brand-ink) / .4)}.ds-card-img{height:112px;border-radius:14px 14px 0 0;background:hsl(var(--brand));padding:20px 20px 20px 112px}.ds-stripes{display:flex;flex-direction:column;gap:5px;width:64px;color:rgb(255 255 255 / .5)}.ds-stripes span{height:3px;background:currentColor}.ds-card-body{padding:0 24px 24px}.ds-date{display:flex;flex-direction:column;align-items:center;width:72px;margin-top:-40px;margin-bottom:16px;overflow:hidden;border-radius:10px;background:hsl(var(--card));box-shadow:0 6px 20px -8px hsl(var(--brand-ink) / .45);text-align:center}.ds-date-m{width:100%;padding:4px 0;background:hsl(var(--brand));color:#fff;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.14em}.ds-date-d{padding-top:6px;font-family:var(--font-display);font-weight:900;font-size:2.4rem;line-height:1;font-variant-numeric:tabular-nums}.ds-date-y{padding-bottom:6px;font-size:11px;font-weight:600;color:hsl(var(--muted-foreground))}.ds-card-title{margin:0;font-size:1.5rem;font-weight:700;line-height:1.25;transition:color 150ms}.ds-card:hover .ds-card-title{color:hsl(var(--brand))}.ds-card-meta{margin:12px 0 24px;font-size:.875rem;color:hsl(var(--muted-foreground))}.ds-card-btn{width:100%;height:40px;border:0;border-radius:10px;background:hsl(var(--primary));color:hsl(var(--primary-foreground));font-family:var(--font-sans);font-size:.875rem;font-weight:600;cursor:pointer}.ds-card-btn:focus-visible{outline:none;box-shadow:0 0 0 2px hsl(var(--background)),0 0 0 5px hsl(var(--ring))}"
+    },
+    {
+      "name": "Page Hero",
+      "kind": "custom",
+      "refersTo": "headline",
+      "description": "Logo blue page head with the stripes mark and a condensed caps headline.",
+      "html": "<section class=\"ds-hero\"><div class=\"ds-stripes-w\"><span></span><span></span><span></span></div><h1 class=\"ds-hero-title\">About us</h1><p class=\"ds-hero-lede\">A group of activists from all over Europe united in one goal.</p></section>",
+      "css": ".ds-hero{background:hsl(var(--brand));color:#fff;padding:56px 32px 64px;font-family:var(--font-sans)}.ds-stripes-w{display:flex;flex-direction:column;gap:5px;width:56px;margin-bottom:24px;color:rgb(255 255 255 / .7)}.ds-stripes-w span{height:3px;background:currentColor}.ds-hero-title{margin:0;font-family:var(--font-display);font-weight:900;text-transform:uppercase;line-height:.9;letter-spacing:-.005em;font-size:clamp(3rem,7vw,5.5rem);text-wrap:balance}.ds-hero-lede{margin:20px 0 0;max-width:42rem;font-size:1.25rem;line-height:1.625;color:hsl(var(--brand-mist))}"
+    },
+    {
+      "name": "Splash Heading",
+      "kind": "custom",
+      "refersTo": "title-sm",
+      "description": "Display heading with a watercolor stroke behind the words. Clean-edge variants only; yellow hidden in dark mode.",
+      "html": "<h3 class=\"ds-splash\"><span class=\"ds-splash-paint\" aria-hidden=\"true\"></span><span class=\"ds-splash-text\">Community</span></h3>",
+      "css": ".ds-splash{position:relative;display:inline-block;margin:0;font-family:var(--font-display);font-weight:900;text-transform:uppercase;line-height:.9;letter-spacing:-.005em;font-size:2.75rem;color:hsl(var(--brand-ink))}.ds-splash-paint{position:absolute;left:-.5em;right:-.9em;top:-.9em;bottom:-.5em;background:url('/images/aquarelle/gelb/6.webp') center/contain no-repeat;opacity:.6;mix-blend-mode:multiply;pointer-events:none}.ds-splash-text{position:relative}"
+    },
+    {
+      "name": "Text Link Action",
+      "kind": "custom",
+      "refersTo": "button-primary",
+      "description": "Bold blue link with a 3px marker underline and an arrow that nudges right on hover.",
+      "html": "<a class=\"ds-link\" href=\"#\">Learn more <svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M5 12h14\"/><path d=\"m12 5 7 7-7 7\"/></svg></a>",
+      "css": ".ds-link{display:inline-flex;align-items:center;gap:8px;font-family:var(--font-sans);font-size:1.125rem;font-weight:700;color:hsl(var(--brand));text-decoration:underline;text-decoration-color:hsl(var(--marker));text-decoration-thickness:3px;text-underline-offset:6px}.ds-link svg{transition:transform 300ms ease-out}.ds-link:hover svg{transform:translateX(4px)}.ds-link:focus-visible{outline:3px solid hsl(var(--ring));outline-offset:3px;border-radius:2px}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Campaign Poster",
+    "overview": "The site reads like a campaign poster for a real network. Big condensed caps, a field of logo blue and the faces and words of actual members carry the message. Every brand band (header, home hero, inner page heads, the closing call to action) is one continuous slab of the logo's EU blue, and the header merges into it so the top of each page reads as a single printed sheet. Paper sections between the bands are calm and cool white, set in Sofia Sans at reading size, so the poster moments have room to hit.\n\nThe hand-made layer comes from the brand's own materials. Hand-painted watercolor splashes in red, yellow, blue and green sit behind section headings like a marker stroke on a printed flyer. The three white bars from the top of the logo open each blue band. Member quote cards and event photos are the proof; stock imagery stays secondary. Motion is short and physical: cards lift by 2px, photos zoom 3 to 4 percent, and the quote deck fans and shuffles.\n\nThe world was set against one specific look: a darkened stock-photo hero with centred typewriter text above three identical image cards. Nothing in this system should drift back toward it.",
+    "keyCharacteristics": [
+      "Logo blue fields for header, hero, page heads and the call-to-action band; deep blue for the footer.",
+      "Sofia Sans Extra Condensed at weight 900, in caps, for every display line; Sofia Sans for everything you read.",
+      "Marker yellow is the action colour on blue and in dark mode; logo blue is the action colour on paper.",
+      "Watercolor strokes behind headings, chosen only from splashes whose paint clears the image edge.",
+      "The three logo stripes as the structural mark.",
+      "Navy-tinted shadows and 14px corners on photos and cards."
+    ],
+    "rules": [
+      {
+        "name": "The Two Primaries Rule",
+        "body": "On paper, the primary action is logo blue with white text. On blue fields and anywhere in dark mode, the primary action is marker yellow with navy ink. A yellow fill on paper white has no edge (1.46:1), so it never appears there. `--primary` swaps to `--marker` in `.dark`; on blue bands in light mode use the `marker` button variant explicitly.",
+        "section": "colors"
+      },
+      {
+        "name": "The Blue Field Rule",
+        "body": "Logo blue is a field, not an accent. It fills whole bands edge to edge (header, hero, page head, call-to-action band) and the header has no border or shadow that separates it from the band below. On paper, blue appears only as type, links, buttons and the date block's month strip.",
+        "section": "colors"
+      },
+      {
+        "name": "The Highlight Rule",
+        "body": "Marker yellow on paper is a line, never a fill or text colour: link underlines (2 to 3px, offset 6px), the nav indicator and selection. As text, yellow appears only on blue or navy grounds.",
+        "section": "colors"
+      },
+      {
+        "name": "The Series Colour Rule",
+        "body": "Event series carry a fixed colour from `lib/event-series.ts`: Beer and Roses is red, conferences and congresses are blue, trips (\"goes to\", \"visits\") are green, everything else is yellow. The colour shows as an 8 to 10px dot before location and date on gallery tiles, gallery chips and gallery section heads. New series surfaces use `seriesColor()` and `seriesDot`, never a hand-picked hue.",
+        "section": "colors"
+      },
+      {
+        "name": "The Poster Caps Rule",
+        "body": "Every heading that announces a section is the `.display` class: Sofia Sans Extra Condensed, weight 900, uppercase, line-height 0.9, letter-spacing -0.005em, `text-wrap: balance`. Paragraphs, meta lines and form text are never set in the condensed face.",
+        "section": "typography"
+      },
+      {
+        "name": "The Long Word Rule",
+        "body": "Display headings must survive German, Hungarian and Greek. Use fluid clamp sizes, let `text-wrap: balance` work, and add `hyphens: auto` on the largest sizes, as the hero does. Never fix a heading's width to its English length.",
+        "section": "typography"
+      },
+      {
+        "name": "The Stripes Rule",
+        "body": "The three bars from the top of the logo (three 3px bars, 5px apart, current colour) are the structural mark. They open every blue band above the heading at 56 to 64px wide and white at 70 percent, close the mobile menu, mark the empty event image and sign off the footer at small size. Use the `Stripes` component; it replaces decorative dividers and labels.",
+        "section": "layout"
+      },
+      {
+        "name": "The Ink Shadow Rule",
+        "body": "Shadows are tinted with navy ink, never neutral black or grey, and they belong to physical objects. Bands, sections and nav never cast shadows.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Clean Edge Rule",
+        "body": "A watercolor stroke behind a heading uses only splashes whose paint stays clear of the image edge: blau 1, 7, 8; rot 1, 5, 6; gelb 1, 6, 8; grün 4, 5, 6, 7. Any other variant shows a straight cut line. Large field bleeds on blue bands (hero blau 4, call-to-action gelb 6) may use other variants because the band's `overflow: hidden` crops the cut edge off-canvas.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Paper Yellow Rule",
+        "body": "Watercolor strokes blend with `multiply` at 60 percent on paper and `screen` at 25 percent in dark mode. Yellow strokes are hidden in dark mode, because yellow screened onto navy turns olive.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do use marker yellow with navy ink for the main action on any blue field or in dark mode, and logo blue with white for the main action on paper.",
+      "Do pair a marker button with an inverse (white outline) button when a blue band offers two actions.",
+      "Do set every section heading with the `.display` class, at a fluid clamp size, and test it in German, Hungarian and Greek.",
+      "Do open each blue band with the `Stripes` mark above its heading.",
+      "Do pick heading watercolor strokes only from blau 1/7/8, rot 1/5/6, gelb 1/6/8 and grün 4-7.",
+      "Do colour-code event series through `seriesColor()` and `seriesDot` from `lib/event-series.ts`.",
+      "Do tint shadows with navy ink (`--brand-ink`) and add a hairline white ring to cards in dark mode.",
+      "Do use the shared easing `--ease-out-expo` (cubic-bezier(0.16, 1, 0.3, 1)) for lifts, zooms, the nav bar and the quote deck, and keep every animation off under `prefers-reduced-motion`.",
+      "Do use Ring Blue for focus indicators on paper surfaces, as inputs already do."
+    ],
+    "donts": [
+      "Don't fill a button or a surface with marker yellow on paper white.",
+      "Don't set marker yellow text on paper; yellow text belongs on blue or navy only.",
+      "Don't show a yellow watercolor stroke in dark mode.",
+      "Don't set paragraphs, meta lines or form text in Sofia Sans Extra Condensed.",
+      "Don't build a darkened stock-photo hero with centred typewriter text, or a row of three identical image cards.",
+      "Don't put small tracked-caps labels or eyebrows above headings, and don't use gradient text.",
+      "Don't add new hard-coded `hsl()` or `rgba()` colours in components; add a token to `app/globals.css` first."
+    ]
+  }
+}

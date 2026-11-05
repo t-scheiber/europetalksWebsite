@@ -1,7 +1,9 @@
 "use client";
 
 import { Mail } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
+import { Stripes } from "./brand/Stripes";
 import { useTranslation } from "react-i18next";
 
 function Facebook({ className }: { className?: string }) {
@@ -59,62 +61,102 @@ function Youtube({ className }: { className?: string }) {
 }
 
 export default function Footer() {
-  const { t } = useTranslation("footer");
+  const { t } = useTranslation(["footer", "header", "home"]);
+  const year = new Date().getFullYear();
+
+  const nav = [
+    { href: "/about", label: t("navigation.about", { ns: "header" }) },
+    { href: "/events", label: t("navigation.events", { ns: "header" }) },
+    { href: "/gallery", label: t("navigation.gallery", { ns: "header" }) },
+    { href: "/contact", label: t("navigation.contact", { ns: "header" }) },
+  ];
+
+  const social = [
+    {
+      href: "https://www.instagram.com/europetalksofficial/",
+      label: t("instagram"),
+      Icon: Instagram,
+    },
+    {
+      href: "https://www.facebook.com/europetalks",
+      label: t("facebook"),
+      Icon: Facebook,
+    },
+    {
+      href: "https://www.youtube.com/channel/UCoRo0glOhBGz4qyKxj73STw",
+      label: t("youtube"),
+      Icon: Youtube,
+    },
+  ];
+
   return (
-    <footer className="border-t w-full h-64 bg-gray-900 flex justify-center items-center">
-      <div className="container py-6">
-        <div className="flex flex-col items-center gap-4">
-          {/* Social Media Links */}
-          <div className="flex space-x-6">
-            <a
-              href="https://www.facebook.com/europetalks"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-accent hover:text-accent/80 transition-colors"
-            >
-              <Facebook className="h-5 w-5" />
-              <span className="sr-only">{t("facebook")}</span>
-            </a>
-            <a
-              href="https://www.youtube.com/channel/UCoRo0glOhBGz4qyKxj73STw"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-accent hover:text-accent/80 transition-colors"
-            >
-              <Youtube className="h-5 w-5" />
-              <span className="sr-only">{t("youtube")}</span>
-            </a>
-            <a
-              href="https://www.instagram.com/europetalksofficial/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-accent hover:text-accent/80 transition-colors"
-            >
-              <Instagram className="h-5 w-5" />
-              <span className="sr-only">{t("instagram")}</span>
-            </a>
+    <footer className="relative w-full overflow-hidden bg-brand-deep text-white">
+      <div className="mx-auto max-w-7xl px-5 pb-10 pt-16 sm:px-8 md:pt-20">
+        <div className="grid gap-12 md:grid-cols-12">
+          <div className="md:col-span-5">
+            <Image
+              src="/images/etlogo.png"
+              alt="EuropeTalks"
+              width={768}
+              height={182}
+              className="h-12 w-auto"
+            />
+            <p className="mt-6 max-w-sm text-base leading-relaxed text-brand-mist/85">
+              {t("hero.subtitle", { ns: "home" })}
+            </p>
             <a
               href="mailto:mail@europetalks.eu"
-              className="text-accent hover:text-accent/80 transition-colors"
+              className="mt-6 inline-flex items-center gap-2 text-lg font-semibold text-white underline decoration-marker decoration-2 underline-offset-[6px] transition-colors hover:text-marker"
             >
-              <Mail className="h-5 w-5" />
-              <span className="sr-only">{t("email")}</span>
+              <Mail className="h-5 w-5" aria-hidden />
+              mail@europetalks.eu
             </a>
           </div>
 
-          {/* Legal Links */}
-          <div className="flex space-x-4 text-sm text-muted-foreground">
-            <Link
-              href="/legal-notice"
-              className="hover:text-foreground transition-colors"
-            >
+          <nav className="md:col-span-3" aria-label="Footer">
+            <ul className="flex flex-col gap-3">
+              {nav.map(({ href, label }) => (
+                <li key={href}>
+                  <Link
+                    href={href}
+                    className="display text-3xl leading-[0.95] text-white transition-colors hover:text-marker"
+                  >
+                    {label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+
+          <ul className="flex flex-col gap-3 md:col-span-4">
+            {social.map(({ href, label, Icon }) => (
+              <li key={href}>
+                <a
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group inline-flex items-center gap-3 text-base font-semibold text-white/85 transition-colors hover:text-white"
+                >
+                  <span className="flex h-10 w-10 items-center justify-center rounded-full border border-white/25 transition-colors group-hover:border-marker group-hover:bg-marker group-hover:text-brand-ink">
+                    <Icon className="h-[18px] w-[18px]" />
+                  </span>
+                  {label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div className="mt-16 flex flex-col gap-4 border-t border-white/15 pt-6 text-sm text-white/65 sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex items-center gap-4">
+            <Stripes className="w-8 gap-[3px] text-white/40 [&>span]:h-[2px]" />
+            <span>© {year} EuropeTalks</span>
+          </div>
+          <div className="flex gap-6">
+            <Link href="/legal-notice" className="transition-colors hover:text-white">
               {t("legalNotice")}
             </Link>
-            <span>•</span>
-            <Link
-              href="/privacy-policy"
-              className="hover:text-foreground transition-colors"
-            >
+            <Link href="/privacy-policy" className="transition-colors hover:text-white">
               {t("privacyPolicy")}
             </Link>
           </div>

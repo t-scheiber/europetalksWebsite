@@ -32,7 +32,7 @@ export function LanguageSelector() {
     { code: "lt", name: "Lietuvių", flag: "/images/languageFlags/lt.png" },
     { code: "hr", name: "Hrvatski", flag: "/images/languageFlags/hr.png" },
     { code: "hu", name: "Magyar", flag: "/images/languageFlags/hu.png" },
-    { code: "el", name: "Greek", flag: "/images/languageFlags/el.png" },
+    { code: "el", name: "Ελληνικά", flag: "/images/languageFlags/el.png" },
   ];
 
   const handleLanguageChange = async (langCode: string) => {
@@ -71,14 +71,17 @@ export function LanguageSelector() {
         <Button
           variant="ghost"
           size="icon"
-          className="hover:text-primary-foreground relative"
+          className="w-auto gap-1.5 px-2.5 text-white hover:bg-white/10 hover:text-white"
           disabled={isChanging}
         >
           {isChanging ? (
-            <Loader2 className="h-5 w-5 animate-spin text-accent" />
+            <Loader2 className="h-5 w-5 animate-spin" />
           ) : (
-            <Globe className="h-5 w-5 text-accent hover:text-primary-foreground" />
+            <Globe className="h-5 w-5" />
           )}
+          <span aria-hidden className="text-sm font-semibold uppercase tracking-wide">
+            {(i18n.language || "en").slice(0, 2)}
+          </span>
           <span className="sr-only">{t("languageSelector.label")}</span>
         </Button>
       </DropdownMenuTrigger>

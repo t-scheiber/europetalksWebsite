@@ -33,97 +33,86 @@
   --color-input: hsl(var(--input));
   --color-ring: hsl(var(--ring));
 
+  /* Brand colours, fixed across themes. Sampled from the logo and quote cards. */
+  --color-brand: hsl(var(--brand));
+  --color-brand-deep: hsl(var(--brand-deep));
+  --color-brand-ink: hsl(var(--brand-ink));
+  --color-brand-mist: hsl(var(--brand-mist));
+  --color-marker: hsl(var(--marker));
+
   --color-chart-1: hsl(var(--chart-1));
   --color-chart-2: hsl(var(--chart-2));
   --color-chart-3: hsl(var(--chart-3));
   --color-chart-4: hsl(var(--chart-4));
   --color-chart-5: hsl(var(--chart-5));
 
+  --font-sans: var(--font-sofia), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-sofia-xc), var(--font-sofia), ui-sans-serif, sans-serif;
+
   --radius-lg: var(--radius);
   --radius-md: calc(var(--radius) - 2px);
   --radius-sm: calc(var(--radius) - 4px);
-}
 
-/*
-  The default border color has changed to `currentColor` in Tailwind CSS v4,
-  so we've added these compatibility styles to make sure everything still
-  looks the same as it did with Tailwind CSS v3.
-
-  If we ever want to remove these styles, we need to add an explicit border
-  color utility to any element that depends on these defaults.
-*/
-@layer base {
-  *,
-  ::after,
-  ::before,
-  ::backdrop,
-  ::file-selector-button {
-    border-color: var(--color-gray-200, currentColor);
-  }
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 0 0% 3.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 0 0% 3.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 3.9%;
-    --primary: 0 0% 9%;
-    --primary-foreground: 0 0% 98%;
-    --secondary: 0 0% 96.1%;
-    --secondary-foreground: 0 0% 9%;
-    --accent: 48 100% 50%;
-    --accent-foreground: 0 0% 9%;
-    --muted: 0 0% 96.1%;
-    --muted-foreground: 0 0% 45.1%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 89.8%;
-    --input: 0 0% 89.8%;
-    --ring: 0 0% 3.9%;
-    --chart-1: 12 76% 61%;
-    --chart-2: 173 58% 39%;
-    --chart-3: 197 37% 24%;
-    --chart-4: 43 74% 66%;
-    --chart-5: 27 87% 67%;
-    --radius: 0.5rem;
-  }
-  .dark {
-    --background: 0 0% 3.9%;
-    --foreground: 0 0% 98%;
-    --card: 0 0% 3.9%;
-    --card-foreground: 0 0% 98%;
-    --popover: 0 0% 3.9%;
-    --popover-foreground: 0 0% 98%;
-    --primary: 0 0% 98%;
-    --primary-foreground: 0 0% 9%;
-    --secondary: 0 0% 14.9%;
-    --secondary-foreground: 0 0% 98%;
-    --accent: 48 100% 50%;
-    --accent-foreground: 0 0% 9%;
-    --muted: 0 0% 14.9%;
-    --muted-foreground: 0 0% 63.9%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 14.9%;
-    --input: 0 0% 14.9%;
-    --ring: 0 0% 83.1%;
-    --chart-1: 220 70% 50%;
-    --chart-2: 160 60% 45%;
-    --chart-3: 30 80% 55%;
-    --chart-4: 280 65% 60%;
-    --chart-5: 340 75% 55%;
-  }
-}
+    --brand: 215 86% 31%;        /* #0B4392 logo blue */
+    --brand-deep: 217 82% 17%;   /* footer, deep bands */
+    --brand-ink: 220 71% 13%;    /* navy text */
+    --brand-mist: 214 70% 88%;   /* text on blue */
+    --marker: 46 90% 62%;        /* quote-card highlight yellow */
 
-@layer base {
-  * {
-    @apply border-border;
+    --background: 220 45% 98%;
+    --foreground: var(--brand-ink);
+    --card: 0 0% 100%;
+    --card-foreground: var(--brand-ink);
+    --popover: 0 0% 100%;
+    --popover-foreground: var(--brand-ink);
+    --primary: var(--brand);
+    --primary-foreground: 0 0% 100%;
+    --secondary: 216 60% 94%;
+    --secondary-foreground: 215 86% 24%;
+    --accent: var(--marker);
+    --accent-foreground: var(--brand-ink);
+    --muted: 218 42% 94%;
+    --muted-foreground: 220 24% 36%;
+    --destructive: 0 70% 46%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 218 35% 87%;
+    --input: 218 30% 80%;
+    --ring: 215 86% 40%;
+    --chart-1: 215 86% 31%;
+    --chart-2: 46 90% 62%;
+    --chart-3: 0 68% 50%;
+    --chart-4: 150 45% 38%;
+    --chart-5: 214 70% 60%;
+    --radius: 0.75rem;
   }
-  body {
-    @apply bg-background text-foreground;
+
+  .dark {
+    --brand-deep: 222 70% 9%;
+
+    --background: 222 58% 7%;
+    --foreground: 220 40% 95%;
+    --card: 222 48% 11%;
+    --card-foreground: 220 40% 95%;
+    --popover: 222 48% 11%;
+    --popover-foreground: 220 40% 95%;
+    --primary: var(--marker);
+    --primary-foreground: var(--brand-ink);
+    --secondary: 222 40% 17%;
+    --secondary-foreground: 220 40% 92%;
+    --accent: var(--marker);
+    --accent-foreground: var(--brand-ink);
+    --muted: 222 40% 14%;
+    --muted-foreground: 220 26% 72%;
+    --destructive: 0 72% 58%;
+    --destructive-foreground: 222 58% 7%;
+    --border: 222 34% 20%;
+    --input: 222 30% 26%;
+    --ring: var(--marker);
   }
 }
 
@@ -131,8 +120,83 @@
   * {
     @apply border-border outline-ring/50;
   }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    scrollbar-color: hsl(var(--brand) / 0.55) transparent;
+    scroll-padding-top: 5rem;
+  }
+
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-sans antialiased;
+    overflow-x: clip;
+    font-feature-settings: "kern", "liga";
+    text-rendering: optimizeLegibility;
+  }
+
+  h1, h2, h3, h4 {
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  ::selection {
+    background: hsl(var(--marker));
+    color: hsl(var(--brand-ink));
+  }
+
+  /* Focus is logo blue on paper and marker yellow on blue fields and in dark mode. */
+  :focus-visible {
+    outline: 3px solid hsl(var(--ring));
+    outline-offset: 3px;
+  }
+
+  .bg-brand,
+  .bg-brand-deep {
+    --ring: var(--marker);
+    --color-ring: hsl(var(--marker));
+  }
+
+  a {
+    text-underline-offset: 0.2em;
+    text-decoration-thickness: 0.08em;
+  }
+
+  input,
+  textarea {
+    caret-color: hsl(var(--brand));
+  }
+
+  .dark input,
+  .dark textarea {
+    caret-color: hsl(var(--marker));
   }
 }
 
+@layer components {
+  /* Condensed caps display voice, echoing the logo lettering. */
+  .display {
+    font-family: var(--font-display);
+    font-weight: 900;
+    text-transform: uppercase;
+    line-height: 0.9;
+    letter-spacing: -0.005em;
+  }
+
+  .measure {
+    max-width: 68ch;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

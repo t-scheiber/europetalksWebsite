@@ -48,7 +48,7 @@ export default function AuthSection() {
 
   return (
     <SignInButton mode="modal">
-      <button className="text-white hover:text-accent transition-colors">
+      <button className="inline-flex h-9 items-center rounded-md px-2 text-sm font-semibold text-white transition-colors hover:bg-white/10 md:border md:border-white/40 md:px-3.5 md:hover:border-white">
         <span className="hidden md:inline">{t("other.signIn")}</span>
         <LogIn className="h-5 w-5 md:hidden" />
       </button>

@@ -30,8 +30,8 @@ export default function AuthNavLinks({ mobile = false }: { mobile?: boolean }) {
   if (!links.length) return null;
 
   const baseClass = mobile
-    ? "text-foreground hover:text-accent transition-colors"
-    : "text-white hover:text-accent transition-colors";
+    ? "text-white hover:text-marker transition-colors"
+    : "text-white/75 hover:text-white transition-colors";
 
   return (
     <>
@@ -51,7 +51,7 @@ export default function AuthNavLinks({ mobile = false }: { mobile?: boolean }) {
             key={href}
             href={href}
             prefetchOnViewport={!mobile}
-            className={`${baseClass} ${pathname === href ? "text-accent" : ""}`}
+            className={`${baseClass} ${pathname === href ? "!text-marker" : ""}`}
           >
             {label}
           </PrefetchLink>
