@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "bun --bun next dev --turbopack",
     "build": "bunx prisma generate && bunx next build --webpack",
-    "start": "bun --bun next start",
+    "start": "next start",
     "lint": "bunx eslint .",
     "download:translations": "bun scripts/download-translations.ts",
     "convert:aquarelle": "bun scripts/convert-aquarelle-to-webp.js"
