@@ -1,7 +1,7 @@
 import { db } from "@/lib/db";
 import { NextRequest, NextResponse } from "next/server";
 import { eventFormSchema } from "@/lib/validations/event";
-import { auth } from "@clerk/nextjs/server";
+import { requireAdminApi } from "@/lib/admin-auth";
 import { z } from "zod";
 
 export async function DELETE(
@@ -9,10 +9,8 @@ export async function DELETE(
   context: { params: Promise<{ eventId: string }> }
 ) {
   try {
-    const { userId } = await auth();
-    if (!userId) {
-      return new NextResponse("Unauthorized", { status: 401 });
-    }
+    const admin = await requireAdminApi();
+    if (admin instanceof NextResponse) return admin;
 
     const { eventId } = await context.params;
 
@@ -38,12 +36,10 @@ export async function PATCH(
   context: { params: Promise<{ eventId: string }> }
 ) {
   try {
-    const { userId } = await auth();
-    const { eventId } = await context.params;
+    const admin = await requireAdminApi();
+    if (admin instanceof NextResponse) return admin;
 
-    if (!userId) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-    }
+    const { eventId } = await context.params;
 
     const json = await request.json();
     const validatedData = eventFormSchema.parse(json);

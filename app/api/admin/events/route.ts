@@ -1,15 +1,12 @@
 import { db } from "@/lib/db";
-import { auth } from "@clerk/nextjs/server";
+import { requireAdminApi } from "@/lib/admin-auth";
 import { NextResponse } from "next/server";
 import { eventFormSchema } from "@/lib/validations/event";
 import { z } from "zod";
 
 export async function GET() {
-  const { userId } = await auth();
-
-  if (!userId) {
-    return new NextResponse("Unauthorized", { status: 401 });
-  }
+  const admin = await requireAdminApi();
+  if (admin instanceof NextResponse) return admin;
 
   try {
     const events = await db.event.findMany({
@@ -34,11 +31,8 @@ export async function GET() {
 }
 
 export async function POST(request: Request) {
-  const { userId } = await auth();
-
-  if (!userId) {
-    return new NextResponse("Unauthorized", { status: 401 });
-  }
+  const admin = await requireAdminApi();
+  if (admin instanceof NextResponse) return admin;
 
   try {
     const json = await request.json();

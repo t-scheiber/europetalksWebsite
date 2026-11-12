@@ -1,5 +1,5 @@
 import { db } from "@/lib/db";
-import { auth } from "@clerk/nextjs/server";
+import { requireAdminApi } from "@/lib/admin-auth";
 import { NextResponse } from "next/server";
 import { z } from "zod";
 
@@ -44,11 +44,8 @@ const formSchemaSchema = z.object({
 });
 
 export async function GET() {
-  const { userId } = await auth();
-
-  if (!userId) {
-    return new NextResponse("Unauthorized", { status: 401 });
-  }
+  const admin = await requireAdminApi();
+  if (admin instanceof NextResponse) return admin;
 
   try {
     const schemas = await db.formSchema.findMany({
@@ -69,11 +66,8 @@ export async function GET() {
 }
 
 export async function POST(request: Request) {
-  const { userId } = await auth();
-
-  if (!userId) {
-    return new NextResponse("Unauthorized", { status: 401 });
-  }
+  const admin = await requireAdminApi();
+  if (admin instanceof NextResponse) return admin;
 
   try {
     const json = await request.json();

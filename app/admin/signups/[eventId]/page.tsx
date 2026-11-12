@@ -1,3 +1,4 @@
+import { requireAdminPage } from "@/lib/admin-auth";
 import { db } from "@/lib/db";
 import { EventSignupsList } from "@/components/admin/EventSignupsList";
 import { notFound } from "next/navigation";
@@ -8,6 +9,8 @@ import { ChevronLeft } from "lucide-react";
 export default async function EventSignupsPage(props: {
   params: Promise<{ eventId: string }>;
 }) {
+  // Layouts are not re-run on every navigation, so the page checks too.
+  await requireAdminPage();
   const params = await props.params;
   const event = await db.event.findUnique({
     where: { id: params.eventId },

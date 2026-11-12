@@ -1,7 +1,7 @@
 import { mkdir, writeFile } from "fs/promises";
 import { NextResponse } from "next/server";
 import { join } from "path";
-import { auth } from "@clerk/nextjs/server";
+import { requireAdminApi } from "@/lib/admin-auth";
 import sharp from "sharp";
 
 export const runtime = "nodejs";
@@ -32,10 +32,8 @@ function isImageByMagicBytes(buffer: Buffer): boolean {
 export async function POST(request: Request) {
   try {
     // Auth check
-    const { userId } = await auth();
-    if (!userId) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-    }
+    const admin = await requireAdminApi();
+    if (admin instanceof NextResponse) return admin;
 
     const formData = await request.formData();
     const file = formData.get("file") as File;

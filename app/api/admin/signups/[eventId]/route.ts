@@ -1,5 +1,5 @@
 import { db } from "@/lib/db";
-import { auth } from "@clerk/nextjs/server";
+import { requireAdminApi } from "@/lib/admin-auth";
 import { NextResponse } from "next/server";
 
 export async function GET(
@@ -7,11 +7,8 @@ export async function GET(
   context: { params: Promise<{ eventId: string }> }
 ) {
   try {
-    const { userId } = await auth();
-
-    if (!userId) {
-      return new NextResponse("Unauthorized", { status: 401 });
-    }
+    const admin = await requireAdminApi();
+    if (admin instanceof NextResponse) return admin;
 
     const { eventId } = await context.params;
 
@@ -36,11 +33,8 @@ export async function DELETE(
   context: { params: Promise<{ eventId: string }> }
 ) {
   try {
-    const { userId } = await auth();
-
-    if (!userId) {
-      return new NextResponse("Unauthorized", { status: 401 });
-    }
+    const admin = await requireAdminApi();
+    if (admin instanceof NextResponse) return admin;
 
     const { eventId } = await context.params;
 
