@@ -1,5 +1,4 @@
-import { currentUser } from "@clerk/nextjs/server";
-import { redirect } from "next/navigation";
+import { requireAdminPage } from "@/lib/admin-auth";
 import ContentWrapper from "@/components/ContentWrapper";
 
 export const dynamic = "force-dynamic";
@@ -9,11 +8,7 @@ export default async function AdminLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const user = await currentUser();
-  if (!user) {
-    redirect("/sign-in");
-  }
-  // User role check passed
+  await requireAdminPage();
   return (
     <ContentWrapper>
       <div className="mb-8">

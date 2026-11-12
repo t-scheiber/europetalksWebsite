@@ -1,5 +1,5 @@
 import { db } from "@/lib/db";
-import { auth } from "@clerk/nextjs/server";
+import { requireAdminApi } from "@/lib/admin-auth";
 import { NextResponse } from "next/server";
 import { z } from "zod";
 
@@ -48,11 +48,8 @@ export async function PATCH(
   context: { params: Promise<{ schemaId: string }> }
 ) {
   try {
-    const { userId } = await auth();
-
-    if (!userId) {
-      return new NextResponse("Unauthorized", { status: 401 });
-    }
+    const admin = await requireAdminApi();
+    if (admin instanceof NextResponse) return admin;
 
     const { schemaId } = await context.params;
     const body = await request.json();
@@ -147,11 +144,8 @@ export async function DELETE(
   context: { params: Promise<{ schemaId: string }> }
 ) {
   try {
-    const { userId } = await auth();
-
-    if (!userId) {
-      return new NextResponse("Unauthorized", { status: 401 });
-    }
+    const admin = await requireAdminApi();
+    if (admin instanceof NextResponse) return admin;
 
     const { schemaId } = await context.params;
 
