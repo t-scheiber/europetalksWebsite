@@ -1,436 +1,134 @@
-# EuropeTalks
+# EuropeTalks website
 
-🌍 **Live at: [europetalks.eu](https://europetalks.eu)**
+Website and member platform of EuropeTalks, a network of young social-democratic activists across Europe. It runs in production at [europetalks.eu](https://europetalks.eu).
 
-A modern, multilingual platform connecting Europeans across borders through cultural exchange, community events, and meaningful dialogue.
+The public side explains the network, lists events with registration forms and shows photo galleries of past events. Admins manage events and registration forms. Sign-in goes through Clerk, and the same Clerk role decides what a person sees on the site and whether the member cloud link appears.
 
----
+## What each kind of user gets
 
-## 📋 Table of Contents
+Visitors can read the pages and sign up for events without an account.
 
-- [Overview](#-overview)
-- [Features](#-features)
-- [Tech Stack](#-tech-stack)
-- [Getting Started](#-getting-started)
-- [Environment Variables](#-environment-variables)
-- [Project Structure](#-project-structure)
-- [Key Features](#-key-features)
-- [Translation System](#translation-system)
-- [Admin Panel](#-admin-panel)
-- [Database Schema](#-database-schema)
-- [Deployment](#-deployment)
-- [Contributing](#-contributing)
-- [License](#-license)
+- Home, about, events, past events, gallery, contact, legal notice and privacy policy pages.
+- Event cards with a registration status (not started, open, closed) taken from each event's signup window.
+- A registration dialog built from the form schema attached to the event.
+- A contact form that emails the network and sends the sender a receipt.
+- 13 interface languages, chosen from a menu in the header.
 
----
+Members and admins sign in at `/sign-in` or `/sign-up`. The header shows extra links based on the `role` field in the Clerk user's public metadata.
 
-## 🌟 Overview
+| Role | Header links |
+|------|--------------|
+| `admin` | Admin dashboard, cloud link |
+| `member` | Cloud link, and a translations link if the user also has a `languages` list |
+| none | No extra links |
 
-EuropeTalks is a comprehensive web platform that facilitates cultural exchange and community engagement across Europe. The platform enables users to discover events, register for activities, explore photo galleries, and connect with a vibrant community of Europeans passionate about shared values and cross-border collaboration.
+The cloud link points to `cloud.europetalks.eu`, the members' cloud. `proxy.ts` lists that host, `europetalks.eu` and `localhost:3000` as authorized parties for the Clerk session. The cloud itself is not part of this repository, so the single sign-on setup on that side is not described here.
 
-### Mission
+Admins use `/admin` to:
 
-To create a space where Europeans can share ideas, celebrate cultural diversity, and build lasting connections that transcend national borders.
+- create, edit and delete events, with an optional image upload,
+- build reusable form schemas (fields and terms) and attach one to each event,
+- list registrations per event, delete them, and download them as CSV.
 
----
+## Stack
 
-## ✨ Features
+Versions come from `package.json`.
 
-### For Users
+- Next.js 16.4 with the App Router, React 19.3 and TypeScript 6. Production builds use webpack (`next build --webpack`).
+- Clerk (`@clerk/nextjs` 7.9) for authentication. `proxy.ts` is the Clerk middleware.
+- PostgreSQL through Prisma 7.10 with the `pg` driver adapter.
+- Tailwind CSS 4.3, Radix UI primitives, `lucide-react` icons and `motion` 14 for animation.
+- i18next 27 with react-i18next 18.
+- SWR for client-side data fetching, react-hook-form with Zod 4 for forms.
+- Nodemailer for the contact and registration emails.
+- `sharp` to process uploaded images.
+- Bun as package manager and script runner.
 
-- 🌐 **Multilingual Support** - 12 languages (EN, DE, ES, FR, IT, PT, NL, EL, HR, HU, LV, UK)
-- 📅 **Event Discovery** - Browse upcoming and past events with detailed information
-- ✍️ **Event Registration** - Dynamic form system with custom fields per event
-- 📸 **Photo Gallery** - Event galleries organized by location and date
-- 💬 **Contact Form** - Direct communication with organizers
-- 🌓 **Dark/Light Theme** - Seamless theme switching with system preference detection
-- 📱 **Responsive Design** - Optimized for all devices
+## Translations
 
-### For Admins
+Thirteen languages ship as JSON files in `translations/`: en, de, fr, es, it, nl, pt, uk, lv, lt, hr, hu and el. Each file has the same 157 keys, grouped into namespaces such as `home`, `events`, `contact`, `header` and `other`.
 
-- 👥 **User Management** - Clerk-based authentication with role-based access
-- 📝 **Event Management** - Create, edit, and delete events with custom signup forms
-- 📊 **Signup Management** - View and export event registrations
-- 🔧 **Form Builder** - Create reusable form schemas with dynamic fields
-- 🌍 **Translation Editor** - Manage translations for all supported languages
-- 📤 **Data Export** - Export signups and translations
-- 🖼️ **Image Upload** - UploadThing integration for event images
+`translations/initial-translations.ts` bundles only English. `components/i18n-provider.tsx` loads any other language with a dynamic import when the visitor picks it, and caches it for the session. It also reads `navigator.language` and, if the browser language is one of the 13 and not English, shows a small prompt offering to switch. English is the fallback language, and empty strings count as missing.
 
----
+The database has a `Translation` table with one JSON document per language. `scripts/download-translations.ts` reads that table and overwrites `translations/<language>.json`. Run it with `bun run download:translations` and a working `DATABASE_URL`.
 
-## 🛠 Tech Stack
+The in-app translation editor pages and API routes were removed in November 2025. The `/admin/translations` link on the dashboard and the `/member/translations` header link for members with a `languages` list still exist, but the routes behind them do not. Corrections to a machine translation therefore currently mean editing a JSON file, or writing to the `Translation` table and running the export script.
 
-### Frontend
+## Events and registration
 
-- **Framework**: [Next.js 16](https://nextjs.org/) (App Router, webpack production build)
-- **React**: 19.3 with Server Components
-- **Styling**: [Tailwind CSS 4](https://tailwindcss.com/) with design tokens in `app/globals.css` (see [DESIGN.md](DESIGN.md))
-- **UI Components**: [Radix UI](https://www.radix-ui.com/)
-- **Animations**: CSS motion tokens, scroll-driven reveals and React `<ViewTransition>` route crossfades; [Motion](https://motion.dev/) for the quote deck
-- **Forms**: [React Hook Form](https://react-hook-form.com/) + [Zod](https://zod.dev/)
-- **i18n**: [i18next](https://www.i18next.com/) + [react-i18next](https://react.i18next.com/)
+- `/api/events` returns upcoming events (end date in the future, soonest first) and past events (latest first), each with its form schema, fields and terms. The response is cached for 60 seconds with a 5 minute stale window.
+- An event has a start and end date, a location, an optional image, a form schema and an optional signup window (`signup_period_json` with `startDate` and `endDate`). Without a window, registration is open until the event starts.
+- A form schema is a list of fields plus a list of terms. Field types are `text`, `email`, `tel`, `textarea`, `select`, `checkbox`, `radio` and `date`. Each field can be required and can carry min, max, pattern and custom message rules. `lib/types/event-form.ts` turns a schema into a Zod validator in the browser.
+- `POST /api/events/signup` stores the answers in `EventSignup` and sends two emails over SMTP, a confirmation to the registrant and a notice to the network address.
+- Event images upload to `/api/admin/upload`. The route accepts JPEG, PNG, WebP and GIF up to 4 MB, checks the file signature, re-encodes everything except GIF to WebP with `sharp` and writes it to `public/uploads/`.
+- The gallery reads folders under `public/images/Gallery`, named `Name_Location_Month Year`. `lib/gallery.ts` parses the name, place and date from the folder name.
 
-### Backend
+## Data model
 
-- **Database**: [PostgreSQL](https://www.postgresql.org/)
-- **ORM**: [Prisma](https://www.prisma.io/)
-- **Authentication**: [Clerk](https://clerk.com/)
-- **File Upload**: [UploadThing](https://uploadthing.com/)
-- **Email**: [Nodemailer](https://nodemailer.com/)
+Defined in `prisma/schema.prisma`.
 
-### Developer Tools
+- `Event` has title, description, start and end dates, location, image URL and signup window. It belongs to one `FormSchema` and has many `EventSignup` rows.
+- `FormSchema` has many `FormField` and `EventTerm` rows, both ordered by an `order` column and deleted with the schema.
+- `EventSignup` has full name, email, optional phone and motivation, and a JSON `formData` column for the answers. It is deleted with its event.
+- `Translation` has a unique `language` and a JSON `content`.
 
-- **TypeScript**: Full type safety
-- **ESLint**: Code quality
-- **Prisma Studio**: Database management
-- **Git**: Version control
+The repository has no `prisma/migrations` folder.
 
----
+## Run it locally
 
-## 🚀 Getting Started
+You need Bun and a PostgreSQL database.
 
-### Prerequisites
-
-- **Node.js** 20.19 or later (the production server runs on Node)
-- **[Bun](https://bun.sh/)** for installing packages and running scripts
-- **PostgreSQL** database
-- **Clerk** account (for authentication)
-- **UploadThing** account (for file uploads)
-- **SMTP server** (for emails)
-
-### Installation
-
-1. **Clone the repository**
-
-   ```bash
-   git clone https://github.com/t-scheiber/europetalksWebsite.git
-   cd europetalksWebsite
-   ```
-
-2. **Install dependencies**
-
-   ```bash
-   bun install
-   ```
-
-3. **Set up environment variables**
-
-   Copy the example environment file and fill in your values:
-
-   ```bash
-   cp .env.example .env.local
-   ```
-
-   See [Environment Variables](#-environment-variables) section for details.
-
-4. **Set up the database**
-
-   ```bash
-   # Generate Prisma client
-   bunx prisma generate
-
-   # Run migrations
-   bunx prisma migrate dev
-
-   # (Optional) Pull translations from the database into translations/*.json
-   bun run download:translations
-   ```
-
-5. **Run the development server**
-
-   ```bash
-   bun run dev
-   ```
-
-6. **Open your browser**
-
-   Navigate to [http://localhost:3000](http://localhost:3000)
-
----
-
-## 🔐 Environment Variables
-
-Create a `.env.local` file in the root directory with the following variables:
-
-### Database
-
-```env
-DATABASE_URL="postgresql://user:password@localhost:5432/europetalks?schema=public"
+```bash
+bun install
+cp .env.example .env.local   # then fill in the values
+bunx prisma generate
+bun run dev                  # http://localhost:3000
 ```
 
-### Clerk Authentication
+`bun run dev` starts `next dev --turbopack` under Bun. The pages need a reachable database and Clerk keys to render fully. The Prisma schema has to be applied to the database by hand, because the repository carries no migrations.
 
-```env
-NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=your_clerk_publishable_key
-CLERK_SECRET_KEY=your_clerk_secret_key
+### Environment variables
 
-# Clerk URLs (optional, uses defaults if not set)
-NEXT_PUBLIC_CLERK_SIGN_IN_URL=/sign-in
-NEXT_PUBLIC_CLERK_SIGN_UP_URL=/sign-up
-NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL=/
-NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL=/
-```
+Names come from `.env.example`.
 
-**Domain note:** Clerk uses two domains: **Frontend API** (`clerk.europetalks.eu`) for API calls only; **Account Portal** (`accounts.europetalks.eu`) for sign-in, sign-up, sign-out, and user profile. Use `accounts.europetalks.eu` for any direct links to sign-out (e.g. `https://accounts.europetalks.eu/sign-out`), not `clerk.europetalks.eu`.
+| Variable | Used for |
+|----------|----------|
+| `DATABASE_URL` | PostgreSQL connection string |
+| `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY`, `CLERK_SECRET_KEY` | Clerk keys |
+| `NEXT_PUBLIC_CLERK_SIGN_IN_URL`, `NEXT_PUBLIC_CLERK_SIGN_UP_URL` | Optional sign-in and sign-up paths |
+| `NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL`, `NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL` | Optional redirect after sign-in and sign-up |
+| `EMAIL_SERVER_HOST`, `EMAIL_SERVER_PORT` | SMTP server for both mailers |
+| `CONTACT_FORM_EMAIL_SERVER_USER`, `CONTACT_FORM_EMAIL_SERVER_PASSWORD` | SMTP login for the contact form |
+| `CONTACT_FORM_EMAIL_FROM`, `SEND_TO_EMAIL` | Sender of contact mails, and the inbox that receives contact and registration notices |
+| `EVENT_SIGNUP_EMAIL_SERVER_USER`, `EVENT_SIGNUP_EMAIL_SERVER_PASSWORD`, `EVENT_SIGNUP_EMAIL_FROM` | SMTP login and sender for registration mails |
 
-### Email Configuration (Contact Form)
+`.env.example` also lists `TRANSLATIONS_EXPORT_API_KEY` and `DEEPL_API_KEY`. No code in the repository reads them.
 
-```env
-EMAIL_SERVER_HOST=smtp.example.com
-EMAIL_SERVER_PORT=587
-CONTACT_FORM_EMAIL_SERVER_USER=your_email@example.com
-CONTACT_FORM_EMAIL_SERVER_PASSWORD=your_password
-CONTACT_FORM_EMAIL_FROM=noreply@europetalks.eu
-SEND_TO_EMAIL=contact@europetalks.eu
-```
+To make someone an admin, set `{ "role": "admin" }` in the user's public metadata in the Clerk dashboard. Members get `{ "role": "member" }`.
 
-### Email Configuration (Event Signups)
+## Scripts
 
-```env
-EVENT_SIGNUP_EMAIL_SERVER_USER=your_email@example.com
-EVENT_SIGNUP_EMAIL_SERVER_PASSWORD=your_password
-EVENT_SIGNUP_EMAIL_FROM=events@europetalks.eu
-```
+| Command | What it does |
+|---------|--------------|
+| `bun run dev` | Dev server with Turbopack |
+| `bun run build` | `prisma generate`, then `next build --webpack` |
+| `bun run start` | `next start` on Node |
+| `bun run lint` | ESLint 10 with the `eslint-config-next` core-web-vitals rules |
+| `bun run download:translations` | Export the `Translation` table to `translations/*.json` |
+| `bun run convert:aquarelle` | Points to `scripts/convert-aquarelle-to-webp.js`, which is not in the repository |
 
-### UploadThing (File Uploads)
+There is no test suite and no `typecheck` script. `bunx tsc --noEmit` passes after `bunx prisma generate`.
 
-```env
-UPLOADTHING_SECRET=your_uploadthing_secret
-UPLOADTHING_APP_ID=your_uploadthing_app_id
-```
+## Build and deploy
 
-### Translation Export
+A build with placeholder values for `DATABASE_URL` and the two Clerk keys succeeds, and `next start` then serves the home, about, events and contact pages with HTTP 200. Pages that read events need a real database, and sign-in needs real Clerk keys.
 
-```env
-TRANSLATIONS_EXPORT_API_KEY=your_random_secure_key
-```
+`bun run start` runs `next start` on Node on purpose. Under `bun --bun`, the compiled Clerk middleware threw `Expected CommonJS module to have a function wrapper` on every request, and the host's health check rolled the deploy back.
 
-### Node Environment
+The repository holds no Dockerfile or other deploy configuration, so the hosting setup is not documented here. The commit history mentions Coolify health checks on deploy. The only workflow in `.github/workflows` is a Renovate fix workflow, and `renovate.json` configures automatic dependency updates.
 
-```env
-NODE_ENV=development
-```
+## Other documents
 
-See `.env.example` for a complete template.
-
----
-
-## 📁 Project Structure
-
-```text
-europetalksWebsite/
-├── app/                      # Next.js App Router
-│   ├── about/               # About page
-│   ├── admin/               # Admin panel
-│   │   ├── events/         # Event management
-│   │   ├── manage-events/  # Event editor
-│   │   ├── signups/        # Signup management
-│   │   └── form-schemas/   # Form builder
-│   ├── api/                # API routes
-│   │   ├── admin/          # Admin APIs
-│   │   ├── contact/        # Contact form
-│   │   ├── events/         # Event APIs
-│   │   └── slideshow-images/
-│   ├── contact/            # Contact page
-│   ├── events/             # Events page
-│   ├── gallery/            # Photo gallery
-│   ├── past-events/        # Past events
-│   ├── legal-notice/       # Legal notice
-│   ├── privacy-policy/     # Privacy policy
-│   └── globals.css         # Design and motion tokens
-├── components/             # React components
-│   ├── admin/             # Admin components
-│   ├── brand/             # Watercolor, stripes, page heads
-│   ├── events/            # Event components
-│   ├── home/              # Home page
-│   ├── ui/                # UI components (Radix)
-│   └── TransitionLink.tsx # Internal links that trigger the route crossfade
-├── hooks/                 # React hooks
-├── lib/                   # Utility libraries
-│   ├── db.ts             # Database connection
-│   ├── prisma.ts         # Prisma client
-│   ├── utils.ts          # Helper functions
-│   └── validations/      # Zod schemas
-├── prisma/               # Database schema
-│   └── schema.prisma     # Prisma schema
-├── proxy.ts              # Clerk middleware (Next.js 16 proxy)
-├── public/               # Static assets
-│   └── images/          # Logo, gallery, watercolors, quote cards
-├── translations/         # JSON translation files (bundled at build time)
-└── types/               # TypeScript type definitions
-```
-
----
-
-## 🎯 Key Features
-
-### Event Management System
-
-The platform includes a comprehensive event management system with:
-
-- **Dynamic Form Builder**: Create custom signup forms with various field types (text, email, phone, date, checkbox, radio, select, etc.)
-- **Reusable Form Schemas**: Define form templates that can be applied to multiple events
-- **Signup Period Control**: Set custom registration windows for each event
-- **Export Functionality**: Download signup data in CSV/JSON format
-- **Email Notifications**: Automatic confirmation emails to participants and admins
-
-### Translation System
-
-EuropeTalks uses a hybrid translation approach:
-
-1. **Database-backed translations**: Primary source, editable through admin panel
-2. **JSON file fallback**: Local files ensure functionality even if database is unavailable
-3. **Admin Editor**: Full-featured translation editor for administrators
-4. **Member Editor**: Restricted editor for specific language contributors
-5. **Export/Import**: Sync translations between database and JSON files
-
-For detailed information, see [README-TRANSLATIONS.md](README-TRANSLATIONS.md).
-
-### Gallery System
-
-The gallery automatically organizes event photos using a folder-based structure:
-
-```text
-public/images/Gallery/
-└── EventName_Location_Date/
-    ├── photo1.jpg
-    ├── photo2.jpg
-    └── ...
-```
-
-Folder naming convention: `EventName_Location_MonthYear` (e.g., `EuropeTalks-Summit_Brussels_January 2024`)
-
----
-
-## 🔧 Admin Panel
-
-Access the admin panel at `/admin` (requires admin role in Clerk).
-
-### Features
-
-- **Dashboard**: Overview of events and signups
-- **Event Management**: Create, edit, delete events with custom forms
-- **Signup Management**: View and export event registrations
-- **Form Builder**: Create reusable form schemas
-- **Translation Editor**: Manage multilingual content
-- **Upload Images**: Manage event images via UploadThing
-
-### Setting Admin Roles
-
-1. Go to your Clerk Dashboard
-2. Navigate to Users
-3. Select a user
-4. Add public metadata: `{ "role": "admin" }`
-
----
-
-## 🗄 Database Schema
-
-### Main Models
-
-- **Event**: Event information with dates, location, and associated form schema
-- **FormSchema**: Reusable form templates with custom fields
-- **FormField**: Individual form fields (text, email, phone, etc.)
-- **EventTerm**: Terms and conditions for event signups
-- **EventSignup**: User registrations with dynamic form data
-- **Translation**: Multilingual content storage
-
-See [prisma/schema.prisma](prisma/schema.prisma) for the complete schema.
-
----
-
-## 📦 Deployment
-
-### Deployment Prerequisites
-
-- PostgreSQL database
-- A Node.js host. Production runs on [Coolify](https://coolify.io/) with the nixpacks build pack
-- Configured Clerk application
-- Configured UploadThing application
-- SMTP server access
-
-### Steps
-
-1. **Set up your production database**
-
-   ```bash
-   bunx prisma migrate deploy
-   ```
-
-2. **Configure environment variables** in your hosting platform
-
-3. **Deploy**
-
-   ```bash
-   bun run build   # prisma generate + next build --webpack
-   bun run start   # next start, on Node
-   ```
-
-   Keep the start script on Node. `bun --bun next start` crashes the Clerk middleware on Bun 1.3.x
-   (`Expected CommonJS module to have a function wrapper`), so every request returns 500 and the
-   health check fails.
-
-4. **Verify**
-   - Test authentication flow
-   - Test event signup
-   - Test contact form
-   - Test image uploads
-
-### Recommended Platforms
-
-- **Hosting**: [Coolify](https://coolify.io/) (nixpacks, Node runtime)
-- **Database**: PostgreSQL
-- **Authentication**: [Clerk](https://clerk.com/)
-- **File Storage**: [UploadThing](https://uploadthing.com/)
-
----
-
-## 🤝 Contributing
-
-Contributions are welcome! Please follow these guidelines:
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
-### Development Guidelines
-
-- Follow the existing code style
-- Write meaningful commit messages
-- Add comments for complex logic
-- Test thoroughly before submitting
-- Update documentation as needed
-
----
-
-## 📄 License
-
-This project is private and proprietary to EuropeTalks.
-
----
-
-## 🙏 Acknowledgments
-
-- **Vivien Costanzo** - Founder and President
-- All EuropeTalks volunteers and contributors
-- The broader European community
-
----
-
-## 📞 Contact
-
-- **Website**: [europetalks.eu](https://europetalks.eu)
-- **Contact Form**: [europetalks.eu/contact](https://europetalks.eu/contact)
-
----
-
-## 🔗 Additional Documentation
-
-- [Translation System](README-TRANSLATIONS.md)
-- [Translation Cleanup](README-TRANSLATIONS-CLEAN.md)
-
----
-
-## 💝 Built with ❤️ for a united Europe
+- `PRODUCT.md` describes the audience and purpose of the public site.
+- `DESIGN.md` and `.impeccable/` record the visual design system.
+- `CHANGES.md` is a log of the first documentation cleanup and is out of date.

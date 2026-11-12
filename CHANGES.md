@@ -1,5 +1,7 @@
 # 📝 Repository Cleanup & Documentation Summary
 
+> This file is a log of an early documentation cleanup and is kept for history. Since then, UploadThing was replaced by local image uploads to `public/uploads`, and `SETUP.md`, `README-TRANSLATIONS.md` and `README-TRANSLATIONS-CLEAN.md` were removed. `README.md` is the current documentation.
+
 ## Changes Made
 
 ### ✅ 1. Professional README Created
@@ -161,11 +163,11 @@ These files are already in `.gitignore` and will be automatically ignored by Git
 ## 🌍 Project Information
 
 - **Live Site**: [europetalks.eu](https://europetalks.eu)
-- **Framework**: Next.js 15 with App Router
+- **Framework**: Next.js 16 with App Router
 - **Database**: PostgreSQL with Prisma ORM
 - **Authentication**: Clerk
 - **Styling**: Tailwind CSS 4
-- **Languages**: 12 languages supported
+- **Languages**: 13 languages supported
 
 ---
 
