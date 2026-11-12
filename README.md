@@ -30,8 +30,6 @@ Admins use `/admin` to:
 - build reusable form schemas (fields and terms) and attach one to each event,
 - list registrations per event, delete them, and download them as CSV.
 
-Admin pages and all `/api/admin/*` routes require a signed-in Clerk session. The admin link in the header is shown only to users with the `admin` role.
-
 ## Stack
 
 Versions come from `package.json`.
