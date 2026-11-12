@@ -8,6 +8,7 @@
     "build": "bunx prisma generate && bunx next build --webpack",
     "start": "next start",
     "lint": "bunx eslint .",
+    "test": "node --test \"tests/**/*.test.mjs\"",
     "download:translations": "bun scripts/download-translations.ts",
     "convert:aquarelle": "bun scripts/convert-aquarelle-to-webp.js"
   },
