@@ -15,13 +15,9 @@ export default function AuthNavLinks({ mobile = false }: { mobile?: boolean }) {
 
   const isAdmin = user?.publicMetadata?.role === "admin";
   const isMember = user?.publicMetadata?.role === "member";
-  const memberLanguages = user?.publicMetadata?.languages as string[] | undefined;
 
   const links = [
     ...(isAdmin ? [{ href: "/admin", label: t("navigation.admin") }] : []),
-    ...(isMember && memberLanguages?.length
-      ? [{ href: "/member/translations", label: t("navigation.translations") }]
-      : []),
     ...(isMember || isAdmin
       ? [{ href: "https://cloud.europetalks.eu", label: t("navigation.cloud") }]
       : []),
